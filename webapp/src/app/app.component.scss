@@ -1,0 +1,32 @@
+@import '~../variables.scss';
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $header_height;
+    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+    border-bottom: 5px solid black;
+    img {
+        margin: 10px 0 0 10px;
+    }
+}
+
+mat-spinner {
+    position: absolute;
+    top: 40%;
+    left: calc(50% - 50px);
+}
+
+main {
+    margin-top: $header_height;
+    height: calc(100% - #{$header_height});
+    overflow: auto;
+    width: 100%;
+    position: absolute;
+}

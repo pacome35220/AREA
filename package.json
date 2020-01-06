@@ -1,0 +1,41 @@
+{
+    "name": "area",
+    "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:pacome35220/AREA.git"
+    },
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "commit": "git-cz",
+        "prettify": "prettier --config .prettierrc --write '{*.json,{server,services,webapp}/**/*.{js,ts,scss,css,html,json}}'",
+        "release": "standard-version && git push --follow-tags"
+    },
+    "private": true,
+    "devDependencies": {
+        "commitizen": "^4.0.3",
+        "husky": "^3.0.9",
+        "lint-staged": "^9.4.2",
+        "prettier": "1.18.2",
+        "standard-version": "^7.0.1",
+        "ts-node": "~7.0.0"
+    },
+    "lint-staged": {
+        "{*.json,{server,services,webapp}/**/*.{js,ts,scss,css,html,json}}": [
+            "prettier --config .prettierrc --write",
+            "git add"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    }
+}

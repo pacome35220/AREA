@@ -1,0 +1,21 @@
+*~
+#*#
+*#*#
+.#*
+*mdr*
+*lol*
+*.a
+*.o
+*.so
+*.out
+*.gcda
+*.gcno
+vgcore.*
+node_modules
+.vscode
+
+# Angular webapp output
+webapp/dist
+
+# NodeJS Typescript server output
+server/build
