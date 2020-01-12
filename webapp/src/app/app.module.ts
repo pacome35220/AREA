@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -15,12 +13,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+
+import { AppComponent } from './app.component';
+
+import { LandingScreenComponent } from './landing-screen/landing-screen/landing-screen.component';
+import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, LandingScreenComponent, SignupFormComponent],
     imports: [
-        FormsModule,
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         MatIconModule,
         MatInputModule,
@@ -31,7 +38,10 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatButtonModule,
         MatToolbarModule,
         MatBadgeModule,
-        MatDialogModule
+        MatDialogModule,
+        MatFormFieldModule,
+        MatCardModule,
+        AppRoutingModule
     ],
     entryComponents: [],
     providers: [],

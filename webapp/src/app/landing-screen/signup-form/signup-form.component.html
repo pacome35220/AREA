@@ -1,0 +1,88 @@
+<div class="container">
+    <h1>S'inscrire à AREA</h1>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="Enter your first name"
+                            formControlName="firstName"
+                            required
+                        />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="Enter your family name"
+                            formControlName="familyName"
+                            required
+                        />
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Enter your email"
+                formControlName="email"
+                required
+            />
+            <mat-error *ngIf="signUpForm.controls.email.invalid">{{
+                getMailErrorMessage()
+            }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Enter your password"
+                formControlName="password"
+                required
+                minlength="6"
+                [type]="!hide ? 'password' : 'text'"
+            />
+            <button
+                mat-icon-button
+                matSuffix
+                placeholder="Enter your password"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+                type="button"
+            >
+                <mat-icon>{{
+                    hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+            </button>
+            <mat-error *ngIf="signUpForm.controls.password.invalid">{{
+                getPasswordErrorMessage()
+            }}</mat-error>
+        </mat-form-field>
+
+        <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!signUpForm.valid"
+            color="primary"
+        >
+            Sign-up
+        </button>
+    </form>
+    <span class="login-method-separator">OR</span>
+
+    <button mat-raised-button id="googleBtn" color="primary">
+        Sign-up with Google
+    </button>
+
+    <hr />
+
+    <a routerLink="/signin" class="bottom-form-link"
+        >You're already signup ? Sign-in</a
+    >
+</div>

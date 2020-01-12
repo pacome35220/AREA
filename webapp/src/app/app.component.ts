@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'area-webapp';
-    isLogin = true;
+    title = 'Area';
+    isLogin = false;
 }

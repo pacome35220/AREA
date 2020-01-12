@@ -1,7 +1,9 @@
 <header>
-    <img height="80%" src="../favicon.ico" />
+    <a routerLink="/">
+        <img class="homeButton" src="../assets/logo.png" />
+    </a>
+    <h1>{{ title }}</h1>
 </header>
-mdr
 <main>
-    <mat-spinner *ngIf="!isLogin"> </mat-spinner>
+    <router-outlet> </router-outlet>
 </main>
