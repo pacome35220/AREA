@@ -20,10 +20,16 @@ import { AppComponent } from './app.component';
 
 import { LandingScreenComponent } from './landing-screen/landing-screen/landing-screen.component';
 import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
+import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-    declarations: [AppComponent, LandingScreenComponent, SignupFormComponent],
+    declarations: [
+        AppComponent,
+        LandingScreenComponent,
+        SignupFormComponent,
+        SigninFormComponent
+    ],
     imports: [
         BrowserModule,
         FormsModule,

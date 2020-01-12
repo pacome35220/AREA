@@ -1,31 +1,6 @@
 <div class="container">
-    <h1>S'inscrire à AREA</h1>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <table class="example-full-width" cellspacing="0">
-            <tr>
-                <td>
-                    <mat-form-field>
-                        <input
-                            matInput
-                            placeholder="Enter your first name"
-                            formControlName="firstName"
-                            required
-                        />
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field>
-                        <input
-                            matInput
-                            placeholder="Enter your family name"
-                            formControlName="familyName"
-                            required
-                        />
-                    </mat-form-field>
-                </td>
-            </tr>
-        </table>
-
+    <h1>Log in to AREA</h1>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
             <input
                 matInput
@@ -33,7 +8,7 @@
                 formControlName="email"
                 required
             />
-            <mat-error *ngIf="signUpForm.controls.email.invalid">{{
+            <mat-error *ngIf="signInForm.controls.email.invalid">{{
                 getMailErrorMessage()
             }}</mat-error>
         </mat-form-field>
@@ -46,8 +21,6 @@
                 required
                 minlength="6"
                 [type]="!hide ? 'password' : 'text'"
-                id="userPassword"
-                autocomplete="new-password"
             />
             <button
                 mat-icon-button
@@ -62,7 +35,7 @@
                     hide ? 'visibility_off' : 'visibility'
                 }}</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.controls.password.invalid">{{
+            <mat-error *ngIf="signInForm.controls.password.invalid">{{
                 getPasswordErrorMessage()
             }}</mat-error>
         </mat-form-field>
@@ -70,21 +43,19 @@
         <button
             mat-raised-button
             type="submit"
-            [disabled]="!signUpForm.valid"
+            [disabled]="!signInForm.valid"
             color="primary"
         >
-            Sign-up
+            Sign-In
         </button>
     </form>
     <span class="login-method-separator">OR</span>
 
     <button mat-raised-button id="googleBtn" color="primary">
-        Sign-up with Google
+        Sign-In with Google
     </button>
 
     <hr />
 
-    <a routerLink="/signin" class="bottom-form-link"
-        >You're already signup ? Sign-in</a
-    >
+    <a routerLink="/signup" class="bottom-form-link">Sign up for an account</a>
 </div>
