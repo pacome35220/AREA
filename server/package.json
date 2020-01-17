@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "main": "build/index.js",
     "scripts": {
-        "start": "node build/index.js",
+        "start": "tsc && node build/index.js",
         "dev": "tsc && nodemon build/index.js"
     },
     "dependencies": {
