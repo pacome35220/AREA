@@ -6,9 +6,6 @@
         "url": "git@github.com:pacome35220/AREA.git"
     },
     "scripts": {
-        "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
         "commit": "git-cz",
         "prettify": "prettier --config .prettierrc --write '{*.json,{server,services,webapp}/**/*.{js,ts,scss,css,html,json}}'",
         "release": "standard-version && git push --follow-tags"
