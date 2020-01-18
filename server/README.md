@@ -1,6 +1,6 @@
 # AREA Server
 
-Back-end server with business logic of AREA
+Back-end server with business logic of AREA.
 
 ## Install
 
@@ -11,7 +11,6 @@ $ npm install
 ## Compile and run
 
 ```bash
-$ tsc
 $ npm start
 ```
 

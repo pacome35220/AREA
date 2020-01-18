@@ -15,6 +15,7 @@ node_modules
 .vscode
 
 credentials.json
+.env
 
 # Angular webapp output
 webapp/dist
