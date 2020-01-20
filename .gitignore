@@ -12,7 +12,7 @@
 *.gcno
 vgcore.*
 node_modules
-.vscode
+.vs*
 
 credentials.json
 .env
