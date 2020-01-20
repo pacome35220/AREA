@@ -1,0 +1,14 @@
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/bin/Debug/netstandard2.0/XamarinOauth.deps.json
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/bin/Debug/netstandard2.0/XamarinOauth.dll
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/bin/Debug/netstandard2.0/ref/XamarinOauth.dll
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/bin/Debug/netstandard2.0/XamarinOauth.pdb
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/App.xaml.g.cs
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/MainPage.xaml.g.cs
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/OAuthNativeFlowPage.xaml.g.cs
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamarinOauth.AssemblyInfoInputs.cache
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamarinOauth.AssemblyInfo.cs
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamlC.stamp
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamarinOauth.dll
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/ref/XamarinOauth.dll
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamarinOauth.pdb
+/Users/hadibereksi/Documents/Epitech/Innovation/Xamarin/XamarinOauth/XamarinOauth/obj/Debug/netstandard2.0/XamarinOauth.csprojAssemblyReference.cache

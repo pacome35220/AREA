@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{1D0BAE45-6004-4CE3-A48E-1D61EE002CF8}|Default">
+  <MonoDevelop.Ide.ItemProperties.XamarinOauth.Android PreferredExecutionTarget="Android.flutter_emulator" />
+  <MonoDevelop.Ide.ItemProperties.XamarinOauth.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B5F4CEE4-AF1E-4BB5-A07C-329B9D83739E" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="XamarinOauth/Constants.cs">
+    <Files>
+      <File FileName="XamarinOauth/Constants.cs" Line="19" Column="68" />
+      <File FileName="XamarinOauth/OAuthNativeFlowPage.xaml.cs" />
+      <File FileName="XamarinOauth.Android/MainActivity.cs" />
+      <File FileName="XamarinOauth.iOS/Info.plist" />
+      <File FileName="XamarinOauth.iOS/AppDelegate.cs" />
+      <File FileName="XamarinOauth/user.cs" />
+      <File FileName="XamarinOauth.iOS/Main.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="XamarinOauth" expanded="True">
+            <Node name="XamarinOauth" expanded="True">
+              <Node name="App.xaml" expanded="True" />
+              <Node name="Constants.cs" selected="True" />
+              <Node name="OAuthNativeFlowPage.xaml" expanded="True" />
+            </Node>
+            <Node name="XamarinOauth.iOS" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
