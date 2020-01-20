@@ -13,7 +13,7 @@
 vgcore.*
 node_modules
 .vs*
-
+mobile/.idea
 credentials.json
 .env
 
@@ -22,3 +22,8 @@ webapp/dist
 
 # NodeJS Typescript server output
 server/build
+
+mobile/Area.Android/bin/Debug/
+mobile/Area.Android/obj/Debug/90/
+mobile/Area/.idea/.idea.Area/.idea/
+mobile/Area/.idea/.idea.Area/
