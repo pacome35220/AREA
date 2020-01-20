@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import axios from 'axios';
+
 import { environment } from '../../../environments/environment';
 
 interface UserProfile {
     firstName: string;
     familyName: string;
     email: string;
-    password?: string;
-    googleToken?: string;
+    password: string;
 }
+
+@Component({
+    selector: 'snack-bar-user-already-exists',
+    template: `
+        <span style="color: red">
+            This user already exists : email address conflict
+        </span>
+    `
+})
+export class SnackBarUserAlreadyExistsComponent {}
 
 @Component({
     selector: 'app-signup-form',
@@ -25,6 +39,8 @@ export class SignupFormComponent {
             Validators.minLength(6)
         ])
     });
+
+    constructor(private _snackBar: MatSnackBar, private _router: Router) {}
 
     getMailErrorMessage() {
         if (this.signUpForm.controls.email.hasError('required')) {
@@ -47,13 +63,41 @@ export class SignupFormComponent {
         }
     }
 
-    onSubmit(googleProfile?: UserProfile) {
+    async onSubmit(googleProfile?: UserProfile) {
+        const form: UserProfile = googleProfile
+            ? googleProfile
+            : this.signUpForm.value;
+
         // TODO: Use EventEmitter with form value
-        if (googleProfile) {
-            console.log(googleProfile);
-        } else {
-            console.log(this.signUpForm.value);
-        }
+        console.log(form);
+
+        const data = {
+            firstName: form.firstName,
+            familyName: form.familyName
+        };
+        const config = {
+            auth: {
+                username: form.email,
+                password: form.password
+            }
+        };
+        axios
+            .post(`${environment.serverUrl}/user/signup`, data, config)
+            .then(res => {
+                console.log('res', res);
+                if (res.status === 201) {
+                    this._router.navigateByUrl('/signin');
+                }
+            })
+            .catch(err => {
+                console.log('err', err);
+                this._snackBar.openFromComponent(
+                    SnackBarUserAlreadyExistsComponent,
+                    {
+                        duration: 2000
+                    }
+                );
+            });
     }
 
     ngAfterViewInit() {
@@ -73,7 +117,7 @@ export class SignupFormComponent {
                         firstName: profile.getGivenName(),
                         familyName: profile.getFamilyName(),
                         email: profile.getEmail(),
-                        googleToken: googleUser.getAuthResponse().id_token
+                        password: googleUser.getAuthResponse().id_token
                     });
                 },
                 error => console.error(JSON.stringify(error))

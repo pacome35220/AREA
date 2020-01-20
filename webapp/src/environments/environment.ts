@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    web: require('../../credentials.json').web
+    web: require('../../credentials.json').web,
+    serverUrl: 'http://localhost:8080'
 };
 
 /*

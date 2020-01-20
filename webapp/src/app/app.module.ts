@@ -15,11 +15,15 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 
 import { LandingScreenComponent } from './landing-screen/landing-screen/landing-screen.component';
-import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
+import {
+    SignupFormComponent,
+    SnackBarUserAlreadyExistsComponent
+} from './landing-screen/signup-form/signup-form.component';
 import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
         AppComponent,
         LandingScreenComponent,
         SignupFormComponent,
+        SnackBarUserAlreadyExistsComponent,
         SigninFormComponent
     ],
     imports: [
@@ -47,9 +52,10 @@ import { AppRoutingModule } from './app-routing.module';
         MatDialogModule,
         MatFormFieldModule,
         MatCardModule,
+        MatSnackBarModule,
         AppRoutingModule
     ],
-    entryComponents: [],
+    entryComponents: [SnackBarUserAlreadyExistsComponent],
     providers: [],
     bootstrap: [AppComponent]
 })
