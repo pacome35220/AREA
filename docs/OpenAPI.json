@@ -60,7 +60,7 @@
                         "$ref": "#/components/responses/UnauthorizedError"
                     },
                     "403": {
-                        "description": "Email or password don't match"
+                        "description": "Email or password does not match, or the account with this email does not exist"
                     }
                 }
             },

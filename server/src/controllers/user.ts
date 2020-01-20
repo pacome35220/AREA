@@ -61,3 +61,45 @@ export const signup = async (
         return next(err);
     }
 };
+
+export const getProfile = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        // Check if Authorization header is present.
+        const credentials = auth(req);
+
+        if (!credentials) {
+            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
+            return res
+                .status(401)
+                .send('Missing Authorization header with Basic');
+        }
+
+        // Check if Authorization header (email:password) is valid.
+        const { name, pass } = credentials; // name is an email
+
+        // Get user profile from database.
+        const user = await User.findOne({
+            where: { email: name }
+        });
+
+        if (!user || user.password !== pass) {
+            return res
+                .status(403)
+                .send(
+                    'Email or password does not match, or the account with this email does not exist'
+                );
+        }
+
+        // keep password safe
+        delete user.password;
+
+        // Send his JSON profile to user
+        return res.status(200).json(user);
+    } catch (err) {
+        return next(err);
+    }
+};
