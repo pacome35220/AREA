@@ -13,6 +13,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8081:80"
+      - "1341:80"
     depends_on:
       - server
     restart: always
