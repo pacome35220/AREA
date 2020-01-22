@@ -6,6 +6,10 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - server-network
     restart: always
   client_web:
     build:
@@ -17,3 +21,19 @@ services:
     depends_on:
       - server
     restart: always
+  db:
+    image: postgres:12.0-alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 1G
+    volumes:
+      - db-data:/var/lib/postgres/data
+    networks:
+      - server-network
+    restart: always
+
+networks:
+  server-network:
+volumes:
+  db-data:
