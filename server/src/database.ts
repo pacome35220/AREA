@@ -7,7 +7,6 @@ const sequelize = new Sequelize(
     {
         dialect: process.env.DB,
         host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT),
         logging: false
     }
 );
