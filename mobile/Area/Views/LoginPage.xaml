@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Area.Views.LoginPage">
+	<!--BackgroundImage="background.jpg">-->
+	<!--have to create validation forms class-->
+    <ContentPage.Content>
+		<StackLayout VerticalOptions="Center">
+            <StackLayout.Padding>
+                <OnIdiom x:TypeArguments="Thickness">
+                    <OnIdiom.Phone>140, 0, 140, 0</OnIdiom.Phone>
+                </OnIdiom>
+            </StackLayout.Padding>
+            <Label x:Name="Label_Mail" Text="Email" />
+            <Entry x:Name="Entry_Mail" Placeholder="Email"/>
+            <Label x:Name="Label_Password" Text="Password" />
+            <Entry x:Name="Entry_Password" Placeholder="Password" IsPassword="True"/>
+			<Button Command="{Binding SubmitCommand}" Text="Sign in" TextColor="White" FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" BackgroundColor="#088da5" Clicked="OnLoginClicked"/>
+			<Button Command="{Binding SubmitCommand}" Text="Sign up" TextColor="White" FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" BackgroundColor="#088da5" Clicked="CreateAccount"/>  
+         </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+

@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using Area.Models;
+using Newtonsoft.Json;
+using Xamarin.Forms;
+
+namespace Area.Views
+{
+	public partial class CreateAccount : ContentPage
+	{
+		public CreateAccount()
+		{
+			InitializeComponent();
+		}
+		public HttpClient _client;
+
+		async void SignUp(object sender, EventArgs e)
+		{
+			string firstName = Entry_FirstName.Text;
+			string familyName = Entry_FamilyName.Text;
+			string password = Entry_Password.Text;
+			string email = Entry_Email.Text;
+
+			User user = new User(firstName, familyName, email);
+			/*Http Auth*/
+			var authData = string.Format("{0}:{1}", email, password);
+			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
+
+			_client = new HttpClient(); //check new NSUrlSessionHandler() for ios
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
+
+			var stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+
+			/*connect to api here !*/
+			await DisplayAlert("Test", JsonConvert.SerializeObject(user), "OK");
+			_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //set base url. android's localhost: 10.0.2.2
+			var response = await _client.PostAsync("/user/signup", stringContent);
+			string content = await response.Content.ReadAsStringAsync();
+			await DisplayAlert("SignUp", response.ToString(), "OK");
+			await DisplayAlert("Content", content, "OK");
+			//todo redirect to login page if 201 have been sent
+			await Navigation.PopAsync(); //remove the current screen
+		}
+	}
+}

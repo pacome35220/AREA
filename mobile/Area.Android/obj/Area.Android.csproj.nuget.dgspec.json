@@ -1,0 +1,80 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/hadibereksi/Documents/Epitech/TEK3/AppDev/AREA/mobile/Area.Android/Area.Android.csproj": {}
+  },
+  "projects": {
+    "/Users/hadibereksi/Documents/Epitech/TEK3/AppDev/AREA/mobile/Area.Android/Area.Android.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hadibereksi/Documents/Epitech/TEK3/AppDev/AREA/mobile/Area.Android/Area.Android.csproj",
+        "projectName": "Area.Android",
+        "projectPath": "/Users/hadibereksi/Documents/Epitech/TEK3/AppDev/AREA/mobile/Area.Android/Area.Android.csproj",
+        "packagesPath": "/Users/hadibereksi/.nuget/packages/",
+        "outputPath": "/Users/hadibereksi/Documents/Epitech/TEK3/AppDev/AREA/mobile/Area.Android/obj/",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "/Users/hadibereksi/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "monoandroid90"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "monoandroid90": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "monoandroid90": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "Xamarin.Android.Support.Design": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.v4": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.v7.AppCompat": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.v7.CardView": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.v7.MediaRouter": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Xamarin.Forms": {
+              "target": "Package",
+              "version": "[4.4.0.991537, )"
+            },
+            "runtime.native.System": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            }
+          }
+        }
+      }
+    }
+  }
+}

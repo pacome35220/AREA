@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Area.Views.CreateAccount">
+    <ContentPage.Content>
+		<StackLayout VerticalOptions="Center">
+            <StackLayout.Padding>
+                <OnIdiom x:TypeArguments="Thickness">
+                    <OnIdiom.Phone>140, 0, 140, 0</OnIdiom.Phone>
+                </OnIdiom>
+            </StackLayout.Padding>
+            <Label x:Name="Label_FirstName" Text="FirstName" />
+            <Entry x:Name="Entry_FirstName" Placeholder="FirstName" />
+			<Label x:Name="Label_FamilyName" Text="FamilyName" />
+            <Entry x:Name="Entry_FamilyName" Placeholder="FamilyName" />
+			<Label x:Name="Label_Email" Text="Email" />
+			<Entry x:Name ="Entry_Email" Text = "{Binding Email}" Placeholder = "Email"  HeightRequest = "40" Keyboard = "Email" />
+			<Label x:Name="Label_Password" Text="Password" />
+            <Entry x:Name="Entry_Password" Placeholder="Password" IsPassword="True"/>
+			<Button Command="{Binding SubmitCommand}" Text="Sign Up" TextColor="White" FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" BackgroundColor="#088da5" Clicked="SignUp"/>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
