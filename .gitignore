@@ -23,7 +23,11 @@ webapp/dist
 # NodeJS Typescript server output
 server/build
 
+
+# Xamarin Mobile app output
 mobile/Area.Android/bin/Debug/
 mobile/Area.Android/obj/Debug/90/
+mobile/Area.IOS/obj/Debug/90/
+mobile/Area.IOS/bin/Debug/
 mobile/Area/.idea/.idea.Area/.idea/
 mobile/Area/.idea/.idea.Area/
