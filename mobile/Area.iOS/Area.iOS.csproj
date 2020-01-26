@@ -99,6 +99,7 @@
         <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
             <Visible>false</Visible>
         </ImageAsset>
+        <ImageAsset Include="Assets.xcassets\images.imageset\Contents.json" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -120,6 +121,12 @@
         <PackageReference Include="runtime.native.System">
           <Version>4.3.1</Version>
         </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <AndroidResource Include="Resources\logo.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Assets.xcassets\images.imageset\" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
     <Import Project="..\Area\Area.projitems" Label="Shared" />
