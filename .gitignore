@@ -25,9 +25,8 @@ server/build
 
 
 # Xamarin Mobile app output
-mobile/Area.Android/bin/Debug/
-mobile/Area.Android/obj/Debug/90/
-mobile/Area.iOS/obj/Debug/90/
+mobile/Area.Android/bin/*
+mobile/Area.Android/obj/*
 mobile/Area.iOS/obj/*
 mobile/Area.iOS/bin/*
 mobile/Area.iOS/bin/Debug/
