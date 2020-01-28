@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -39,10 +40,17 @@ namespace Area.Views
 			_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //set base url. android's localhost: 10.0.2.2
 			var response = await _client.PostAsync("/user/signup", stringContent);
 			string content = await response.Content.ReadAsStringAsync();
-			await DisplayAlert("SignUp", response.ToString(), "OK");
 			await DisplayAlert("Content", content, "OK");
-			//todo redirect to login page if 201 have been sent
-			await Navigation.PopAsync(); //remove the current screen
+			//redirect to login page if 201 have been sent
+			if (response.StatusCode == System.Net.HttpStatusCode.OK) //todo 201 code success instead of 200 check with pacpac
+			{
+				await DisplayAlert("Sign up", "Account created !", "OK");
+				await Navigation.PopAsync(); //remove the current screen
+			}
+			else
+			{
+				await DisplayAlert("Sign up failed", response.ToString(), "KO");
+			}
 		}
 	}
 }

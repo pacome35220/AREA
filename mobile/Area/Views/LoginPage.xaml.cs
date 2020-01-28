@@ -6,8 +6,10 @@ using System.Text;
 using Area.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-
+using OAuthNativeFlow;
+using Xamarin.Auth;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Area.Views
 {
@@ -40,14 +42,111 @@ namespace Area.Views
 
 			/*connect to api here !*/
 			_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //set base url
-			var response = await _client.GetAsync("/user/me"); // send get Request take endpoint in param
+			var response = await _client.GetAsync("/user/me"); // send get Request and take endpoint in param
 			string content = await response.Content.ReadAsStringAsync();
-			await DisplayAlert("Login", response.ToString(), "OK");
-			await DisplayAlert("Content", content, "OK");
+			if (response.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				await DisplayAlert("Login", "Success", "OK");
+				await Navigation.PopAsync(); //remove the current screen
+				await Navigation.PushAsync(new DashBoard()); //todo change create account with dashboard
+			}
+			else
+			{
+				await DisplayAlert("Content", content, "OK");
+			}
 		}
 
 		void Entry_Username_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
 		{
+		}
+		Account account;
+		AccountStore store;
+
+		void GoogleAuth(object sender, EventArgs e)
+		{
+			string clientId = null;
+			string redirectUri = null;
+
+			switch (Device.RuntimePlatform)
+			{
+				case Device.iOS:
+					clientId = Constants.iOSClientId;
+					redirectUri = Constants.iOSRedirectUrl;
+					break;
+
+				case Device.Android:
+					clientId = Constants.AndroidClientId;
+					redirectUri = Constants.AndroidRedirectUrl;
+					break;
+			}
+			account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
+			var authenticator = new OAuth2Authenticator(
+				clientId,
+				null,
+				Constants.Scope,
+				new Uri(Constants.AuthorizeUrl),
+				new Uri(redirectUri),
+				new Uri(Constants.AccessTokenUrl),
+				null,
+				true);
+
+			authenticator.Completed += OnAuthCompleted;
+			authenticator.Error += OnAuthError;
+
+			AuthenticationState.Authenticator = authenticator;
+
+			var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+			presenter.Login(authenticator);
+		}
+
+		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+		{
+			var authenticator = sender as OAuth2Authenticator;
+			if (authenticator != null)
+			{
+				authenticator.Completed -= OnAuthCompleted;
+				authenticator.Error -= OnAuthError;
+			}
+
+			User user = null;
+			if (e.IsAuthenticated)
+			{
+				// If the user is authenticated, request their basic user data from Google
+				// UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
+				var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
+				var response = await request.GetResponseAsync();
+				if (response != null)
+				{
+					// Deserialize the data and store it in the account store
+					// The users email address will be used to identify data in SimpleDB
+					string userJson = await response.GetResponseTextAsync();
+					user = JsonConvert.DeserializeObject<User>(userJson);
+				}
+
+				if (account != null)
+				{
+					store.Delete(account, Constants.AppName);
+				}
+
+				//await store.SaveAsync(account = e.Account, Constants.AppName);
+				await DisplayAlert("Email address", user.email, "OK");
+				await DisplayAlert("Family name address", user.familyName, "OK");
+				await DisplayAlert("Name address", user.firstName, "OK");
+				await DisplayAlert("Picture address", user.picture, "OK");
+				await DisplayAlert("Link address", user.link, "OK");
+				await DisplayAlert("Id address", user.id, "OK");
+
+			}
+		}
+
+		void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+		{
+			var authenticator = sender as OAuth2Authenticator;
+
+			if (authenticator != null) {
+				authenticator.Completed -= OnAuthCompleted;
+				authenticator.Error -= OnAuthError;
+			}
 		}
 	}
 }
