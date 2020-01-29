@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -16,9 +15,13 @@ namespace Area.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LoginPage : ContentPage
 	{
+		Account account;
+		AccountStore store;
+
 		public LoginPage()
 		{
 			InitializeComponent();
+			store = AccountStore.Create();
 		}
 
 		void CreateAccount(object sender, EventArgs e)
@@ -48,19 +51,13 @@ namespace Area.Views
 			{
 				await DisplayAlert("Login", "Success", "OK");
 				await Navigation.PopAsync(); //remove the current screen
-				await Navigation.PushAsync(new DashBoard()); //todo change create account with dashboard
+				await Navigation.PushAsync(new DashBoard());
 			}
 			else
 			{
 				await DisplayAlert("Content", content, "OK");
 			}
 		}
-
-		void Entry_Username_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
-		{
-		}
-		Account account;
-		AccountStore store;
 
 		void GoogleAuth(object sender, EventArgs e)
 		{
