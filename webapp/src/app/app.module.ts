@@ -19,7 +19,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 
-import { LandingScreenComponent } from './landing-screen/landing-screen/landing-screen.component';
 import {
     SignupFormComponent,
     SnackBarUserAlreadyExistsComponent
@@ -30,7 +29,6 @@ import { AppRoutingModule } from './app-routing.module';
 @NgModule({
     declarations: [
         AppComponent,
-        LandingScreenComponent,
         SignupFormComponent,
         SnackBarUserAlreadyExistsComponent,
         SigninFormComponent
