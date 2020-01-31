@@ -99,13 +99,13 @@ namespace Area.Views
 		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
 		{
 			var authenticator = sender as OAuth2Authenticator;
+			User user = null;
+
 			if (authenticator != null)
 			{
 				authenticator.Completed -= OnAuthCompleted;
 				authenticator.Error -= OnAuthError;
 			}
-
-			User user = null;
 			if (e.IsAuthenticated)
 			{
 				// If the user is authenticated, request their basic user data from Google
@@ -132,6 +132,7 @@ namespace Area.Views
 				await DisplayAlert("Picture address", user.picture, "OK");
 				await DisplayAlert("Link address", user.link, "OK");
 				await DisplayAlert("Id address", user.id, "OK");
+				//todo signup/signin
 
 			}
 		}

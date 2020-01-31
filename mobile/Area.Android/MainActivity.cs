@@ -1,10 +1,12 @@
 ﻿using System;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using OAuthNativeFlow;
 
 namespace Area.Android
 {
@@ -20,6 +22,28 @@ namespace Area.Android
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+        }
+    }
+
+    [Activity(Label = "CustomUrlSchemeInterceptorActivity", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [IntentFilter(
+    new[] { Intent.ActionView },
+    Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+    DataSchemes = new[] { "com.googleusercontent.apps.829850811692-gn1r71thf98b3maid37lafu24f3ji1ro" }, //reverse client id android
+    DataPath = "/oauth2redirect")]
+    public class CustomUrlSchemeInterceptorActivity : Activity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Convert Android.Net.Url to Uri
+            var uri = new Uri(Intent.Data.ToString());
+
+            // Load redirectUrl page
+            AuthenticationState.Authenticator.OnPageLoading(uri);
+
+            Finish();
         }
     }
 }
