@@ -9,7 +9,7 @@ namespace Area.Models
         public string id { get; set; }
         public string password { get; set; }
         public string firstName { get; set; }
-        public string familyName { get; set; }
+        public string lastName { get; set; }
         public string email { get; set; }
         public string picture { get; set; }
         public string link { get; set; }
@@ -18,7 +18,7 @@ namespace Area.Models
         public User(string firstName, string lastName, string email)
         {
             this.firstName = firstName;
-            this.familyName = lastName;
+            this.lastName = lastName;
             this.email = email;
         }
 
@@ -28,4 +28,3 @@ namespace Area.Models
         }
     }
 }
-

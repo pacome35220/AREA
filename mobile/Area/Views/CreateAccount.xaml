@@ -19,8 +19,8 @@
 			<StackLayout VerticalOptions="Center">
 				<Label x:Name="Label_FirstName" Text="FirstName:" />
 				<Entry x:Name="Entry_FirstName" Grid.Row="1" Placeholder="FirstName..." PlaceholderColor="#bababa" FontSize="16"/>
-				<Label x:Name="Label_FamilyName" Text="FamilyName:" />
-				<Entry x:Name="Entry_FamilyName" Grid.Row="1" Placeholder="FamilyName..." PlaceholderColor="#bababa" FontSize="16"/>
+				<Label x:Name="Label_lastName" Text="lastName:" />
+				<Entry x:Name="Entry_lastName" Grid.Row="1" Placeholder="lastName..." PlaceholderColor="#bababa" FontSize="16"/>
 				<Label x:Name="Label_Email" Text="Email:" />
 				<Entry x:Name="Entry_Email" Grid.Row="1" Placeholder="Email..." PlaceholderColor="#bababa" FontSize="16" Keyboard="Email"/>
 				<Label x:Name="Label_Password" Text="Password:" />
@@ -30,4 +30,3 @@
 		</Grid>
     </ContentPage.Content>
 </ContentPage>
-

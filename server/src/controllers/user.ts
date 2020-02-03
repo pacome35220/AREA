@@ -30,14 +30,14 @@ export const signup = async (
             return res.status(400).send('Password is too short.');
         }
 
-        // Check if firstName and familyName keys are present in req.body
-        const { firstName, familyName } = req.body;
+        // Check if firstName and lastName keys are present in req.body
+        const { firstName, lastName } = req.body;
 
         if (!firstName) {
             return res.status(400).send('First name is missing.');
         }
-        if (!familyName) {
-            return res.status(400).send('Family name is missing.');
+        if (!lastName) {
+            return res.status(400).send('Last name is missing.');
         }
 
         // Check if user in not already in database.
@@ -52,7 +52,7 @@ export const signup = async (
         // Store valid user in database
         const newUser = await User.create({
             firstName,
-            familyName,
+            lastName,
             email: name,
             password: pass
         });

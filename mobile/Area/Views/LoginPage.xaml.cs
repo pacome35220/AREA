@@ -133,7 +133,7 @@ namespace Area.Views
 
 				//await store.SaveAsync(account = e.Account, Constants.AppName);
 				await DisplayAlert("Email address", user.email, "OK");
-				await DisplayAlert("Family name address", user.familyName, "OK");
+				await DisplayAlert("Family name address", user.lastName, "OK");
 				await DisplayAlert("Name address", user.firstName, "OK");
 				await DisplayAlert("Picture address", user.picture, "OK");
 				await DisplayAlert("Link address", user.link, "OK");

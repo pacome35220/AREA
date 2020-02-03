@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 
 interface UserProfile {
     firstName: string;
-    familyName: string;
+    lastName: string;
     email: string;
     password: string;
 }
@@ -34,7 +34,7 @@ export class SignupFormComponent {
     signUpForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         firstName: new FormControl('', [Validators.required]),
-        familyName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
         password: new FormControl('', [
             Validators.required,
             Validators.minLength(6)
@@ -74,7 +74,7 @@ export class SignupFormComponent {
 
         const data = {
             firstName: form.firstName,
-            familyName: form.familyName
+            lastName: form.lastName
         };
         const config = {
             auth: {
@@ -117,7 +117,7 @@ export class SignupFormComponent {
 
                     this.onSubmit({
                         firstName: profile.getGivenName(),
-                        familyName: profile.getFamilyName(),
+                        lastName: profile.getlastName(),
                         email: profile.getEmail(),
                         password: googleUser.getAuthResponse().id_token
                     });
