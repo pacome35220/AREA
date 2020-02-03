@@ -1,4 +1,5 @@
 ﻿using System;
+using Area.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace Area
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+			MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

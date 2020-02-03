@@ -56,7 +56,7 @@ export const signup = async (
             email: name,
             password: pass
         });
-        return res.status(201).json(newUser);
+        return res.status(200).json(newUser);
     } catch (err) {
         return next(err);
     }

@@ -16,6 +16,7 @@ interface UserProfile {
     styleUrls: ['./signin-form.component.scss']
 })
 export class SigninFormComponent {
+    hide: boolean;
     signInForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [

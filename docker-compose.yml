@@ -6,6 +6,10 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+    networks:
+      - server-network
+    depends_on:
+      - db
     restart: always
   client_web:
     build:
@@ -13,6 +17,37 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8081:80"
+      - "1341:80"
+    volumes:
+      - common-data:/common-data
     depends_on:
       - server
     restart: always
+  client_mobile:
+    build:
+      context: ./mobile
+      dockerfile: ./Dockerfile
+    volumes:
+      - common-data:/common-data
+    restart: always
+  db:
+    image: postgres:12.0-alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 1G
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=pacome35220
+      - POSTGRES_PASSWORD=mdr
+    volumes:
+      - db-data:/var/lib/postgres/data
+    networks:
+      - server-network
+    restart: always
+
+networks:
+  server-network:
+volumes:
+  db-data:
+  common-data:

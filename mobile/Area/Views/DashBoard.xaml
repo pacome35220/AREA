@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xf1:BottomBarPage
+	xmlns:xf1="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xf="clr-namespace:BottomBar.XamarinForms"
+    xmlns:local="clr-namespace:BottomBarDemo;assembly=BottomBarDemo"
+    x:Class="Area.Views.DashBoard">
+
+    <!--<ContentPage Title="Favorites" Icon="ic_favorites.png" />
+
+    <ContentPage Title="Friends"
+                       Icon="ic_friends.png"
+                       xf1:BottomBarPageExtensions.TabColor="#5D4037" />
+
+    <ContentPage Title="Nearby"
+                 Icon="ic_nearby.png"
+                 xf1:BottomBarPageExtensions.TabColor="#7B1FA2" />
+
+    <ContentPage Title="Recents"
+                 Icon="ic_recents.png"
+                 xf1:BottomBarPageExtensions.TabColor="#FF5252"/>
+
+    <ContentPage Title="Settings"
+                 Icon="ic_restaurants.png"
+                 xf1:BottomBarPageExtensions.TabColor="#FF9800" />-->
+
+	<ContentPage Title="DashBoard" Icon="ic_favorites.png"/>
+
+    <ContentPage Title="Recents" Icon="ic_recents.png"/>
+
+    <ContentPage Title="Settings" Icon="ic_restaurants.png"/>
+
+
+</xf1:BottomBarPage>

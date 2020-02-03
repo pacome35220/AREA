@@ -30,6 +30,7 @@ export class SnackBarUserAlreadyExistsComponent {}
     styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent {
+    hide: boolean;
     signUpForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         firstName: new FormControl('', [Validators.required]),
@@ -84,6 +85,7 @@ export class SignupFormComponent {
         axios
             .post(`${environment.serverUrl}/user/signup`, data, config)
             .then(res => {
+                console.log(environment.serverUrl);
                 console.log('res', res);
                 if (res.status === 201) {
                     this._router.navigateByUrl('/signin');
