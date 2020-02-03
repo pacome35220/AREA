@@ -25,6 +25,6 @@ before_install:
   - ssh-add ~/.ssh/deploy_rsa
 deploy:
 - provider: script
-  script: ls -la
+  script: ".travis/deploy.sh"
   on:
     branch: travis
