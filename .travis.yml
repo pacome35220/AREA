@@ -10,6 +10,7 @@ addons:
   - marc0.fr:4242
   - 51.77.202.182:4242
 before_script:
+- cd webapp
 - npm start &
 - sleep 15
 before_install:
