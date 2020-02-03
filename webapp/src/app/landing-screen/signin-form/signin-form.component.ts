@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 
 interface UserProfile {
     firstName: string;
-    familyName: string;
+    lastName: string;
     email: string;
     password?: string;
     googleToken?: string;
@@ -70,7 +70,7 @@ export class SigninFormComponent {
 
                     this.onSubmit({
                         firstName: profile.getGivenName(),
-                        familyName: profile.getFamilyName(),
+                        lastName: profile.getlastName(),
                         email: profile.getEmail(),
                         googleToken: googleUser.getAuthResponse().id_token
                     });

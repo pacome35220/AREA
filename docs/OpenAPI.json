@@ -97,9 +97,9 @@
                         "description": "User first name",
                         "example": "Vincent"
                     },
-                    "familyName": {
+                    "lastName": {
                         "type": "string",
-                        "description": "User family name",
+                        "description": "User last name",
                         "example": "Moscato"
                     },
                     "email": {

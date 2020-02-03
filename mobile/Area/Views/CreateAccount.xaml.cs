@@ -21,11 +21,11 @@ namespace Area.Views
 		async void SignUp(object sender, EventArgs e)
 		{
 			string firstName = Entry_FirstName.Text;
-			string familyName = Entry_FamilyName.Text;
+			string lastName = Entry_lastName.Text;
 			string password = Entry_Password.Text;
 			string email = Entry_Email.Text;
 
-			User user = new User(firstName, familyName, email);
+			User user = new User(firstName, lastName, email);
 			/*Http Auth*/
 			var authData = string.Format("{0}:{1}", email, password);
 			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));

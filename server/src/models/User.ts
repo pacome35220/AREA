@@ -8,7 +8,7 @@ class User extends Model {
     public readonly updatedAt!: Date;
 
     public firstName!: string;
-    public familyName!: string;
+    public lastName!: string;
     public email!: string;
     public password!: string;
 }
@@ -20,7 +20,7 @@ User.init(
             unique: true,
             allowNull: false
         },
-        familyName: {
+        lastName: {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false
