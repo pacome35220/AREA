@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 echo "Configuring Git"
 git config --global push.default simple # we only want to push one branch — master
