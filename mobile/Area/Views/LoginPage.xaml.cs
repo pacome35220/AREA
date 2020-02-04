@@ -40,6 +40,7 @@ namespace Area.Views
 			var authData = string.Format("{0}:{1}", email, password);
 			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
 
+			Application.Current.Properties["IsLogged"] = "false"; // save state of the app to "I'm not logged"
 			_client = new HttpClient(); //NSUrlSessionHandler() by default for ios
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
 
@@ -55,8 +56,10 @@ namespace Area.Views
 			string content = await response.Content.ReadAsStringAsync();
 			if (response.StatusCode == System.Net.HttpStatusCode.OK)
 			{
+				Application.Current.Properties["IsLogged"] = "true"; // save state of the app to "I am logged"
+				await Application.Current.SavePropertiesAsync(); //force save tmp
 				await DisplayAlert("Login", "Success", "OK");
-				await Navigation.PopAsync(); //remove the current screen
+				//await Navigation.PopAsync(); //remove the current screen
 				await Navigation.PushAsync(new DashBoard());
 			}
 			else
