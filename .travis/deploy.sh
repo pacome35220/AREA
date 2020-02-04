@@ -7,6 +7,6 @@ git config --global push.default simple # we only want to push one branch — ma
 echo "Configuring Remote"
 git remote add production ssh://marco@51.77.202.182:4242/home/marco/apps/AREA
 echo "Pushing to Remote Server"
-git push production master # push our updates
+git push production master --force # push our updates
 echo "Connecting to Server"
 ssh marco@51.77.202.182 -p 4242 "sh -c 'cd apps/AREA/webapp; docker-compose up --build -d'"
