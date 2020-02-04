@@ -11,8 +11,6 @@ addons:
   - 51.77.202.182:4242
 before_script:
   - cd webapp
-  - npm install
-  - npm start &
   - sleep 15
   - cd ..
 before_install:
