@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { AppAuthService } from 'src/app/services/app-auth.service';
+import { Router } from '@angular/router';
 
 interface UserProfile {
-    firstName: string;
-    lastName: string;
     email: string;
-    password?: string;
-    googleToken?: string;
+    password: string;
 }
 
 @Component({
@@ -24,6 +23,11 @@ export class SigninFormComponent {
             Validators.minLength(6)
         ])
     });
+
+    constructor(
+        private appAuthService: AppAuthService,
+        private router: Router
+    ) {}
 
     getMailErrorMessage() {
         if (this.signInForm.controls.email.hasError('required')) {
@@ -47,12 +51,12 @@ export class SigninFormComponent {
     }
 
     onSubmit(googleProfile?: UserProfile) {
-        // TODO: Use EventEmitter with form value
-        if (googleProfile) {
-            console.log(googleProfile);
-        } else {
-            console.log(this.signInForm.value);
-        }
+        const form: UserProfile = googleProfile
+            ? googleProfile
+            : this.signInForm.value;
+
+        this.appAuthService.saveCredentials(form.email, form.password);
+        this.router.navigateByUrl('/');
     }
 
     ngAfterViewInit() {
@@ -69,10 +73,8 @@ export class SigninFormComponent {
                     const profile = googleUser.getBasicProfile();
 
                     this.onSubmit({
-                        firstName: profile.getGivenName(),
-                        lastName: profile.getlastName(),
                         email: profile.getEmail(),
-                        googleToken: googleUser.getAuthResponse().id_token
+                        password: googleUser.getAuthResponse().id_token
                     });
                 },
                 error => console.error(JSON.stringify(error))
