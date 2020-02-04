@@ -1,1 +1,31 @@
-<p>home works!</p>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+        <ul>
+            <h2>Services</h2>
+            <li *ngFor="let elem of categories">
+                <a mat-button href="{{ elem.href }}">
+                    {{ elem.label }}
+                </a>
+            </li>
+            <h2>Parameters</h2>
+            <li>
+                <a mat-button href="/home">
+                    Profile
+                </a>
+            </li>
+            <li>
+                <button mat-button onClick="logOut()">
+                    Logout
+                </button>
+            </li>
+        </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <button mat-icon-button (click)="sidenav.toggle() && toggleStatus()">
+            <mat-icon class=" menu-icon">{{
+                status ? 'menu_open' : 'menu'
+            }}</mat-icon>
+        </button>
+    </mat-sidenav-content>
+</mat-sidenav-container>

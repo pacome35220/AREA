@@ -14,6 +14,7 @@ const routes: Routes = [
     },
     { path: 'signup', component: SignupFormComponent },
     { path: 'signin', component: SigninFormComponent },
+    { path: 'home', component: HomeComponent },
 
     { path: '**', redirectTo: '/' }
 ];
