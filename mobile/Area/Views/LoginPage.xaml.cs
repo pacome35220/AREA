@@ -17,6 +17,7 @@ namespace Area.Views
 	{
 		Account account;
 		AccountStore store;
+		HttpClient _client;
 
 		public LoginPage()
 		{
@@ -29,8 +30,6 @@ namespace Area.Views
 		{
 			Navigation.PushAsync(new CreateAccount());
 		}
-
-		public HttpClient _client;
 
 		private void SaveUserInfo(string email, string password, bool isLogged)
 		{
@@ -66,8 +65,10 @@ namespace Area.Views
 			{
 				SaveUserInfo(email, password, true);
 				await DisplayAlert("Login", "Success", "OK");
-				await Navigation.PopAsync(); //remove the current screen
+				//await Navigation.PopAsync(); //remove the current screen
+				//await Navigation.PopToRootAsync();remove all page but root page
 				await Navigation.PushAsync(new DashBoard());
+				Navigation.RemovePage(Navigation.NavigationStack[0]); // remove the root page
 			}
 			else
 			{

@@ -18,6 +18,7 @@ namespace Area
         {
             // Handle when your app starts
             MainPage = checkLogin();
+            SetValue(NavigationPage.HasNavigationBarProperty, false);
         }
 
         protected override void OnSleep()

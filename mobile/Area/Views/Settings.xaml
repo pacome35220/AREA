@@ -4,12 +4,36 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Area.Views.Settings">
 
-	<StackLayout>
-		<Label Text="Settings Page"
-			FontSize="30"
-			VerticalOptions="CenterAndExpand"
-			HorizontalOptions="CenterAndExpand" />
-    </StackLayout>
+	<ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness">
+			<OnPlatform.Platforms>
+			    <On Platform="iOS" Value="0, 20, 0, 0" />
+                <On Platform="Android" Value="0, 0, 0, 0" />
+                <On Platform="UWP" Value="0, 0, 0, 0" />
+			</OnPlatform.Platforms>
+		</OnPlatform>
+	</ContentPage.Padding>
 
+    <ContentPage.Content>
+		<Grid BackgroundColor="White">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="80"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="50"/>
+			</Grid.RowDefinitions>
+			<StackLayout>
+				<Label Text="Settings Page"
+					FontSize="30"
+					VerticalOptions="CenterAndExpand"
+					HorizontalOptions="CenterAndExpand" />
+			</StackLayout>
+			<StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="#FFFFFF">
+				<Label HeightRequest="1" BackgroundColor="#E3E3E3"/>
+				<!--<Label Text="Don't have an account ?" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>-->
+				<Button Text="Logout" BackgroundColor="White" TextColor="#3897F0" VerticalOptions="FillAndExpand" Clicked="LogOut" />
+				<Button Text="Delete Account" BackgroundColor="White" TextColor="Red" VerticalOptions="FillAndExpand" Clicked="DeleteAccount" />
+			</StackLayout>
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>
 
