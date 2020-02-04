@@ -23,7 +23,6 @@ namespace Area
         protected override void OnSleep()
         {
             // Handle when your app sleeps
-            Current.Properties["IsLogged"] = "false";
         }
 
         protected override void OnResume()
@@ -35,7 +34,8 @@ namespace Area
         NavigationPage checkLogin() {
 			if (Application.Current.Properties.ContainsKey("IsLogged")) { //check key exist
 				var IsLogged = Current.Properties["IsLogged"];
-				// do something with IsLogged
+                // do something with IsLogged
+                Console.WriteLine(IsLogged.ToString());
 				return IsLogged.ToString() == "true" ? new NavigationPage(new DashBoard()) : new NavigationPage(new LoginPage());
 			} else
                 return new NavigationPage(new LoginPage());

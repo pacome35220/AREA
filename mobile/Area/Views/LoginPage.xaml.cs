@@ -22,6 +22,7 @@ namespace Area.Views
 		{
 			InitializeComponent();
 			store = AccountStore.Create();
+			SaveUserInfo(null, null, false);
 		}
 
 		void CreateAccount(object sender, EventArgs e)
@@ -30,6 +31,14 @@ namespace Area.Views
 		}
 
 		public HttpClient _client;
+
+		private void SaveUserInfo(string email, string password, bool isLogged)
+		{
+			Application.Current.Properties["IsLogged"] = isLogged ? "true" : "false"; // save state of the app to "I am logged"
+			Application.Current.Properties["Email"] = email;
+			Application.Current.Properties["Password"] = password;
+			Application.Current.SavePropertiesAsync(); //force save tmp
+		}
 
 		async void OnLoginClicked(object sender, EventArgs e)
 		{
@@ -40,7 +49,6 @@ namespace Area.Views
 			var authData = string.Format("{0}:{1}", email, password);
 			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
 
-			Application.Current.Properties["IsLogged"] = "false"; // save state of the app to "I'm not logged"
 			_client = new HttpClient(); //NSUrlSessionHandler() by default for ios
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
 
@@ -56,15 +64,15 @@ namespace Area.Views
 			string content = await response.Content.ReadAsStringAsync();
 			if (response.StatusCode == System.Net.HttpStatusCode.OK)
 			{
-				Application.Current.Properties["IsLogged"] = "true"; // save state of the app to "I am logged"
-				await Application.Current.SavePropertiesAsync(); //force save tmp
+				SaveUserInfo(email, password, true);
 				await DisplayAlert("Login", "Success", "OK");
-				//await Navigation.PopAsync(); //remove the current screen
+				await Navigation.PopAsync(); //remove the current screen
 				await Navigation.PushAsync(new DashBoard());
 			}
 			else
 			{
-				await DisplayAlert("Content", content, "OK");
+				await DisplayAlert("Login", "Failed", "Ko");
+				SaveUserInfo(null, null, false);
 			}
 		}
 
