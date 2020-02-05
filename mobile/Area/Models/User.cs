@@ -1,7 +1,3 @@
-using System;
-
-using Xamarin.Forms;
-
 namespace Area.Models
 {
 	public class User
@@ -20,11 +16,6 @@ namespace Area.Models
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
-        }
-
-        public bool checkInfo()
-        {
-            return !(email.Equals("") || password.Equals(""));
         }
     }
 }
