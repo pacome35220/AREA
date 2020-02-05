@@ -16,7 +16,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 import { AppComponent } from './app.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
     SignupFormComponent,
@@ -52,6 +55,9 @@ import { HomeComponent } from './home/home.component';
         MatFormFieldModule,
         MatCardModule,
         MatSnackBarModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        FlexLayoutModule,
         AppRoutingModule
     ],
     entryComponents: [SnackBarUserAlreadyExistsComponent],
