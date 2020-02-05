@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using BottomBar.XamarinForms;
+
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Area.Views
 {
-	public partial class DashBoard : BottomBarPage
+	public partial class Home : ContentPage
 	{
-		public DashBoard()
+		public Home()
 		{
 			InitializeComponent();
 		}

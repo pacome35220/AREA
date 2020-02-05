@@ -63,23 +63,6 @@
 				<Button Text="Sign up." BackgroundColor="White" TextColor="#3897F0" VerticalOptions="FillAndExpand" Clicked="CreateAccount" />
 			</StackLayout>
 		</Grid>
-
-
-
-		<!--<StackLayout VerticalOptions="Center">
-            <StackLayout.Padding>
-                <OnIdiom x:TypeArguments="Thickness">
-                    <OnIdiom.Phone>140, 0, 140, 0</OnIdiom.Phone>
-                </OnIdiom>
-            </StackLayout.Padding>
-            <Label x:Name="Label_Mail" Text="Email" />
-            <Entry x:Name="Entry_Mail" Placeholder="Email"/>
-            <Label x:Name="Label_Password" Text="Password" />
-            <Entry x:Name="Entry_Password" Placeholder="Password" IsPassword="True"/>
-			<Button Command="{Binding SubmitCommand}" Text="Sign in" TextColor="White" FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" BackgroundColor="#088da5" Clicked="OnLoginClicked"/>
-			<Button Command="{Binding SubmitCommand}" Text="Sign up" TextColor="White" FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" BackgroundColor="#088da5" Clicked="CreateAccount"/>  
-         </StackLayout>-->
-
     </ContentPage.Content>
 </ContentPage>
 
