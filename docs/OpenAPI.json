@@ -84,6 +84,21 @@
                         "description": "User indentify by email don't exist"
                     }
                 }
+            },
+            "delete": {
+                "tags": ["User management"],
+                "summary": "Delete user profile",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
             }
         }
     },
