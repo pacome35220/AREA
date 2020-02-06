@@ -13,22 +13,18 @@ namespace Area.Views
 	{
 		Account account;
 		AccountStore store;
+		UserAccounts _user;
 
 		public Home()
 		{
 			InitializeComponent();
 			store = AccountStore.Create();
+			_user = new UserAccounts();
 
 		}
 
 		public void LoginClicked(object sender, EventArgs e)
 		{
-			string clientId = null;//Constants.FacebookClientId;
-			string clientSecret = null;
-			string scope = null;
-			string redirectUri = null;//Constants.FacebookRedirectUrl;
-			string authorizeUrl = null;
-			string accessTokenUrl = null;
 			OAuth2Authenticator authenticator;
 			account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
 
@@ -56,6 +52,28 @@ namespace Area.Views
 					accessTokenUrl: new Uri(Constants.GithubAccessUrl)
 				);
 			}
+			else if (providername == "Discord")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.DiscordClientId,
+					clientSecret: Constants.DiscordClientSecret,
+					scope: Constants.DiscordScope,
+					authorizeUrl: new Uri(Constants.DiscordAuthorizeUrl),
+					redirectUrl: new Uri(Constants.DiscordRedirectUrl),
+					accessTokenUrl: new Uri(Constants.DiscordAccessUrl)
+				);
+			}
+			else if (providername == "Trello")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.TrelloClientId,
+					clientSecret: Constants.TrelloClientSecret,
+					scope: Constants.TrelloScope,
+					authorizeUrl: new Uri(Constants.TrelloAuthorizeUrl),
+					redirectUrl: new Uri(Constants.TrelloRedirectUrl),
+					accessTokenUrl: new Uri(Constants.TrelloAccessUrl)
+				);
+			}
 			//TMP
 			else
 			{
@@ -66,7 +84,6 @@ namespace Area.Views
 					redirectUrl: new Uri(Constants.FacebookRedirectUrl)
 				);
 			}
-
 
 			authenticator.Completed += OnAuthCompleted;
 			authenticator.Error += OnAuthError;
@@ -80,7 +97,6 @@ namespace Area.Views
 		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
 		{
 			var authenticator = sender as OAuth2Authenticator;
-			UserAccounts user = null;
 
 			if (authenticator != null)
 			{
@@ -89,33 +105,13 @@ namespace Area.Views
 			}
 			if (e.IsAuthenticated)
 			{
-				var accessToken = e.Account.Properties["access_token"];
-				// If the user is authenticated, request their basic user data from Google
-				//UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
-				//var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
-				//var response = await request.GetResponseAsync();
-				//if (response != null)
+				//if (e.Account.Properties.ContainsKey("access_token"))
 				//{
-				//	// Deserialize the data and store it in the account store
-				//	// The users email address will be used to identify data in SimpleDB
-				//	string userJson = await response.GetResponseTextAsync();
-				//	user = JsonConvert.DeserializeObject<UserAccounts>(userJson);
-				//}
-
-				//if (account != null)
-				//{
-				//	store.Delete(account, Constants.AppName);
-				//}
-
-				//await store.SaveAsync(account = e.Account, Constants.AppName);
-				await DisplayAlert("AccessToken", accessToken, "OK");
-				//await DisplayAlert("Family name address", user.lastName, "OK");
-				//await DisplayAlert("Name address", user.firstName, "OK");
-				//await DisplayAlert("Picture address", user.picture, "OK");
-				//await DisplayAlert("Link address", user.link, "OK");
-				//await DisplayAlert("Id address", user.id, "OK");
-				//todo signup/signin
-
+				_user.AccessToken = e.Account.Properties["access_token"];
+				await DisplayAlert("AccessToken", _user.AccessToken, "OK");
+			//	}
+			//	else
+				//	await DisplayAlert("AccessToken", "FAILED", "KO");
 			}
 		}
 

@@ -42,5 +42,31 @@ namespace OAuthNativeFlow
 
 		public static string GithubAccessUrl = "https://github.com/login/oauth/access_token";
 
+		/*Discord oauth*/
+		public static string DiscordClientId = "674906116009885707";
+
+		public static string DiscordClientSecret = "r_U3g_4bsgW3v228lZhQGTAGECMhGrkW";
+
+		public static string DiscordScope = "identify email connections";
+
+		public static string DiscordAuthorizeUrl = "https://discordapp.com/api/oauth2/authorize";
+
+		public static string DiscordRedirectUrl = "http://localhost:8080/api/discord/callback";
+
+		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
+
+		/*Trello oauth*/
+		//
+		public static string TrelloClientId = "d0c0296182b75b0b1c6db78ecb0b6f1d";
+
+		public static string TrelloClientSecret = "bc48bd11c118cf8c72f709d9cc6c276cfcfe2a1ec7e715f307058dc08b8a2305";
+
+		public static string TrelloScope = "";
+
+		public static string TrelloAuthorizeUrl = "https://trello.com/1/OAuthAuthorizeToken";
+
+		public static string TrelloRedirectUrl = "https://hadibereksi.fr";
+
+		public static string TrelloAccessUrl = "https://trello.com/1/OAuthGetAccessToken";
 	}
 }
