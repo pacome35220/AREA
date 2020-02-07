@@ -74,6 +74,16 @@ namespace Area.Views
 					accessTokenUrl: new Uri(Constants.TrelloAccessUrl)
 				);
 			}
+			else if (providername == "Office365")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.Office365ClientId,
+					scope: Constants.Office365Scope,
+					authorizeUrl: new Uri(Constants.Office365AuthorizeUrl),
+					redirectUrl: new Uri(Constants.Office365RedirectUrl)
+					//accessTokenUrl: new Uri(Constants.Office365AccessUrl)
+				);
+			}
 			//TMP
 			else
 			{

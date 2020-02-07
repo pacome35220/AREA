@@ -56,7 +56,7 @@ namespace OAuthNativeFlow
 		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
 
 		/*Trello oauth*/
-		//
+		//todo Fix this account
 		public static string TrelloClientId = "d0c0296182b75b0b1c6db78ecb0b6f1d";
 
 		public static string TrelloClientSecret = "bc48bd11c118cf8c72f709d9cc6c276cfcfe2a1ec7e715f307058dc08b8a2305";
@@ -68,5 +68,13 @@ namespace OAuthNativeFlow
 		public static string TrelloRedirectUrl = "https://hadibereksi.fr";
 
 		public static string TrelloAccessUrl = "https://trello.com/1/OAuthGetAccessToken";
+
+		/*Office365*/
+		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
+		//public static string Office365ClientSecret = "";
+		public static string Office365Scope = "User.Read profile openid email";
+		public static string Office365AuthorizeUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";
+		public static string Office365RedirectUrl = "msauth.com.companyname.Area://auth";//"http://localhost:8080/";////"https://hadibereksi.fr/";//"https://login.microsoftonline.com/common/oauth2/nativeclient";
+		public static string Office365AccessUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";
 	}
 }
