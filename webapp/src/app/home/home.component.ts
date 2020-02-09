@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Service } from '../services/auth-service.service';
+import { AppAuthService } from '../services/app-auth.service';
 
 @Component({
     selector: 'app-home',
@@ -19,4 +21,14 @@ export class HomeComponent {
             scope: 'user repo'
         }
     ];
+
+    constructor(
+        private appAuthService: AppAuthService,
+        private router: Router
+    ) {}
+
+    logOut() {
+        this.appAuthService.removeCredentials();
+        this.router.navigateByUrl('/signin');
+    }
 }
