@@ -1,12 +1,6 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [opened]="true">
         <ul>
-            <h2>Services</h2>
-            <li *ngFor="let elem of categories">
-                <a mat-button routerLink="# + {{ elem.href }}">
-                    {{ elem.label }}
-                </a>
-            </li>
             <h2>Parameters</h2>
             <li>
                 <a mat-button routerLink="/home"> Profile </a>
@@ -18,7 +12,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <div fxLayout="row wrap">
-            <app-github></app-github>
+            <app-github [reactionServices]="services"></app-github>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -3,7 +3,13 @@
         <img mat-card-avatar src="{{ image }}" />
         <mat-card-title>{{ title }}</mat-card-title>
         <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
-        <button mat-stroked-button color="primary">Authenticate</button>
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="authenticateAction()"
+        >
+            Authenticate
+        </button>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
@@ -29,8 +35,11 @@
             <mat-form-field>
                 <mat-label>Services availables</mat-label>
                 <mat-select>
-                    <mat-option *ngFor="let elem of categories" [value]="label">
-                        {{ label }}
+                    <mat-option
+                        *ngFor="let service of reactionServices"
+                        [value]="service.name"
+                    >
+                        {{ service.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -39,8 +48,8 @@
         <button
             mat-flat-button
             color="primary"
-            disabled="isLogged()"
-            (click)="logIn()"
+            disabled="!isAuthenticate()"
+            (click)="registerAREA()"
         >
             Register AREA
         </button>
