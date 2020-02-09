@@ -6,6 +6,7 @@ export interface Service {
     redirectUrl: string;
     accessUrl: string;
     clientId: string;
+    clientSecret: string;
     scope?: string;
 }
 
@@ -16,16 +17,18 @@ export class AuthServiceService {
     public auth(
         authorizeUrl: string,
         urlParser: (url: string) => RegExpMatchArray
-    ) {
+    ): Promise<RegExpMatchArray> {
         return new Promise((resolve, reject) => {
             const popupWindow = this.createWindow(authorizeUrl, 'OAuth2 Login');
 
             const intervalId = setInterval(() => {
-                const href = popupWindow.location.href;
+                if (popupWindow.closed) {
+                    clearInterval(intervalId);
+                    reject('popup close by user');
+                }
 
-                console.log(href);
-                if (href) {
-                    const params = urlParser(href);
+                if (popupWindow.location.href) {
+                    const params = urlParser(popupWindow.location.href);
 
                     if (params) {
                         clearInterval(intervalId);

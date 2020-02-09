@@ -48,7 +48,7 @@
         <button
             mat-flat-button
             color="primary"
-            disabled="!isAuthenticate()"
+            [disabled]="!isAuthenticate()"
             (click)="registerAREA()"
         >
             Register AREA

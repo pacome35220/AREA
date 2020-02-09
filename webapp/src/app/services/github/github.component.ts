@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import qs from 'qs';
 
 import { AuthServiceService, Service } from '../auth-service.service';
+import axios from 'axios';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-github',
@@ -29,7 +31,10 @@ export class GithubComponent implements OnInit {
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
-    constructor(private authService: AuthServiceService) {}
+    constructor(
+        private authService: AuthServiceService,
+        private snackBar: MatSnackBar
+    ) {}
 
     isAuthenticate() {
         if (!this.actionAccessToken) {
@@ -62,15 +67,48 @@ export class GithubComponent implements OnInit {
                 allow_signup: 'true'
             });
 
-        const OAuth2_Response = await this.authService.auth(
-            authorizeUrl,
-            this.callbackUrlParser
-        );
+        try {
+            const OAuth2_Response = await this.authService.auth(
+                authorizeUrl,
+                this.callbackUrlParser
+            );
+            const [, code, state] = OAuth2_Response;
 
-        console.log(OAuth2_Response);
+            const { data } = await axios.post(
+                'https://cors-anywhere.herokuapp.com/' +
+                    this.actionService.accessUrl +
+                    '?' +
+                    qs.stringify({
+                        client_id: this.actionService.clientId,
+                        client_secret: this.actionService.clientSecret,
+                        code,
+                        state,
+                        redirect_uri: 'http://localhost:4200/signup'
+                    })
+            );
+
+            this.actionAccessToken = qs.parse(data).access_token;
+            console.log(`github access_token : ${this.actionAccessToken}`);
+        } catch (error) {
+            this.snackBar.open("bah alors on refuse l'accès mdr ?", 'FDP', {
+                duration: 2000
+            });
+        }
     }
 
-    async registerAREA() {}
+    async registerAREA() {
+        console.log(
+            `registerAREA github access_token : ${this.actionAccessToken}`
+        );
+
+        const res = await axios.get('https://api.github.com/user', {
+            headers: {
+                Authorization: `Bearer ${this.actionAccessToken}`
+            }
+        });
+
+        console.log(res);
+    }
 
     ngOnInit() {
         this.actionService = this.reactionServices.find(
