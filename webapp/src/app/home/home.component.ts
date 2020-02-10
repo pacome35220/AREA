@@ -19,6 +19,16 @@ export class HomeComponent {
             clientId: '2166c135eda5e417e5ee',
             clientSecret: '73b3322d4e0ed51ddff48f4211e4490d1d9c466d',
             scope: 'user repo'
+        },
+        {
+            name: 'Discord',
+            authorizeUrl: 'https://discordapp.com/api/oauth2/authorize',
+            redirectUrl: 'http://localhost:4200/home',
+            accessUrl: 'https://discordapp.com/api/oauth2/token',
+            clientId: '666941488562831380',
+            clientSecret: 'xrVr4YymEMjDN-IPTuq-aME7KIOPFoLQ',
+            scope: 'identify email connections',
+            responseType: 'token'
         }
     ];
 

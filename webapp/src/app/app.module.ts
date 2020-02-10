@@ -32,6 +32,7 @@ import { SigninFormComponent } from './landing-screen/signin-form/signin-form.co
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { GithubComponent } from './services/github/github.component';
+import { DiscordComponent } from './services/discord/discord.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { GithubComponent } from './services/github/github.component';
         SnackBarUserAlreadyExistsComponent,
         SigninFormComponent,
         HomeComponent,
-        GithubComponent
+        GithubComponent,
+        DiscordComponent
     ],
     imports: [
         BrowserModule,

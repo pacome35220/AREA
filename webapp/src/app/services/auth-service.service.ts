@@ -8,6 +8,7 @@ export interface Service {
     clientId: string;
     clientSecret: string;
     scope?: string;
+    responseType?: string;
 }
 
 @Injectable({
