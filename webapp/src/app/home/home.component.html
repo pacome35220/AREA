@@ -1,75 +1,15 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [opened]="true">
         <ul>
-            <h2>Services</h2>
-            <li *ngFor="let elem of categories">
-                <a mat-button href="# + {{ elem.href }}">
-                    {{ elem.label }}
-                </a>
-            </li>
             <h2>Parameters</h2>
             <li>
-                <a mat-button href="/home">
-                    Profile
-                </a>
-            </li>
-            <li>
-                <button mat-button onClick="logOut()">
-                    Logout
-                </button>
+                <button mat-button (click)="logOut()">Logout</button>
             </li>
         </ul>
     </mat-sidenav>
     <mat-sidenav-content>
         <div fxLayout="row wrap">
-            <mat-card fxFlex="calc(40% - 40px)" *ngFor="let elem of categories">
-                <a id="{{ elem.href }}"></a>
-                <mat-card-header>
-                    <div mat-card-avatar class="service-picture">
-                        <img mat-card-image src="{{ elem.image }}" />
-                    </div>
-                    <mat-card-title>{{ elem.label }}</mat-card-title>
-                    <mat-card-subtitle>{{ elem.quote }}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <section class="checkbox-section">
-                        <mat-checkbox
-                            class="checkbox-margin"
-                            [(ngModel)]="elem.isGeneric"
-                            >Generic reaction
-                        </mat-checkbox>
-                        <mat-checkbox
-                            class="checkbox-margin"
-                            [(ngModel)]="elem.isSpecific"
-                            >Specific reaction
-                        </mat-checkbox>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            disabled="isLogged()"
-                            onClick="logIn()"
-                        >
-                            Connect
-                        </button>
-                        <div *ngIf="elem.isGeneric">
-                            <mat-form-field>
-                                <mat-label>Services availables</mat-label>
-                                <mat-select>
-                                    <mat-option
-                                        *ngFor="let elem of categories"
-                                        [value]="elem.label"
-                                    >
-                                        {{ elem.label }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div *ngIf="elem.isSpecific">
-                            <h1>TODO : description service dispo</h1>
-                        </div>
-                    </section>
-                </mat-card-content>
-            </mat-card>
+            <app-github [reactionServices]="services"></app-github>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

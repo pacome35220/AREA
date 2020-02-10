@@ -24,7 +24,7 @@
 				<Button Text="LinkedIn" Clicked="LoginClicked" Image="LINKEDIN.png" HeightRequest="50" />
 				<Button Text="Discord" Clicked="LoginClicked" Image="DISCORD.png" HeightRequest="50" />  
 				<Button Text="Trello" Clicked="LoginClicked" Image="TRELLO.png" HeightRequest="50" />
-				<Button Text="Twitter" Clicked="LoginClicked" Image="MICROSOFT.png" HeightRequest="40" />
+				<Button Text="Office365" Clicked="LoginClicked" Image="MICROSOFT.png" HeightRequest="40" />
 			</StackLayout>
 		</ContentPage.Content>
 </ContentPage>
