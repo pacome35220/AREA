@@ -44,6 +44,13 @@ services:
     networks:
       - server-network
     restart: always
+  docs:
+    build:
+      context: ./docs
+      dockerfile: ./Dockerfile
+    ports:
+      - "1343:8080"
+    restart: always
 
 networks:
   server-network:

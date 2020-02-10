@@ -9,4 +9,4 @@ git remote add production ssh://marco@51.77.202.182:4242/home/marco/apps/AREA
 echo "Pushing to Remote Server"
 git push production master --force # push our updates
 echo "Connecting to Server"
-ssh marco@51.77.202.182 -p 4242 "bash -c 'cd apps/AREA && source .travis/.production_env && docker-compose up --build -d client_web'"
+ssh marco@51.77.202.182 -p 4242 "bash -c 'cd apps/AREA && source .travis/.production_env && docker-compose up --build -d client_web docs'"
