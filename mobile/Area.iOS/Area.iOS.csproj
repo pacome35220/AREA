@@ -92,14 +92,15 @@
         <None Include="Entitlements.plist" />
         <None Include="Info.plist" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <None Include="Resources\background.jpg" />
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
         <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
             <Visible>false</Visible>
         </ImageAsset>
-        <ImageAsset Include="Assets.xcassets\images.imageset\Contents.json" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo.png" />
+        <ImageAsset Include="Assets.xcassets\.imageset\Contents.json" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo-1.png" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -129,10 +130,17 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <AndroidResource Include="Resources\logo.png" />
+      <Folder Include="Assets.xcassets\.imageset\" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Assets.xcassets\images.imageset\" />
+      <BundleResource Include="Resources\googleSignIn.png">
+        <SubType></SubType>
+        <Generator></Generator>
+      </BundleResource>
+      <BundleResource Include="Resources\logo.png">
+        <SubType></SubType>
+        <Generator></Generator>
+      </BundleResource>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
     <Import Project="..\Area\Area.projitems" Label="Shared" />

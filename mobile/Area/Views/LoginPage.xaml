@@ -52,9 +52,9 @@
 					<Label Text="OR" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
 					<Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
 				</Grid>
-				<StackLayout Orientation="Horizontal" Grid.Row="6" HorizontalOptions="Center">
-					<Image Source="google.png"/>
-					<Button BackgroundColor="White" Text="Log in with Google" TextColor="#485992" Clicked="GoogleAuth"/>
+				<StackLayout Orientation="Horizontal"  Grid.Row="6" HorizontalOptions="Center">
+					<!--<Image x:Name="images" Source="googleSignIn.png" WidthRequest="180" />-->
+					<Button BackgroundColor="White" VerticalOptions="Center" ImageSource="googleSignIn" TextColor="#485992" Clicked="GoogleAuth"/>
 				</StackLayout>
 			</Grid>
 			<StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="#FFFFFF">
