@@ -85,7 +85,6 @@ export class SignupFormComponent {
         axios
             .post(`${environment.serverUrl}/user/signup`, data, config)
             .then(res => {
-                console.log(environment.serverUrl);
                 console.log('res', res);
                 if (res.status === 201) {
                     this._router.navigateByUrl('/signin');
