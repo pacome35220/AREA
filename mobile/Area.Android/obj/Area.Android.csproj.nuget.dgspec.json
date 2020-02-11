@@ -74,7 +74,11 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.4.0.991537, )"
+              "version": "[4.5.0.282-pre4, )"
+            },
+            "Xamarin.Forms.Extended.InfiniteScrolling": {
+              "target": "Package",
+              "version": "[1.0.0-preview2, )"
             },
             "runtime.native.System": {
               "target": "Package",
