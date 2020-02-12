@@ -30,6 +30,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PopupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -56,6 +60,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserAccounts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Services.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DashboardViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PopupView.xaml.cs">
+      <DependentUpon>PopupView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />

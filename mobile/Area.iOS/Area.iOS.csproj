@@ -133,6 +133,9 @@
         <PackageReference Include="Xamarin.Forms">
           <Version>4.5.0.282-pre4</Version>
         </PackageReference>
+        <PackageReference Include="Rg.Plugins.Popup">
+          <Version>1.2.0.223</Version>
+        </PackageReference>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Assets.xcassets\.imageset\" />
