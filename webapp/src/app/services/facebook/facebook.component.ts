@@ -58,7 +58,7 @@ export class FacebookComponent implements OnInit {
     }
 
     callbackUrlParser(url: string) {
-        return url.match(/access_token=((.+)&.+)&/);
+        return url.match(/access_token=([^&]*)/);
     }
 
     async authenticateAction() {
