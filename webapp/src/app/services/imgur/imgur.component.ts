@@ -75,7 +75,7 @@ export class ImgurComponent implements OnInit {
                 authorizeUrl,
                 this.callbackUrlParser
             );
-            this.actionAccessToken = qs.parse(OAuth2_Response)[1];
+            this.actionAccessToken = OAuth2_Response[1];
             console.log(`Imgur access_token : ${this.actionAccessToken}`);
         } catch (error) {
             this.snackBar.open('Access denied', 'Retry', {

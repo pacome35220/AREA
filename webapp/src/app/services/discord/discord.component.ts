@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import qs from 'qs';
+import * as qs from 'qs';
 
 import { AuthServiceService, Service } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -75,7 +75,7 @@ export class DiscordComponent implements OnInit {
                 authorizeUrl,
                 this.callbackUrlParser
             );
-            this.actionAccessToken = qs.parse(OAuth2_Response)[2];
+            this.actionAccessToken = OAuth2_Response[2];
             console.log(`Discord access_token : ${this.actionAccessToken}`);
         } catch (error) {
             this.snackBar.open('Access denied', 'Retry', {

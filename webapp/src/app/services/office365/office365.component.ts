@@ -69,7 +69,7 @@ export class Office365Component implements OnInit {
                 authorizeUrl,
                 this.callbackUrlParser
             );
-            this.actionAccessToken = qs.parse(OAuth2_Response)[1];
+            this.actionAccessToken = OAuth2_Response[1];
             console.log(`Office365 access_token : ${this.actionAccessToken}`);
         } catch (error) {
             this.snackBar.open('Access denied', 'Retry', {
