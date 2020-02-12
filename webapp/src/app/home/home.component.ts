@@ -33,8 +33,7 @@ export class HomeComponent {
         {
             name: 'Facebook',
             authorizeUrl: 'https://m.facebook.com/dialog/oauth/',
-            redirectUrl:
-                'https://www.facebook.com/connect/login_success.html?state=abcd',
+            redirectUrl: 'https://www.facebook.com/connect/login_success.html',
             accessUrl: '',
             clientId: '189477332115486',
             clientSecret: '',
@@ -49,6 +48,18 @@ export class HomeComponent {
             clientId: '6b5472c176e8f40',
             clientSecret: '',
             scope: '',
+            responseType: 'token'
+        },
+        {
+            name: 'Office365',
+            authorizeUrl:
+                'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize',
+            redirectUrl: 'http://localhost:4200/home',
+            accessUrl:
+                'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token',
+            clientId: '16d5ca0a-267b-43c2-ab71-fe0418a8ad2f',
+            clientSecret: '',
+            scope: 'User.Read profile openid email',
             responseType: 'token'
         }
     ];
