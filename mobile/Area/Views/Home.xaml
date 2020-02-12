@@ -22,8 +22,8 @@
 					<DataTemplate>
 						<ViewCell>
 							<Grid Padding="12">
-								<Button Text="{Binding .}" BackgroundColor="White" ImageSource="{Binding .}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start" Clicked="LoginClicked"/>
-								
+								<Button Text="{Binding .}" BackgroundColor="White" ImageSource="{Binding .}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start" Clicked="ShowPopup"/>
+								<Button ClassId="{Binding .}" Text="Auth" BackgroundColor="#ebebeb" TextColor="Black" VerticalOptions="Start" HorizontalOptions="End" WidthRequest="100" Clicked="LoginClicked"/>
 							</Grid>
 						</ViewCell>
 					</DataTemplate>

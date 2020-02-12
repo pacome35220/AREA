@@ -4,6 +4,7 @@ using System.Linq;
 using Area.Models;
 using Newtonsoft.Json;
 using OAuthNativeFlow;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Auth;
 using Xamarin.Forms;
 
@@ -23,6 +24,11 @@ namespace Area.Views
 
 		}
 
+		private void ShowPopup(object o, EventArgs e)
+		{
+			PopupNavigation.Instance.PushAsync(new PopupView());
+		}
+
 		public void LoginClicked(object sender, EventArgs e)
 		{
 			OAuth2Authenticator authenticator;
@@ -31,7 +37,7 @@ namespace Area.Views
 
 
 			Button btncontrol = (Button)sender;
-			string providername = btncontrol.Text;
+			string providername = btncontrol.ClassId;
 
 			if (providername == "Facebook") {
 				authenticator = new OAuth2Authenticator(
