@@ -87,4 +87,10 @@ export class FacebookComponent implements OnInit {
             });
         }
     }
+
+    async registerAREA() {
+        console.log(
+            `registerAREA facebook access_token : ${this.actionAccessToken}`
+        );
+    }
 }
