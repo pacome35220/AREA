@@ -58,7 +58,7 @@ export class FacebookComponent implements OnInit {
     }
 
     callbackUrlParser(url: string) {
-        return url.match(/access_token=([^&]*)/);
+        return url.match(/access_token=((.+)&.+)&/);
     }
 
     async authenticateAction() {
@@ -86,11 +86,5 @@ export class FacebookComponent implements OnInit {
                 duration: 2000
             });
         }
-    }
-
-    async registerAREA() {
-        console.log(
-            `registerAREA facebook access_token : ${this.actionAccessToken}`
-        );
     }
 }

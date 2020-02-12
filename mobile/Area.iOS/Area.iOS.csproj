@@ -162,6 +162,7 @@
       <BundleResource Include="Resources\LinkedIn.png" />
       <BundleResource Include="Resources\Office365.png" />
       <BundleResource Include="Resources\Youtube.png" />
+      <BundleResource Include="Resources\Imgur.png" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
     <Import Project="..\Area\Area.projitems" Label="Shared" />

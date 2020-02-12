@@ -83,10 +83,4 @@ export class DiscordComponent implements OnInit {
             });
         }
     }
-
-    async registerAREA() {
-        console.log(
-            `registerAREA discord access_token : ${this.actionAccessToken}`
-        );
-    }
 }

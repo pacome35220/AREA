@@ -3,7 +3,8 @@
                  xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+				 xmlns:pages1="http://xamarin.com/schemas/2014/forms" >
 	    <!--  You can set an animation in the xaml file or in the csharp code behind  -->
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation DurationIn="400"
@@ -17,26 +18,50 @@
                                    ScaleOut="0.8" />
     </pages:PopupPage.Animation>
 
-    <!--  You can use any elements here which are extended from Xamarin.Forms.View.This is the popUp's content -->
+    <!--  You can use any elements here which are extended from Xamarin.Forms.View. will be the content of my pop up -->
     <StackLayout Margin="12"
                  Padding="24"
                  BackgroundColor="White"
                  HorizontalOptions="Center"
                  VerticalOptions="Center">
         <StackLayout>
-            <Label Text="Login" />
-            <Entry FontSize="30"
-                   Text="username@email.com" />
+			<pages1:Picker x:Name="picker"
+					Title="Select an action"
+					TitleColor="#9ed0ff">
+				<pages1:Picker.ItemsSource>
+					<x:Array Type="{x:Type x:String}">
+						  <x:String>If you push a new branch ...</x:String>
+						  <x:String>Capuchin Monkey</x:String>
+						  <x:String>Blue Monkey</x:String>
+						  <x:String>Squirrel Monkey</x:String>
+						  <x:String>Golden Lion Tamarin</x:String>
+						  <x:String>Howler Monkey</x:String>
+						  <x:String>Japanese Macaque</x:String>
+					</x:Array>
+			  </pages1:Picker.ItemsSource>
+			</pages1:Picker>
         </StackLayout>
         <StackLayout>
-            <Label Text="Password" />
-            <Entry FontSize="30"
-                   IsPassword="True"
-                   Text="password123" />
+			<!--<pages1:Picker x:Name="picker"
+					Title="Select a reaction"
+					TitleColor="Red">
+				<pages1:Picker.ItemsSource>
+					<x:Array Type="{x:Type x:String}">
+						  <x:String>Baboon</x:String>
+						  <x:String>Capuchin Monkey</x:String>
+						  <x:String>Blue Monkey</x:String>
+						  <x:String>Squirrel Monkey</x:String>
+						  <x:String>Golden Lion Tamarin</x:String>
+						  <x:String>Howler Monkey</x:String>
+						  <x:String>Japanese Macaque</x:String>
+					</x:Array>
+			  </pages1:Picker.ItemsSource>
+			</pages1:Picker>-->
+
         </StackLayout>
         <Button BackgroundColor="DodgerBlue"
                 FontSize="30"
-                Text="Login"
+                Text="Register"
                 TextColor="White" />
     </StackLayout>
 </pages:PopupPage>

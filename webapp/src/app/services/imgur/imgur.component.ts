@@ -83,10 +83,4 @@ export class ImgurComponent implements OnInit {
             });
         }
     }
-
-    async registerAREA() {
-        console.log(
-            `registerAREA imgur access_token : ${this.actionAccessToken}`
-        );
-    }
 }

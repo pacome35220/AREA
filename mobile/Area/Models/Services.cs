@@ -12,7 +12,7 @@ namespace Area.Models
 
         private readonly List<string> _data = new List<string>
         {
-            "Facebook", "Github", "LinkedIn", "Discord", "Office365", "Youtube", "Trello",
+            "Facebook", "Github", "LinkedIn", "Discord", "Office365", "Youtube", "Imgur", "Trello",
             "David", "Fehmi", "Badr", "Hamza", "Nabil", "Hajer", "Sami", "Ahmed", "Amir",
             "Nebrass", "Karim", "Cherif", "Alaa", "Samar", "Narjess", "Iheb", "Safa",
             "Mohamed", "Hassen", "Omar", "Ali", "Othman", "Adam", "Seif", "Hamed", "Paul",
