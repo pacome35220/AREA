@@ -33,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { GithubComponent } from './services/github/github.component';
 import { DiscordComponent } from './services/discord/discord.component';
+import { ImgurComponent } from './services/imgur/imgur.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { DiscordComponent } from './services/discord/discord.component';
         SigninFormComponent,
         HomeComponent,
         GithubComponent,
-        DiscordComponent
+        DiscordComponent,
+        ImgurComponent
     ],
     imports: [
         BrowserModule,

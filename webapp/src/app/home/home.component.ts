@@ -29,6 +29,27 @@ export class HomeComponent {
             clientSecret: 'xrVr4YymEMjDN-IPTuq-aME7KIOPFoLQ',
             scope: 'identify email connections',
             responseType: 'token'
+        },
+        {
+            name: 'Facebook',
+            authorizeUrl: 'https://m.facebook.com/dialog/oauth/',
+            redirectUrl:
+                'https://www.facebook.com/connect/login_success.html?state=abcd',
+            accessUrl: '',
+            clientId: '189477332115486',
+            clientSecret: '',
+            scope: '',
+            responseType: 'token'
+        },
+        {
+            name: 'Imgur',
+            authorizeUrl: 'https://api.imgur.com/oauth2/authorize',
+            redirectUrl: 'http://localhost:4200/home',
+            accessUrl: '',
+            clientId: '6b5472c176e8f40',
+            clientSecret: '',
+            scope: '',
+            responseType: 'token'
         }
     ];
 
