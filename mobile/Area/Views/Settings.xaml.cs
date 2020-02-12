@@ -21,9 +21,6 @@ namespace Area.Views
 		}
 		async public void DeleteAccount(object sender, EventArgs e)
 		{
-
-			//todo check if I did works LOL
-
 			/*Http Auth*/
 			var authData = string.Format("{0}:{1}", Application.Current.Properties["Email"].ToString(), Application.Current.Properties["Password"].ToString());
 			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));

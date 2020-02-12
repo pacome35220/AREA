@@ -24,11 +24,11 @@
                  Icon="ic_restaurants.png"
                  xf1:BottomBarPageExtensions.TabColor="#FF9800" />-->
 
-	<local:Home Title="DashBoard" Icon="ic_favorites.png"/>
+	<local:Home Title="Dashboard" Icon="dashboard_icon.png"/>
 
-    <ContentPage Title="Recents" Icon="ic_recents.png"/>
+    <ContentPage Title="Add Service" Icon="add_icon.png"/>
 
-    <local:Settings Title="Settings" Icon="ic_restaurants.png"/>
+    <local:Settings Title="Settings" Icon="settings_icon.png"/>
 	<!--todo add logout button-->
 
 </xf1:BottomBarPage>
