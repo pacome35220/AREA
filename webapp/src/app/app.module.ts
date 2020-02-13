@@ -24,10 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 
-import {
-    SignupFormComponent,
-    SnackBarUserAlreadyExistsComponent
-} from './landing-screen/signup-form/signup-form.component';
+import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
 import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -41,7 +38,6 @@ import { Office365Component } from './services/office365/office365.component';
     declarations: [
         AppComponent,
         SignupFormComponent,
-        SnackBarUserAlreadyExistsComponent,
         SigninFormComponent,
         HomeComponent,
         GithubComponent,
@@ -74,7 +70,7 @@ import { Office365Component } from './services/office365/office365.component';
         FlexLayoutModule,
         AppRoutingModule
     ],
-    entryComponents: [SnackBarUserAlreadyExistsComponent],
+    entryComponents: [],
     providers: [],
     bootstrap: [AppComponent]
 })
