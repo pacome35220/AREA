@@ -35,6 +35,7 @@ import { GithubComponent } from './services/github/github.component';
 import { DiscordComponent } from './services/discord/discord.component';
 import { FacebookComponent } from './services/facebook/facebook.component';
 import { ImgurComponent } from './services/imgur/imgur.component';
+import { Office365Component } from './services/office365/office365.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { ImgurComponent } from './services/imgur/imgur.component';
         GithubComponent,
         DiscordComponent,
         FacebookComponent,
-        ImgurComponent
+        ImgurComponent,
+        Office365Component
     ],
     imports: [
         BrowserModule,

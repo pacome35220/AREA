@@ -7,12 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'Area';
-    isLogin = false;
-
-    opened: boolean;
-    status: boolean;
-
-    constructor() {}
-
-    ngOnInit() {}
 }

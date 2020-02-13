@@ -4,17 +4,16 @@ import { AuthServiceService, Service } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'app-facebook',
-    templateUrl: './facebook.component.html',
-    styleUrls: ['./facebook.component.scss']
+    selector: 'app-office365',
+    templateUrl: './office365.component.html',
+    styleUrls: ['./office365.component.scss']
 })
-export class FacebookComponent implements OnInit {
+export class Office365Component implements OnInit {
     @Input() reactionServices: Service[];
-
     actionService: Service;
 
-    image = '../../../assets/facebook.svg';
-    title = 'Facebook';
+    image = '../../../assets/microsoft.svg';
+    title = 'Office365';
     subtitle = 'wow wow wow wow wow wow wow wow';
 
     actionDescription = 'If you push a new branch, ...';
@@ -34,12 +33,6 @@ export class FacebookComponent implements OnInit {
         private snackBar: MatSnackBar
     ) {}
 
-    ngOnInit() {
-        this.actionService = this.reactionServices.find(
-            service => service.name === 'Facebook'
-        );
-    }
-
     isAuthenticate() {
         if (!this.actionAccessToken) {
             return false;
@@ -56,7 +49,7 @@ export class FacebookComponent implements OnInit {
     }
 
     callbackUrlParser(url: string) {
-        return url.match(/access_token=((.+)&.+)&/);
+        return url.match(/access_token=([^&]*)/);
     }
 
     async authenticateAction() {
@@ -64,10 +57,9 @@ export class FacebookComponent implements OnInit {
             this.actionService.authorizeUrl +
             '?' +
             qs.stringify({
-                client_id: this.actionService.clientId,
                 response_type: this.actionService.responseType,
-                redirect_uri: this.actionService.redirectUrl,
-                state: 'abcd'
+                client_id: this.actionService.clientId,
+                scope: this.actionService.scope
             });
 
         try {
@@ -75,13 +67,24 @@ export class FacebookComponent implements OnInit {
                 authorizeUrl,
                 this.callbackUrlParser
             );
-
-            this.actionAccessToken = OAuth2_Response[2];
-            console.log(`Facebook access_token : ${this.actionAccessToken}`);
+            this.actionAccessToken = OAuth2_Response[1];
+            console.log(`Office365 access_token : ${this.actionAccessToken}`);
         } catch (error) {
-            this.snackBar.open('Access denied: ' + error, 'Retry', {
+            this.snackBar.open('Access denied', 'Retry', {
                 duration: 2000
             });
         }
+    }
+
+    async registerAREA() {
+        console.log(
+            `registerAREA office365 access_token : ${this.actionAccessToken}`
+        );
+    }
+
+    ngOnInit() {
+        this.actionService = this.reactionServices.find(
+            service => service.name === 'Office365'
+        );
     }
 }

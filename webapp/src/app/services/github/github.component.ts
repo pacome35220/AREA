@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import qs from 'qs';
-
+import * as qs from 'qs';
 import { AuthServiceService, Service } from '../auth-service.service';
 import axios from 'axios';
 import { MatSnackBar } from '@angular/material/snack-bar';
