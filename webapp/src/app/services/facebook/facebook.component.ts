@@ -76,8 +76,7 @@ export class FacebookComponent implements OnInit {
                 this.callbackUrlParser
             );
 
-            console.log('Regex => ' + qs.parse(OAuth2_Response)[2]);
-            this.actionAccessToken = qs.parse(OAuth2_Response)[2];
+            this.actionAccessToken = OAuth2_Response[2];
             console.log(`Facebook access_token : ${this.actionAccessToken}`);
         } catch (error) {
             this.snackBar.open('Access denied: ' + error, 'Retry', {
