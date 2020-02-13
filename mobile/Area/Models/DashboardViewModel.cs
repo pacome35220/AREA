@@ -13,7 +13,7 @@ namespace Area.Models
         private const int PageSize = 10;
 		readonly Services _dataService = new Services();
 
-        public InfiniteScrollCollection<string> Items { get; }
+        public InfiniteScrollCollection<Service> Items { get; }
 
         public bool IsBusy
         {
@@ -27,7 +27,7 @@ namespace Area.Models
 
         public DashboardViewModel()
         {
-            Items = new InfiniteScrollCollection<string>
+            Items = new InfiniteScrollCollection<Service>
             {
                 OnLoadMore = async () =>
                 {

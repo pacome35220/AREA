@@ -24,9 +24,12 @@ namespace Area.Views
 
 		}
 
-		private void ShowPopup(object o, EventArgs e)
+		private void ShowPopup(object sender, EventArgs e)
 		{
-			PopupNavigation.Instance.PushAsync(new PopupView());
+			Button btn = (Button)sender;
+			Service service = (Service)btn.BindingContext;
+			
+			PopupNavigation.Instance.PushAsync(new PopupView(service, PopUp.Actions));
 		}
 
 		public void LoginClicked(object sender, EventArgs e)
