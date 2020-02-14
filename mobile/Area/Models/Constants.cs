@@ -71,10 +71,27 @@ namespace OAuthNativeFlow
 
 		/*Office365*/
 		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
-		//public static string Office365ClientSecret = "";
+
 		public static string Office365Scope = "User.Read profile openid email";
+
 		public static string Office365AuthorizeUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";
+
 		public static string Office365RedirectUrl = "msauth.com.companyname.Area://auth";//"http://localhost:8080/";////"https://hadibereksi.fr/";//"https://login.microsoftonline.com/common/oauth2/nativeclient";
+
 		public static string Office365AccessUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";
+
+		/*Imgur*/
+		public static string ImgurClientId = "6b5472c176e8f40";
+
+		public static string ImgurScope = "";
+
+		public static string ImgurAuthorizeUrl = "https://api.imgur.com/oauth2/authorize";
+
+		public static string ImgurRedirectUrl = "http://localhost:4200/home";//"http://localhost:8080/";
+
+		public static string ImgurAccessUrl = "https://api.imgur.com/oauth2/token";
+
+
+		/* todo Youtube*/
 	}
 }

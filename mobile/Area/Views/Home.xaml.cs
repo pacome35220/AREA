@@ -10,11 +10,13 @@ using Xamarin.Forms;
 
 namespace Area.Views
 {
+	//todo Create a properties (object) that will store all Useraccountds with (service name + access token + actions + reactions)
 	public partial class Home : ContentPage
 	{
 		Account account;
 		AccountStore store;
 		UserAccounts _user;
+		private string currentServiceName;
 
 		public Home()
 		{
@@ -93,6 +95,17 @@ namespace Area.Views
 					//accessTokenUrl: new Uri(Constants.Office365AccessUrl)
 				);
 			}
+			else if (providername == "Imgur")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.ImgurClientId,
+					clientSecret: "",
+					scope: Constants.ImgurScope,
+					authorizeUrl: new Uri(Constants.ImgurAuthorizeUrl),
+					redirectUrl: new Uri(Constants.ImgurRedirectUrl),
+					accessTokenUrl: new Uri(Constants.ImgurAccessUrl)
+				);
+			}
 			//TMP
 			else
 			{
@@ -104,6 +117,7 @@ namespace Area.Views
 				);
 			}
 
+			currentServiceName = providername;
 			authenticator.Completed += OnAuthCompleted;
 			authenticator.Error += OnAuthError;
 
@@ -113,24 +127,27 @@ namespace Area.Views
 			presenter.Login(authenticator);
 		}
 
-		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+		void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
 		{
-			var authenticator = sender as OAuth2Authenticator;
+			OAuth2Authenticator authenticator = sender as OAuth2Authenticator;
 
 			if (authenticator != null)
 			{
 				authenticator.Completed -= OnAuthCompleted;
 				authenticator.Error -= OnAuthError;
 			}
+			//if i authenticate successfuly I store the access token and i save it in properties
 			if (e.IsAuthenticated)
 			{
-				//if (e.Account.Properties.ContainsKey("access_token"))
-				//{
-				_user.AccessToken = e.Account.Properties["access_token"];
-				await DisplayAlert("AccessToken", _user.AccessToken, "OK");
-			//	}
-			//	else
-				//	await DisplayAlert("AccessToken", "FAILED", "KO");
+				//check if the service does not exist in the 'UserAccount' property
+				//we create a new one
+				if (!_user.UserServices.ContainsKey(currentServiceName))
+					_user.UserServices[currentServiceName] = new UserAccounts.Data();
+
+				//save access token of a service
+				_user.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
+				//save service in property
+				Application.Current.Properties["UserAccounts"] = _user;
 			}
 		}
 
