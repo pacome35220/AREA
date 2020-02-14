@@ -30,8 +30,11 @@ namespace Area.Views
 		{
 			Button btn = (Button)sender;
 			Service service = (Service)btn.BindingContext;
-			
-			PopupNavigation.Instance.PushAsync(new PopupView(service, PopUp.Actions));
+
+			if (_user.IsAuthenticated(service.name))
+				PopupNavigation.Instance.PushAsync(new PopupView(service, PopUp.Actions));
+			else
+				DisplayAlert("ALERT", "You need to authenticate before using this service !", "OK");
 		}
 
 		public void LoginClicked(object sender, EventArgs e)

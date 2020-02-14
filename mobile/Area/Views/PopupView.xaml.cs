@@ -74,6 +74,7 @@ namespace Area.Views
 				//todo remove it, it was just for debugging
 				var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
 				DisplayAlert(userAccountsProperty.UserServices[_currentService.name].accessToken, userAccountsProperty.UserServices[_currentService.name].action, userAccountsProperty.UserServices[_currentService.name].reaction);
+				//todo send data to API here
 			}
 		}
 	}
