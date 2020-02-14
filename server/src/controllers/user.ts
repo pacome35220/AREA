@@ -120,7 +120,6 @@ export const deleteProfile = async (
                 .send('Missing Authorization header with Basic');
         }
 
-        console.log('credentials are here !');
         // Check if Authorization header (email:password) is valid.
         const { name, pass } = credentials; // name is an email
 
@@ -128,7 +127,7 @@ export const deleteProfile = async (
         const user = await User.findOne({
             where: { email: name }
         });
-        console.log('User = ', user);
+
         if (!user || user.password !== pass) {
             return res
                 .status(403)
@@ -136,7 +135,6 @@ export const deleteProfile = async (
                     'Email or password does not match, or the account with this email does not exist'
                 );
         }
-        console.log('credentials are valid');
 
         // delete user from database
         await user.destroy();

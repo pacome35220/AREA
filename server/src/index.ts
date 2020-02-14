@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -12,6 +12,11 @@ import user from './routes/user';
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.timestamp = Date.now();
+    next();
+});
+
 app.use(compression());
 app.use(helmet());
 app.use(cors());
@@ -22,11 +27,12 @@ app.use('/', about);
 app.use('/', user);
 
 app.get('/', (req, res) => {
-    res.send('Api is UP');
+    res.send(`Api is UP in ${Date.now() - res.locals.timestamp}`);
 });
 
-app.use((req, res, next) => {
-    res.status(404).end();
+app.use((err: any, req: Request, res: Response) => {
+    console.error(err);
+    res.status(500).end();
 });
 
 app.listen(PORT, () => {
