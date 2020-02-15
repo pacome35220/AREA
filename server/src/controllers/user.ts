@@ -56,6 +56,10 @@ export const signup = async (
             email: name,
             password: pass
         });
+
+        // keep password safe
+        newUser.password = '';
+
         return res.status(200).json(newUser);
     } catch (err) {
         return next(err);
@@ -95,7 +99,7 @@ export const getProfile = async (
         }
 
         // keep password safe
-        delete user.password;
+        user.password = '';
 
         // Send his JSON profile to user
         return res.status(200).json(user);
