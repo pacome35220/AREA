@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import axios from 'axios';
+
+import { environment } from 'src/environments/environment';
 
 import { AppAuthService } from '../services/app-auth.service';
 import { AreaServiceComponent } from '../services/area-service/area-service.component';
@@ -9,6 +13,7 @@ import { getAccessTokenFromDiscord } from '../services/discord/discord';
 import { getAccessTokenFromFacebook } from '../services/facebook/facebook';
 import { getAccessTokenFromImgur } from '../services/imgur/imgur';
 import { getAccessTokenFromOffice365 } from '../services/office365/office365';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface Service {
     name: string;
@@ -35,7 +40,7 @@ export interface Service {
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     services: Service[] = [
         {
             name: 'Github',
@@ -144,7 +149,11 @@ export class HomeComponent {
         }
     ];
 
+    firstName: string;
+    lastName: string;
+
     constructor(
+        private snackBar: MatSnackBar,
         private appAuthService: AppAuthService,
         private router: Router
     ) {}
@@ -152,5 +161,36 @@ export class HomeComponent {
     logOut() {
         this.appAuthService.removeCredentials();
         this.router.navigateByUrl('/signin');
+    }
+
+    ngOnInit() {
+        const credentials = this.appAuthService.getCredentials();
+
+        if (!credentials) {
+            this.snackBar.open(`Please signin to use AREA`, 'Signup', {
+                duration: 2000
+            });
+            this.router.navigateByUrl('signin');
+            return;
+        }
+        const config = {
+            auth: {
+                username: credentials.username,
+                password: credentials.password
+            }
+        };
+
+        axios
+            .get(`${environment.serverUrl}/user/me`, config)
+            .then(res => {
+                this.firstName = res.data.firstName;
+                this.lastName = res.data.lastName;
+            })
+            .catch(() => {
+                this.snackBar.open(`Please signin to use AREA`, 'Signup', {
+                    duration: 2000
+                });
+                this.router.navigateByUrl('signin');
+            });
     }
 }

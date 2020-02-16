@@ -1,6 +1,7 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [opened]="true">
         <ul>
+            <h1>{{ firstName }} {{ lastName }}</h1>
             <h2>Parameters</h2>
             <li>
                 <button mat-button (click)="logOut()">Logout</button>
