@@ -1,20 +1,21 @@
 import * as qs from 'qs';
 
-import { AreaServiceComponent } from '../area-service/area-service.component';
+import { Service } from 'src/app/home/home.component';
+import { getRegexFromOAuthWindowPopup } from '../getRegexFromOAuthWindowPopup';
 
 export const getAccessTokenFromImgur = async (
-    instance: AreaServiceComponent
+    service: Service
 ): Promise<string> => {
     const authorizeUrl =
-        instance.actionService.authorizeUrl +
+        service.authorizeUrl +
         '?' +
         qs.stringify({
-            response_type: instance.actionService.responseType,
-            client_id: instance.actionService.clientId,
-            scope: instance.actionService.scope
+            client_id: service.clientId,
+            response_type: service.responseType,
+            scope: service.scope
         });
 
-    const OAuth2_Response = await instance.authService.auth(
+    const OAuth2_Response = await getRegexFromOAuthWindowPopup(
         authorizeUrl,
         /access_token=([^&]*)/
     );

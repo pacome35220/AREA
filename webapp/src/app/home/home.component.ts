@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import axios from 'axios';
 
 import { environment } from 'src/environments/environment';
 
 import { AppAuthService } from '../services/app-auth.service';
-import { AreaServiceComponent } from '../services/area-service/area-service.component';
 
 import { getAccessTokenFromGithub } from '../services/github/github';
 import { getAccessTokenFromDiscord } from '../services/discord/discord';
 import { getAccessTokenFromFacebook } from '../services/facebook/facebook';
 import { getAccessTokenFromImgur } from '../services/imgur/imgur';
 import { getAccessTokenFromOffice365 } from '../services/office365/office365';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface Service {
     name: string;
     description: string;
     image: string;
+    isGenericReaction: boolean;
 
     actionDescription: string;
     specificReactionDescription: string;
     genericReactionDescription: string;
 
-    authenticateAction: (instance: AreaServiceComponent) => Promise<string>;
+    authenticateAction: (service: Service) => Promise<string>;
 
     authorizeUrl: string;
     redirectUrl: string;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
             name: 'Github',
             description: "The world's leading software development platform",
             image: '../../assets/github.svg',
+            isGenericReaction: false,
 
             actionDescription: 'If you push a new branch, ...',
             specificReactionDescription:
@@ -66,6 +68,7 @@ export class HomeComponent implements OnInit {
             name: 'Discord',
             description: 'Free Voice and Text Chat for G@mers',
             image: '../../assets/discord.svg',
+            isGenericReaction: true,
 
             actionDescription: 'If you are add to a channel, ...',
             specificReactionDescription:
@@ -88,6 +91,7 @@ export class HomeComponent implements OnInit {
             description:
                 'Facebook is a social utility that connects you with the people around you.',
             image: '../../assets/facebook.svg',
+            isGenericReaction: false,
 
             actionDescription: 'TODO',
             specificReactionDescription: 'TODO',
@@ -108,6 +112,7 @@ export class HomeComponent implements OnInit {
             name: 'Imgur',
             description: 'The magic of the Internet',
             image: '../../assets/imgur.svg',
+            isGenericReaction: true,
 
             actionDescription: 'TODO',
             specificReactionDescription: 'TODO',
@@ -129,6 +134,7 @@ export class HomeComponent implements OnInit {
             description:
                 'Empower every person and organisation on the planet to achieve more',
             image: '../../assets/microsoft.svg',
+            isGenericReaction: true,
 
             actionDescription: 'TODO',
             specificReactionDescription: 'TODO',
