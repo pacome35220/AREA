@@ -34,18 +34,17 @@ export class AreaServiceComponent implements OnInit {
     ) {}
 
     isAuthenticate() {
-        if (!this.actionAccessToken) {
-            return false;
-        }
-        if (this.reactionType === 'specific') {
+        if (this.actionAccessToken && this.reactionType === 'specific') {
             return true;
         } else if (
+            this.actionAccessToken &&
             this.reactionType === 'generic' &&
-            !this.reactionAccessToken
+            this.reactionAccessToken
         ) {
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
 
     @Input('authenticateAction') getAccessTokenFromCustomService: (
