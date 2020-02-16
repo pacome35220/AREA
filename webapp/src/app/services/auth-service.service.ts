@@ -1,23 +1,12 @@
 import { Injectable } from '@angular/core';
 
-export interface Service {
-    name: string;
-    authorizeUrl: string;
-    redirectUrl: string;
-    accessUrl: string;
-    clientId: string;
-    clientSecret: string;
-    scope?: string;
-    responseType?: string;
-}
-
 @Injectable({
     providedIn: 'root'
 })
 export class AuthServiceService {
     public auth(
         authorizeUrl: string,
-        urlParser: (url: string) => RegExpMatchArray
+        urlRegexParser: RegExp
     ): Promise<RegExpMatchArray> {
         return new Promise((resolve, reject) => {
             const popupWindow = this.createWindow(authorizeUrl, 'OAuth2 Login');
@@ -29,7 +18,9 @@ export class AuthServiceService {
                 }
 
                 if (popupWindow.location.href) {
-                    const params = urlParser(popupWindow.location.href);
+                    const params = popupWindow.location.href.match(
+                        urlRegexParser
+                    );
 
                     if (params) {
                         clearInterval(intervalId);

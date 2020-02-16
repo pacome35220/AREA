@@ -1,8 +1,34 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Service } from '../services/auth-service.service';
 import { AppAuthService } from '../services/app-auth.service';
+import { AreaServiceComponent } from '../services/area-service/area-service.component';
+
+import { getAccessTokenFromGithub } from '../services/github/github';
+import { getAccessTokenFromDiscord } from '../services/discord/discord';
+import { getAccessTokenFromFacebook } from '../services/facebook/facebook';
+import { getAccessTokenFromImgur } from '../services/imgur/imgur';
+import { getAccessTokenFromOffice365 } from '../services/office365/office365';
+
+export interface Service {
+    name: string;
+    description: string;
+    image: string;
+
+    actionDescription: string;
+    specificReactionDescription: string;
+    genericReactionDescription: string;
+
+    authenticateAction: (instance: AreaServiceComponent) => Promise<string>;
+
+    authorizeUrl: string;
+    redirectUrl: string;
+    accessUrl: string;
+    clientId: string;
+    clientSecret: string;
+    scope?: string;
+    responseType?: string;
+}
 
 @Component({
     selector: 'app-home',
@@ -13,6 +39,17 @@ export class HomeComponent {
     services: Service[] = [
         {
             name: 'Github',
+            description: "The world's leading software development platform",
+            image: '../../assets/github.svg',
+
+            actionDescription: 'If you push a new branch, ...',
+            specificReactionDescription:
+                '... a PR to master is create with this branch.',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromGithub,
+
             authorizeUrl: 'https://github.com/login/oauth/authorize',
             redirectUrl: 'http://localhost:4200/home',
             accessUrl: 'https://github.com/login/oauth/access_token',
@@ -22,6 +59,17 @@ export class HomeComponent {
         },
         {
             name: 'Discord',
+            description: 'Free Voice and Text Chat for G@mers',
+            image: '../../assets/discord.svg',
+
+            actionDescription: 'If you are add to a channel, ...',
+            specificReactionDescription:
+                '... a random message is send into it.',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromDiscord,
+
             authorizeUrl: 'https://discordapp.com/api/oauth2/authorize',
             redirectUrl: 'http://localhost:4200/home',
             accessUrl: 'https://discordapp.com/api/oauth2/token',
@@ -32,6 +80,17 @@ export class HomeComponent {
         },
         {
             name: 'Facebook',
+            description:
+                'Facebook is a social utility that connects you with the people around you.',
+            image: '../../assets/facebook.svg',
+
+            actionDescription: 'TODO',
+            specificReactionDescription: 'TODO',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromFacebook,
+
             authorizeUrl: 'https://m.facebook.com/dialog/oauth/',
             redirectUrl: 'https://www.facebook.com/connect/login_success.html',
             accessUrl: '',
@@ -42,6 +101,16 @@ export class HomeComponent {
         },
         {
             name: 'Imgur',
+            description: 'The magic of the Internet',
+            image: '../../assets/imgur.svg',
+
+            actionDescription: 'TODO',
+            specificReactionDescription: 'TODO',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromImgur,
+
             authorizeUrl: 'https://api.imgur.com/oauth2/authorize',
             redirectUrl: 'http://localhost:4200/home',
             accessUrl: '',
@@ -52,6 +121,17 @@ export class HomeComponent {
         },
         {
             name: 'Office365',
+            description:
+                'Empower every person and organisation on the planet to achieve more',
+            image: '../../assets/microsoft.svg',
+
+            actionDescription: 'TODO',
+            specificReactionDescription: 'TODO',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromOffice365,
+
             authorizeUrl:
                 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize',
             redirectUrl: 'http://localhost:4200/home',

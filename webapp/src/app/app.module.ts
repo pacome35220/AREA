@@ -28,11 +28,8 @@ import { SignupFormComponent } from './landing-screen/signup-form/signup-form.co
 import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
-import { GithubComponent } from './services/github/github.component';
-import { DiscordComponent } from './services/discord/discord.component';
-import { FacebookComponent } from './services/facebook/facebook.component';
-import { ImgurComponent } from './services/imgur/imgur.component';
-import { Office365Component } from './services/office365/office365.component';
+
+import { AreaServiceComponent } from './services/area-service/area-service.component';
 
 @NgModule({
     declarations: [
@@ -40,11 +37,7 @@ import { Office365Component } from './services/office365/office365.component';
         SignupFormComponent,
         SigninFormComponent,
         HomeComponent,
-        GithubComponent,
-        DiscordComponent,
-        FacebookComponent,
-        ImgurComponent,
-        Office365Component
+        AreaServiceComponent
     ],
     imports: [
         BrowserModule,
