@@ -200,7 +200,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
