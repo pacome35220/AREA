@@ -27,7 +27,7 @@
 
         <h3>You want generic reaction ?</h3>
         <mat-checkbox (change)="onChangeReactionType($event)">
-            {{ genericReactionDescription }}
+            A text representing the action is send to
         </mat-checkbox>
 
         <ng-container *ngIf="reactionType == 'generic'">

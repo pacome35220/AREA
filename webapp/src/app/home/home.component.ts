@@ -24,7 +24,6 @@ export interface Service {
     isGenericReaction: boolean;
 
     areas: [string, string][];
-    genericReactionDescription: string;
 
     authenticateAction: (service: Service) => Promise<string>;
 
@@ -56,8 +55,6 @@ export class HomeComponent implements OnInit {
                     'a PR to master is create with this branch.'
                 ]
             ],
-            genericReactionDescription:
-                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromGithub,
 
@@ -80,8 +77,6 @@ export class HomeComponent implements OnInit {
                     'a random message is send into it.'
                 ]
             ],
-            genericReactionDescription:
-                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromDiscord,
 
@@ -101,8 +96,6 @@ export class HomeComponent implements OnInit {
             isGenericReaction: true,
 
             areas: [['TODO', 'TODO']],
-            genericReactionDescription:
-                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromFacebook,
 
@@ -121,8 +114,6 @@ export class HomeComponent implements OnInit {
             isGenericReaction: false,
 
             areas: [['TODO', 'TODO']],
-            genericReactionDescription:
-                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromImgur,
 
@@ -142,8 +133,6 @@ export class HomeComponent implements OnInit {
             isGenericReaction: true,
 
             areas: [['TODO', 'TODO']],
-            genericReactionDescription:
-                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromOffice365,
 
@@ -159,14 +148,11 @@ export class HomeComponent implements OnInit {
         },
         {
             name: 'Youtube',
-            description: 'The most used video streaming site',
+            description: 'Broadcast Yourself',
             image: '../../assets/youtube.svg',
-            isGenericReaction: true,
+            isGenericReaction: false,
 
-            actionDescription: 'TODO',
-            specificReactionDescription: 'TODO',
-            genericReactionDescription:
-                '... a text representing the action is send to ...',
+            areas: [['TODO', 'TODO']],
 
             authenticateAction: getAccessTokenFromYoutube,
 
@@ -181,14 +167,11 @@ export class HomeComponent implements OnInit {
         },
         {
             name: 'LinkedIn',
-            description: 'The most used video streaming site',
+            description: 'Le réseau social de Curtis',
             image: '../../assets/linkedin.svg',
             isGenericReaction: true,
 
-            actionDescription: 'TODO',
-            specificReactionDescription: 'TODO',
-            genericReactionDescription:
-                '... a text representing the action is send to ...',
+            areas: [['TODO', 'TODO']],
 
             authenticateAction: getAccessTokenFromLinkedIn,
 
