@@ -1,10 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { Service } from 'src/app/home/home.component';
-import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
+import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+
+import axios from 'axios';
+
+import { environment } from 'src/environments/environment';
+import { AppAuthService } from '../app-auth.service';
+import { Service } from 'src/app/home/home.component';
 
 @Component({
     selector: 'app-area-service',
@@ -32,7 +37,11 @@ export class AreaServiceComponent implements OnInit {
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
-    constructor(private snackBar: MatSnackBar) {}
+    constructor(
+        private snackBar: MatSnackBar,
+        private appAuthService: AppAuthService,
+        private router: Router
+    ) {}
 
     onChangeAREA(event: MatRadioChange) {
         const value: [string, string] = event.value;
@@ -107,24 +116,64 @@ export class AreaServiceComponent implements OnInit {
     }
 
     async registerAREA() {
-        const specificData = {
-            serviceName: this.name,
-            areaId: this.areaId,
-            actionAccessToken: this.actionAccessToken
-        };
-        const genericData = {
-            actionServiceName: this.name,
-            actionId: this.areaId,
-            actionAccessToken: this.actionAccessToken,
-            reactionServiceName: this.reactionServiceName,
-            reactionAccessToken: this.reactionAccessToken
+        const credentials = this.appAuthService.getCredentials();
+
+        if (!credentials) {
+            this.snackBar.open(`Please signin to use AREA`, 'Signin', {
+                duration: 2000
+            });
+            this.router.navigateByUrl('signin');
+            return;
+        }
+        const config = {
+            auth: {
+                username: credentials.username,
+                password: credentials.password
+            }
         };
 
         if (this.reactionType === 'generic') {
+            const genericData = {
+                actionServiceName: this.name,
+                actionId: this.areaId,
+                actionAccessToken: this.actionAccessToken,
+                reactionServiceName: this.reactionServiceName,
+                reactionAccessToken: this.reactionAccessToken
+            };
             console.log(genericData);
+            axios
+                .post(
+                    `${environment.serverUrl}/register-generic-area`,
+                    genericData,
+                    config
+                )
+                .then(response => console.log(`C'est bon: , ${response}`))
+                .catch(err => {
+                    this.snackBar.open(`An error occured : ${err}`, 'Retry', {
+                        duration: 2000
+                    });
+                });
         }
+
         if (this.reactionType === 'specific') {
+            const specificData = {
+                serviceName: this.name,
+                areaId: this.areaId,
+                actionAccessToken: this.actionAccessToken
+            };
             console.log(specificData);
+            axios
+                .post(
+                    `${environment.serverUrl}/register-specific-area`,
+                    specificData,
+                    config
+                )
+                .then(response => console.log(`C'est bon: , ${response}`))
+                .catch(err => {
+                    this.snackBar.open(`An error occured : ${err}`, 'Retry', {
+                        duration: 2000
+                    });
+                });
         }
     }
 
