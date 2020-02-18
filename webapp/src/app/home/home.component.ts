@@ -15,6 +15,7 @@ import { getAccessTokenFromFacebook } from '../services/facebook/facebook';
 import { getAccessTokenFromImgur } from '../services/imgur/imgur';
 import { getAccessTokenFromOffice365 } from '../services/office365/office365';
 import { getAccessTokenFromYoutube } from '../services/youtube/youtube';
+import { getAccessTokenFromLinkedIn } from '../services/linkedin/linkedin';
 
 export interface Service {
     name: string;
@@ -175,6 +176,27 @@ export class HomeComponent implements OnInit {
             clientSecret: '',
             scope: 'email profile openid',
             responseType: 'token'
+        },
+        {
+            name: 'LinkedIn',
+            description: 'The most used video streaming site',
+            image: '../../assets/linkedin.svg',
+            isGenericReaction: true,
+
+            actionDescription: 'TODO',
+            specificReactionDescription: 'TODO',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromLinkedIn,
+
+            authorizeUrl: 'https://www.linkedin.com/oauth/v2/authorization',
+            redirectUrl: 'http://localhost:4200/home',
+            accessUrl: 'https://www.linkedin.com/oauth/v2/accessToken',
+            clientId: '86v21lx86n52vp',
+            clientSecret: 'Sz6abc1pM5gq65x0',
+            scope: 'r_emailaddress r_liteprofile w_member_social',
+            responseType: 'code'
         }
     ];
 
