@@ -14,6 +14,7 @@ import { getAccessTokenFromDiscord } from '../services/discord/discord';
 import { getAccessTokenFromFacebook } from '../services/facebook/facebook';
 import { getAccessTokenFromImgur } from '../services/imgur/imgur';
 import { getAccessTokenFromOffice365 } from '../services/office365/office365';
+import { getAccessTokenFromYoutube } from '../services/youtube/youtube';
 
 export interface Service {
     name: string;
@@ -152,6 +153,28 @@ export class HomeComponent implements OnInit {
             clientSecret: '',
             scope: 'User.Read profile openid email',
             responseType: 'token'
+        },
+        {
+            name: 'Youtube',
+            description: 'The most used video streaming site',
+            image: '../../assets/youtube.svg',
+            isGenericReaction: true,
+
+            actionDescription: 'TODO',
+            specificReactionDescription: 'TODO',
+            genericReactionDescription:
+                '... a text representing the action is send to ...',
+
+            authenticateAction: getAccessTokenFromYoutube,
+
+            authorizeUrl: 'https://accounts.google.com/o/oauth2/auth',
+            redirectUrl: 'http://localhost:4200/home',
+            accessUrl: 'https://accounts.google.com/o/oauth2/auth/token',
+            clientId:
+                '613211284635-db38gk0du0cllj0gfpqonm008fe2t29p.apps.googleusercontent.com',
+            clientSecret: '',
+            scope: 'email profile openid',
+            responseType: 'token'
         }
     ];
 
@@ -170,6 +193,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
