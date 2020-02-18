@@ -39,6 +39,7 @@ namespace Area.Views
 			Application.Current.SavePropertiesAsync(); //force save tmp
 		}
 
+
 		async void OnLoginClicked(object sender, EventArgs e)
 		{
 			string email = Entry_Mail.Text;
@@ -114,10 +115,69 @@ namespace Area.Views
 			presenter.Login(authenticator);
 		}
 
+		private class GoogleUserInfo {
+			public string email { get; set; }
+			public string verified_email { get; set; }
+			public string name { get; set; }
+			public string given_name { get; set; }
+			public string family_name { get; set; }
+			public string picture { get; set; }
+		}
+
+		//todo mdrrr create a real function and learn how to code sob (think about reference) --> httpclient
+		async void CreateAccountGoogleAuth(GoogleUserInfo googleUser)
+		{
+
+			User user = new User(googleUser.given_name, googleUser.family_name, googleUser.email);
+			/*Http Auth*/
+			var authData = string.Format("{0}:{1}", googleUser.email, "LOLILOL12"); //todo how to deal with the password in this case ? ask pacome
+			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
+
+			_client = new HttpClient(); ///NSUrlSessionHandler() by default for ios
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
+
+			var stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+
+			/*connect to api here !*/
+			await DisplayAlert("Test", JsonConvert.SerializeObject(user), "OK");
+
+			if (Device.RuntimePlatform == Device.iOS)
+				_client.BaseAddress = new Uri("http://localhost:8080"); //set base url. ios's localhost: 127.0.0.1
+			else if (Device.RuntimePlatform == Device.Android)
+				_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //set base url. android's localhost: 10.0.2.2
+			else
+				_client.BaseAddress = new Uri("http://107.0.0.1:8080"); //set base url windows 's localhost 127.0.0.1 not sure
+
+			var response = await _client.PostAsync("/user/signup", stringContent);
+			string content = await response.Content.ReadAsStringAsync();
+			await DisplayAlert("Content", content, "OK");
+			//redirect to login page if 201 have been sent
+			if (response.StatusCode == System.Net.HttpStatusCode.OK) //todo 201 code success instead of 200 check with pacpac
+			{
+				await DisplayAlert("Sign up", "Account created !", "OK");
+				var responseAuth = await _client.GetAsync("/user/me");
+				if (responseAuth.StatusCode == System.Net.HttpStatusCode.OK)
+				{
+					SaveUserInfo(user.email, user.password, true);
+					await DisplayAlert("Login", "Success", "OK");
+					await Navigation.PushAsync(new DashBoard());
+					Navigation.RemovePage(Navigation.NavigationStack[0]); // remove the root page
+				}
+				else
+				{
+					await DisplayAlert("Login", "FAILED", "KO");
+				}
+			}
+			else
+			{
+				await DisplayAlert("Sign up failed", response.ToString(), "KO");
+			}
+		}
+
 		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
 		{
 			var authenticator = sender as OAuth2Authenticator;
-			User user = null;
+			GoogleUserInfo user = null;
 
 			if (authenticator != null)
 			{
@@ -135,7 +195,8 @@ namespace Area.Views
 					// Deserialize the data and store it in the account store
 					// The users email address will be used to identify data in SimpleDB
 					string userJson = await response.GetResponseTextAsync();
-					user = JsonConvert.DeserializeObject<User>(userJson);
+					await DisplayAlert("JSON", userJson, "OK");
+					user = JsonConvert.DeserializeObject<GoogleUserInfo>(userJson);
 				}
 
 				if (account != null)
@@ -145,12 +206,13 @@ namespace Area.Views
 
 				//await store.SaveAsync(account = e.Account, Constants.AppName);
 				await DisplayAlert("Email address", user.email, "OK");
-				await DisplayAlert("Family name address", user.lastName, "OK");
-				await DisplayAlert("Name address", user.firstName, "OK");
-				await DisplayAlert("Picture address", user.picture, "OK");
-				await DisplayAlert("Link address", user.link, "OK");
-				await DisplayAlert("Id address", user.id, "OK");
+				await DisplayAlert("Family name address", user.verified_email, "OK");
+				await DisplayAlert("Name address", user.name, "OK");
+				await DisplayAlert("Picture address", user.given_name, "OK");
+				await DisplayAlert("Link address", user.family_name, "OK");
+				await DisplayAlert("Id address", user.picture, "OK");
 				//todo signup/signin
+				CreateAccountGoogleAuth(user);
 
 			}
 		}

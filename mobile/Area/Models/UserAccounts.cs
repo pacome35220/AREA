@@ -17,11 +17,13 @@ namespace Area.Models
 				accessToken = null;
 				action = null;
 				reaction = null;
+				serviceReaction = null;
 			}
 
 			public string accessToken { get; set; }
 			public string action { get; set; }
 			public string reaction { get; set;}
+			public string serviceReaction { get; set; }
 
 			public bool IsThereAnAccessToken()
 			{

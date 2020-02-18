@@ -9,7 +9,6 @@
     <ContentPage.BindingContext>
         <local:DashboardViewModel />
     </ContentPage.BindingContext>
-
 	<ContentPage.Content>
 		<StackLayout>
 			<ListView ItemsSource="{Binding Items}" CachingStrategy="RecycleElement" HasUnevenRows="True">
