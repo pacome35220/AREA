@@ -1,21 +1,22 @@
 import * as qs from 'qs';
 
-import { AreaServiceComponent } from '../area-service/area-service.component';
+import { Service } from 'src/app/home/home.component';
+import { getRegexFromOAuthWindowPopup } from '../getRegexFromOAuthWindowPopup';
 
 export const getAccessTokenFromFacebook = async (
-    instance: AreaServiceComponent
+    service: Service
 ): Promise<string> => {
     const authorizeUrl =
-        instance.actionService.authorizeUrl +
+        service.authorizeUrl +
         '?' +
         qs.stringify({
-            client_id: instance.actionService.clientId,
-            response_type: instance.actionService.responseType,
-            redirect_uri: instance.actionService.redirectUrl,
+            client_id: service.clientId,
+            response_type: service.responseType,
+            redirect_uri: service.redirectUrl,
             state: 'abcd'
         });
 
-    const OAuth2_Response = await instance.authService.auth(
+    const OAuth2_Response = await getRegexFromOAuthWindowPopup(
         authorizeUrl,
         /access_token=((.+)&.+)&/
     );

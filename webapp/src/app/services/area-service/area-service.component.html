@@ -34,7 +34,7 @@
         <div *ngIf="reactionType == 'generic'">
             <mat-form-field>
                 <mat-label>Services availables</mat-label>
-                <mat-select>
+                <mat-select [(value)]="reactionServiceName">
                     <mat-option
                         *ngFor="let service of reactionServices"
                         [value]="service.name"
@@ -43,6 +43,15 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <div *ngIf="reactionServiceName != undefined">
+                <button
+                    mat-stroked-button
+                    color="primary"
+                    (click)="authenticateReaction()"
+                >
+                    Authenticate
+                </button>
+            </div>
         </div>
 
         <button

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { AuthServiceService } from '../auth-service.service';
 import { Service } from 'src/app/home/home.component';
 
 @Component({
@@ -12,7 +11,9 @@ import { Service } from 'src/app/home/home.component';
 })
 export class AreaServiceComponent implements OnInit {
     @Input() reactionServices: Service[];
+
     actionService: Service;
+    reactionServiceName: string;
 
     @Input() name: string;
     @Input() description: string;
@@ -28,10 +29,7 @@ export class AreaServiceComponent implements OnInit {
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
-    constructor(
-        private snackBar: MatSnackBar,
-        public authService: AuthServiceService
-    ) {}
+    constructor(private snackBar: MatSnackBar) {}
 
     isAuthenticate() {
         if (this.actionAccessToken && this.reactionType === 'specific') {
@@ -48,11 +46,11 @@ export class AreaServiceComponent implements OnInit {
     }
 
     @Input('authenticateAction') getAccessTokenFromCustomService: (
-        instance: AreaServiceComponent
+        service: Service
     ) => Promise<string>;
 
     authenticateAction() {
-        this.getAccessTokenFromCustomService(this)
+        this.getAccessTokenFromCustomService(this.actionService)
             .then(access_token => {
                 this.actionAccessToken = access_token;
                 console.log(
@@ -66,15 +64,52 @@ export class AreaServiceComponent implements OnInit {
             });
     }
 
-    async registerAREA() {
-        console.log(
-            `registerAREA - ${this.name} access_token : ${this.actionAccessToken}`
+    authenticateReaction() {
+        const selectedReactionService = this.reactionServices.find(
+            service => service.name === this.reactionServiceName
         );
+
+        selectedReactionService
+            .authenticateAction(selectedReactionService)
+            .then(access_token => {
+                this.reactionAccessToken = access_token;
+                console.log(
+                    `${selectedReactionService.name} access_token : ${this.reactionAccessToken}`
+                );
+            })
+            .catch(error => {
+                this.snackBar.open(`Access denied: ${error}`, 'Retry', {
+                    duration: 2000
+                });
+            });
+    }
+
+    async registerAREA() {
+        const specificData = {
+            name: this.name,
+            reactionType: this.reactionType,
+            actionAccessToken: this.actionAccessToken
+        };
+        const genericData = {
+            ...specificData,
+            reactionName: this.reactionServiceName,
+            reactionAccessToken: this.reactionAccessToken
+        };
+
+        if (this.reactionType === 'generic') {
+            console.log(genericData);
+        }
+        if (this.reactionType === 'specific') {
+            console.log(specificData);
+        }
     }
 
     ngOnInit() {
         this.actionService = this.reactionServices.find(
             service => service.name === this.name
+        );
+        this.reactionServices = this.reactionServices.filter(
+            service => service.isGenericReaction
         );
     }
 }
