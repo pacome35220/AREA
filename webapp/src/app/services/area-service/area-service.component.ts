@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Service } from 'src/app/home/home.component';
+import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-area-service',
@@ -19,24 +21,44 @@ export class AreaServiceComponent implements OnInit {
     @Input() description: string;
     @Input() image: string;
 
-    @Input() actionDescription: string;
+    @Input() areas: [string, string][];
 
-    @Input() specificReactionDescription: string;
     @Input() genericReactionDescription: string;
 
-    reactionType: 'generic' | 'specific';
+    reactionType: 'generic' | 'specific' = 'specific';
+
+    areaId: number = -1;
 
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
     constructor(private snackBar: MatSnackBar) {}
 
+    onChangeAREA(event: MatRadioChange) {
+        const value: [string, string] = event.value;
+
+        this.areas.forEach((area, index) => {
+            if (value[0] === area[0] && value[1] === area[1]) {
+                this.areaId = index;
+            }
+        });
+    }
+
+    onChangeReactionType(event: MatCheckboxChange) {
+        this.reactionType = event.checked ? 'generic' : 'specific';
+    }
+
     isAuthenticate() {
-        if (this.actionAccessToken && this.reactionType === 'specific') {
+        if (
+            this.actionAccessToken &&
+            this.reactionType === 'specific' &&
+            this.areaId !== -1
+        ) {
             return true;
         } else if (
             this.actionAccessToken &&
             this.reactionType === 'generic' &&
+            this.areaId !== -1 &&
             this.reactionAccessToken
         ) {
             return true;
@@ -86,13 +108,15 @@ export class AreaServiceComponent implements OnInit {
 
     async registerAREA() {
         const specificData = {
-            name: this.name,
-            reactionType: this.reactionType,
+            serviceName: this.name,
+            areaId: this.areaId,
             actionAccessToken: this.actionAccessToken
         };
         const genericData = {
-            ...specificData,
-            reactionName: this.reactionServiceName,
+            actionServiceName: this.name,
+            actionId: this.areaId,
+            actionAccessToken: this.actionAccessToken,
+            reactionServiceName: this.reactionServiceName,
             reactionAccessToken: this.reactionAccessToken
         };
 

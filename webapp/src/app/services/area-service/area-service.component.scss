@@ -7,6 +7,18 @@ mat-card {
             align-self: baseline;
         }
     }
+
+    mat-card-content {
+        mat-checkbox {
+            margin-right: 10px;
+        }
+    }
+
+    mat-card-actions {
+        button {
+            width: 100%;
+        }
+    }
 }
 
 mat-radio-group {

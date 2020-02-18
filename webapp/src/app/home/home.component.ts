@@ -23,8 +23,7 @@ export interface Service {
     image: string;
     isGenericReaction: boolean;
 
-    actionDescription: string;
-    specificReactionDescription: string;
+    areas: [string, string][];
     genericReactionDescription: string;
 
     authenticateAction: (service: Service) => Promise<string>;
@@ -51,11 +50,14 @@ export class HomeComponent implements OnInit {
             image: '../../assets/github.svg',
             isGenericReaction: false,
 
-            actionDescription: 'If you push a new branch, ...',
-            specificReactionDescription:
-                '... a PR to master is create with this branch.',
+            areas: [
+                [
+                    'If you push a new branch',
+                    'a PR to master is create with this branch.'
+                ]
+            ],
             genericReactionDescription:
-                '... a text representing the action is send to ...',
+                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromGithub,
 
@@ -72,11 +74,14 @@ export class HomeComponent implements OnInit {
             image: '../../assets/discord.svg',
             isGenericReaction: true,
 
-            actionDescription: 'If you are add to a channel, ...',
-            specificReactionDescription:
-                '... a random message is send into it.',
+            areas: [
+                [
+                    'If you are add to a channel',
+                    'a random message is send into it.'
+                ]
+            ],
             genericReactionDescription:
-                '... a text representing the action is send to ...',
+                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromDiscord,
 
@@ -93,12 +98,11 @@ export class HomeComponent implements OnInit {
             description:
                 'Facebook is a social utility that connects you with the people around you.',
             image: '../../assets/facebook.svg',
-            isGenericReaction: false,
+            isGenericReaction: true,
 
-            actionDescription: 'TODO',
-            specificReactionDescription: 'TODO',
+            areas: [['TODO', 'TODO']],
             genericReactionDescription:
-                '... a text representing the action is send to ...',
+                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromFacebook,
 
@@ -114,12 +118,11 @@ export class HomeComponent implements OnInit {
             name: 'Imgur',
             description: 'The magic of the Internet',
             image: '../../assets/imgur.svg',
-            isGenericReaction: true,
+            isGenericReaction: false,
 
-            actionDescription: 'TODO',
-            specificReactionDescription: 'TODO',
+            areas: [['TODO', 'TODO']],
             genericReactionDescription:
-                '... a text representing the action is send to ...',
+                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromImgur,
 
@@ -138,10 +141,9 @@ export class HomeComponent implements OnInit {
             image: '../../assets/microsoft.svg',
             isGenericReaction: true,
 
-            actionDescription: 'TODO',
-            specificReactionDescription: 'TODO',
+            areas: [['TODO', 'TODO']],
             genericReactionDescription:
-                '... a text representing the action is send to ...',
+                'A text representing the action is send to',
 
             authenticateAction: getAccessTokenFromOffice365,
 

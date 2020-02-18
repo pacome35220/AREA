@@ -14,24 +14,23 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <span></span>
-        <h3>Action:</h3>
-        <mat-radio-group color="primary">
-            <mat-radio-button checked>
-                {{ actionDescription }}
+        <h3>AREA:</h3>
+        <mat-radio-group color="primary" (change)="onChangeAREA($event)">
+            <mat-radio-button [value]="area" *ngFor="let area of areas">
+                {{ area[0] }}
+                <ng-container
+                    *ngIf="!reactionType || reactionType === 'specific'"
+                    >, {{ area[1] }}</ng-container
+                >
             </mat-radio-button>
         </mat-radio-group>
 
-        <h3>Reaction:</h3>
-        <mat-radio-group color="primary" [(ngModel)]="reactionType">
-            <mat-radio-button value="specific">
-                {{ specificReactionDescription }}
-            </mat-radio-button>
-            <mat-radio-button value="generic">
-                {{ genericReactionDescription }}
-            </mat-radio-button>
-        </mat-radio-group>
+        <h3>You want generic reaction ?</h3>
+        <mat-checkbox (change)="onChangeReactionType($event)">
+            {{ genericReactionDescription }}
+        </mat-checkbox>
 
-        <div *ngIf="reactionType == 'generic'">
+        <ng-container *ngIf="reactionType == 'generic'">
             <mat-form-field>
                 <mat-label>Services availables</mat-label>
                 <mat-select [(value)]="reactionServiceName">
@@ -52,8 +51,9 @@
                     Authenticate
                 </button>
             </div>
-        </div>
-
+        </ng-container>
+    </mat-card-content>
+    <mat-card-actions>
         <button
             mat-flat-button
             color="primary"
@@ -62,5 +62,5 @@
         >
             Register AREA
         </button>
-    </mat-card-content>
+    </mat-card-actions>
 </mat-card>
