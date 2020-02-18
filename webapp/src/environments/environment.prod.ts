@@ -11,5 +11,6 @@ export const environment = {
         client_secret: 'FSGcVDISL9X9k4EIzjpXYRqj',
         javascript_origins: ['https://area.marc0.fr']
     },
-    serverUrl: 'https://area.marc0.fr/api'
+    serverUrl: 'https://area.marc0.fr/api',
+    redirectUrl: 'https://area.marc0.fr/home'
 };

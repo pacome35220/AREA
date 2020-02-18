@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromGithub,
 
             authorizeUrl: 'https://github.com/login/oauth/authorize',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl: 'https://github.com/login/oauth/access_token',
             clientId: '2166c135eda5e417e5ee',
             clientSecret: '73b3322d4e0ed51ddff48f4211e4490d1d9c466d',
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromDiscord,
 
             authorizeUrl: 'https://discordapp.com/api/oauth2/authorize',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl: 'https://discordapp.com/api/oauth2/token',
             clientId: '666941488562831380',
             clientSecret: 'xrVr4YymEMjDN-IPTuq-aME7KIOPFoLQ',
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromImgur,
 
             authorizeUrl: 'https://api.imgur.com/oauth2/authorize',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl: '',
             clientId: '6b5472c176e8f40',
             clientSecret: '',
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
 
             authorizeUrl:
                 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl:
                 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token',
             clientId: '16d5ca0a-267b-43c2-ab71-fe0418a8ad2f',
@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromYoutube,
 
             authorizeUrl: 'https://accounts.google.com/o/oauth2/auth',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl: 'https://accounts.google.com/o/oauth2/auth/token',
             clientId:
                 '613211284635-db38gk0du0cllj0gfpqonm008fe2t29p.apps.googleusercontent.com',
@@ -176,7 +176,7 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromLinkedIn,
 
             authorizeUrl: 'https://www.linkedin.com/oauth/v2/authorization',
-            redirectUrl: 'http://localhost:4200/home',
+            redirectUrl: environment.redirectUrl,
             accessUrl: 'https://www.linkedin.com/oauth/v2/accessToken',
             clientId: '86v21lx86n52vp',
             clientSecret: 'Sz6abc1pM5gq65x0',

@@ -15,7 +15,8 @@ export const environment = {
         client_secret: 'FSGcVDISL9X9k4EIzjpXYRqj',
         javascript_origins: ['http://localhost:4200']
     },
-    serverUrl: 'http://localhost:8080'
+    serverUrl: 'http://localhost:8080',
+    redirectUrl: 'http://localhost:4200/home'
 };
 
 /*
