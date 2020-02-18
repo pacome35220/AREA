@@ -26,13 +26,33 @@
 				 WidthRequest="300"
                  HorizontalOptions="Center"
                  VerticalOptions="Center">
+		<StackLayout>
+		</StackLayout>
         <StackLayout>
 			<pages1:Picker
-					ItemsSource="{Binding Area}"
-					x:Name="picker"
-					SelectedItem="{Binding Area}"
+					ItemsSource="{Binding Services}"
+					ClassId="Services"
+					SelectedItem="{Binding Services}"
 					TextColor="Black"
-					Title="{Binding Title}"
+					Title="Select a Service"
+					SelectedIndexChanged="OnPickerSelectedIndexChanged"
+					TitleColor="#9ed0ff">
+			</pages1:Picker>
+			<pages1:Picker
+					ItemsSource="{Binding Actions}"
+					ClassId="Actions"
+					SelectedItem="{Binding Actions}"
+					TextColor="Black"
+					Title="Select an action"
+					SelectedIndexChanged="OnPickerSelectedIndexChanged"
+					TitleColor="#9ed0ff">
+			</pages1:Picker>
+			<pages1:Picker
+					ItemsSource="{Binding Reactions}"
+					x:Name="Reactions"
+					SelectedItem="{Binding Reactions}"
+					TextColor="Black"
+					Title="Select a reaction"
 					SelectedIndexChanged="OnPickerSelectedIndexChanged"
 					TitleColor="#9ed0ff">
 			</pages1:Picker>
