@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
     res.send(`Api is UP in ${Date.now() - res.locals.timestamp}`);
 });
 
-app.use((err: any, req: Request, res: Response) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
     res.status(500).end();
 });
