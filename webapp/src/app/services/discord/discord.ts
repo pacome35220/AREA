@@ -17,7 +17,7 @@ export const getAccessTokenFromDiscord = async (
 
     const OAuth2_Response = await getRegexFromOAuthWindowPopup(
         authorizeUrl,
-        /access_token=((.+)&.+)&/
+        /access_token=([^&]*)/
     );
-    return OAuth2_Response[2];
+    return OAuth2_Response[1];
 };
