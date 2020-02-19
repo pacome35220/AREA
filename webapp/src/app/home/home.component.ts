@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
             accessUrl: 'https://discordapp.com/api/oauth2/token',
             clientId: '666941488562831380',
             clientSecret: 'xrVr4YymEMjDN-IPTuq-aME7KIOPFoLQ',
-            scope: 'identify email connections',
+            scope: 'identify email connections bot',
             responseType: 'token'
         },
         {
@@ -200,6 +200,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
