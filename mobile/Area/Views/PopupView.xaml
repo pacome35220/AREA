@@ -4,7 +4,8 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-				 xmlns:pages1="http://xamarin.com/schemas/2014/forms">
+				 xmlns:pages1="http://xamarin.com/schemas/2014/forms"
+				 xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android">
 
 	    <!--  You can set an animation in the xaml file or in the csharp code behind  -->
     <pages:PopupPage.Animation>
@@ -30,15 +31,6 @@
 		</StackLayout>
         <StackLayout>
 			<pages1:Picker
-					ItemsSource="{Binding Services}"
-					ClassId="Services"
-					SelectedItem="{Binding Services}"
-					TextColor="Black"
-					Title="Select a Service"
-					SelectedIndexChanged="OnPickerSelectedIndexChanged"
-					TitleColor="#9ed0ff">
-			</pages1:Picker>
-			<pages1:Picker
 					ItemsSource="{Binding Actions}"
 					ClassId="Actions"
 					SelectedItem="{Binding Actions}"
@@ -47,6 +39,18 @@
 					SelectedIndexChanged="OnPickerSelectedIndexChanged"
 					TitleColor="#9ed0ff">
 			</pages1:Picker>
+
+			<pages1:Picker
+				ItemsSource="{Binding Services}"
+				ClassId="Services"
+				SelectedItem="{Binding Services}"
+				TextColor="Black"
+				Title="Select a Service"
+				SelectedIndexChanged="OnPickerSelectedIndexChanged"
+				IsVisible="{Binding IsItGeneral}"
+				TitleColor="#9ed0ff">
+			</pages1:Picker>
+
 			<pages1:Picker
 					ItemsSource="{Binding Reactions}"
 					x:Name="Reactions"

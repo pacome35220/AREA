@@ -16,6 +16,37 @@ namespace Area.Models
 		public string _email { get; set; }
 		public string _password { get; set; }
 
+		public class SpecificArea
+		{
+			public SpecificArea(string serviceName, int areaId, string actionAccessToken)
+			{
+				this.serviceName = serviceName;
+				this.areaId = areaId;
+				this.actionAccessToken = actionAccessToken;
+			}
+			public string serviceName;
+			public int areaId;
+			public string actionAccessToken;
+		}
+
+		public class GenericArea
+		{
+			public GenericArea(string actionServiceName, int actionId, string actionAccessToken, string reactionServiceName, string reactionAccessToken)
+			{
+				this.actionServiceName = actionServiceName;
+				this.actionId = actionId;
+				this.actionAccessToken = actionAccessToken;
+				this.reactionServiceName = reactionServiceName;
+				this.reactionAccessToken = reactionAccessToken;
+			}
+
+			public string actionServiceName;
+			public int actionId;
+			public string actionAccessToken;
+			public string reactionServiceName;
+			public string reactionAccessToken;
+		}
+
 		public HttpClientRequests(string email, string password)
 		{
 			_email = email;
@@ -56,5 +87,30 @@ namespace Area.Models
 
 			return response.StatusCode;
 		}
+
+		async public Task<System.Net.HttpStatusCode> ModifyUser(User user)
+		{
+			var stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+			var response = await _client.PutAsync("/user/signup", stringContent);
+
+			return response.StatusCode;
+		}
+
+		async public Task<System.Net.HttpStatusCode> RegisterSpecificArea(SpecificArea packet)
+		{
+			var stringContent = new StringContent(JsonConvert.SerializeObject(packet), Encoding.UTF8, "application/json");
+			var response = await _client.PostAsync("/register-specific-area", stringContent);
+
+			return response.StatusCode;
+		}
+
+		async public Task<System.Net.HttpStatusCode> RegisterGenericArea(GenericArea packet)
+		{
+			var stringContent = new StringContent(JsonConvert.SerializeObject(packet), Encoding.UTF8, "application/json");
+			var response = await _client.PostAsync("/register-generic-area", stringContent);
+
+			return response.StatusCode;
+		}
+
 	}
 }

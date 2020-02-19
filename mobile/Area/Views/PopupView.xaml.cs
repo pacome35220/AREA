@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Area.Models;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
@@ -9,19 +12,64 @@ namespace Area.Views
 {
 	public partial class PopupView
 	{
+		Service _currentService;
 		private class DisplayedData
 		{
+			//public event PropertyChangedEventHandler PropertyChanged;
 			public List<string> Services { get; set; }
+			public bool IsItGeneral { get; set;}
 			public List<string> Reactions { get; set; }
 			public List<string> Actions { get; set; }
 		}
+		DisplayedData _displayedData;
 
-		Service _currentService;
+		private List<string> areasToActionsList(List<Service.Area> areas)
+		{
+			List<string> actionList = new List<string>();
+
+			foreach (Service.Area area in areas)
+			{
+				actionList.Add(area.action);	
+			}
+			return actionList;
+		}
+
+		private List<string> areasToReactionsList(List<Service.Area> areas)
+		{
+			List<string> reactionList = new List<string>();
+
+			foreach (Service.Area area in areas)
+			{
+				reactionList.Add(area.reaction);
+			}
+			return reactionList;
+		}
+
+		private Service.Area getAreaByAction(List<Service.Area> areas, string action)
+		{
+			foreach (Service.Area area in areas)
+			{
+				if (area.action == action)
+					return area;
+			}
+			return new Service.Area(null, null, false);
+		}
+
+		private Service.Area getAreaByReaction(List<Service.Area> areas, string reaction)
+		{
+			foreach (Service.Area area in areas)
+			{
+				if (area.reaction == reaction)
+					return area;
+			}
+			return new Service.Area(null, null, false);
+		}
+
 
 		public PopupView(Service service)
 		{
 			//init displayed data 
-			DisplayedData displayedData = new DisplayedData();
+			_displayedData = new DisplayedData();
 			// no need to check the properties exist because if we are here it's means that UserAccount exist
 			var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
 
@@ -29,12 +77,12 @@ namespace Area.Views
 			_currentService = service;
 
 			//store displayed data
-			displayedData.Services = userAccountsProperty.UserServices.Select(x => x.Key).ToList(); //get all services that the user get auth
-			displayedData.Reactions = service.reactions;
-			displayedData.Actions = service.actions;
-
+			_displayedData.Services = userAccountsProperty.UserServices.Select(x => x.Key).ToList(); //get all services that the user get auth
+			_displayedData.Reactions = areasToReactionsList(service.area);
+			_displayedData.Actions = areasToActionsList(service.area);
+			_displayedData.IsItGeneral = true;
 			//binding it to the xaml
-			this.BindingContext = displayedData;
+			this.BindingContext = _displayedData;
 			InitializeComponent();
 		}
 
@@ -54,29 +102,112 @@ namespace Area.Views
 				{
 					//we check the current pickername
 					//we store data inside properties
-					if (pickerName == "Services")
-						userAccountsProperty.UserServices[_currentService.name].serviceReaction = picker.SelectedItem.ToString(); // This is the model selected in the picker
-					else if (pickerName == "Actions")
-						userAccountsProperty.UserServices[_currentService.name].action = picker.SelectedItem.ToString(); // This is the model selected in the picker
+					if (pickerName == "Actions")
+					{
+						Service.Area area = getAreaByAction(_currentService.area, picker.SelectedItem.ToString());
+						userAccountsProperty.UserServices[_currentService.name].action = area.action;// This is the model selected in the picker
+						//re init area values
+						userAccountsProperty.UserServices[_currentService.name].serviceReaction = null;
+						userAccountsProperty.UserServices[_currentService.name].reactionAccessToken = null;
+						userAccountsProperty.UserServices[_currentService.name].reaction = null;
+						_displayedData.IsItGeneral = area.IsItGeneral;
+					}
+					else if (pickerName == "Services")
+					{
+						if (!_displayedData.IsItGeneral && picker.SelectedItem.ToString() != _currentService.name)
+						{
+							DisplayAlert("Warning", "You can't choose a service because you choosed a specific action !", "OK");
+						}
+						else
+						{
+							userAccountsProperty.UserServices[_currentService.name].serviceReaction = picker.SelectedItem.ToString(); // reaction auth by service name on api
+							userAccountsProperty.UserServices[_currentService.name].reactionAccessToken = userAccountsProperty.UserServices[picker.SelectedItem.ToString()].accessToken;
+						}
+					}
 					else
-						userAccountsProperty.UserServices[_currentService.name].reaction = picker.SelectedItem.ToString(); // This is the model selected in the picker
+					{
+						Service.Area area = getAreaByReaction(_currentService.area, picker.SelectedItem.ToString());
 
+						if (area.IsItGeneral == _displayedData.IsItGeneral)
+							userAccountsProperty.UserServices[_currentService.name].reaction = area.reaction; // This is the model selected in the picker
+						else
+						{
+							DisplayAlert("Warning", "You can't choose a generic reaction because you choosed a specific action !", "OK");
+						}
+					}
 					//save in properties
 					Application.Current.Properties["UserAccounts"] = userAccountsProperty;
 				}
 			}
 		}
 
-		public void Register(object sender, EventArgs e)
+		private bool checkServiceArea()
 		{
-			//delete the current pop up
-			PopupNavigation.Instance.PopAsync();
-			//go to the reactions pop up
-			//todo remove it, it was just for debugging
 			var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
-			DisplayAlert(userAccountsProperty.UserServices[_currentService.name].accessToken, userAccountsProperty.UserServices[_currentService.name].action, userAccountsProperty.UserServices[_currentService.name].reaction);
-			DisplayAlert("Service reaction", userAccountsProperty.UserServices[_currentService.name].serviceReaction, "OK");
-			//todo send data to API here
+
+			if (userAccountsProperty.UserServices[_currentService.name].action == null ||
+			userAccountsProperty.UserServices[_currentService.name].serviceReaction == null ||
+			userAccountsProperty.UserServices[_currentService.name].reactionAccessToken == null ||
+			userAccountsProperty.UserServices[_currentService.name].reaction == null)
+				return false;
+			return true;
+		}
+
+		async public void Register(object sender, EventArgs e)
+		{
+			//check  whether all data have been saved or not
+			if (checkServiceArea())
+			{
+				//delete the current pop up
+				//go to the reactions pop up
+				//todo remove it, it was just for debugging
+				var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
+				//await DisplayAlert(userAccountsProperty.UserServices[_currentService.name].accessToken, userAccountsProperty.UserServices[_currentService.name].action, userAccountsProperty.UserServices[_currentService.name].reaction);
+				//await DisplayAlert(userAccountsProperty.UserServices[_currentService.name].reactionAccessToken, userAccountsProperty.UserServices[_currentService.name].serviceReaction, "OK");
+
+				//send data to API here
+				HttpClientRequests requests = new HttpClientRequests(Application.Current.Properties["Email"].ToString(), Application.Current.Properties["Password"].ToString());
+				System.Net.HttpStatusCode response;
+				if (_displayedData.IsItGeneral)
+				{
+					string actionServiceName = _currentService.name;
+					int actionId = 0;
+					string actionAccessToken = userAccountsProperty.UserServices[_currentService.name].accessToken;
+					string reactionServiceName = userAccountsProperty.UserServices[_currentService.name].serviceReaction;
+					string reactionAccessToken = userAccountsProperty.UserServices[_currentService.name].reactionAccessToken;
+					HttpClientRequests.GenericArea packet = new HttpClientRequests.GenericArea(actionServiceName, actionId, actionAccessToken, reactionServiceName, reactionAccessToken);
+
+					response = await requests.RegisterGenericArea(packet);
+				}
+				else
+				{
+					string serviceName = userAccountsProperty.UserServices[_currentService.name].serviceReaction;
+					int areaId = 0;
+					string actionAccessToken = userAccountsProperty.UserServices[_currentService.name].reactionAccessToken;
+
+					await DisplayAlert(serviceName, actionAccessToken, "OK");
+					HttpClientRequests.SpecificArea packet = new HttpClientRequests.SpecificArea(serviceName, areaId, actionAccessToken);
+
+					response = await requests.RegisterSpecificArea(packet);
+				}
+				await DisplayAlert("CODE", response.ToString(), "LOL");
+				if (response == System.Net.HttpStatusCode.OK)
+				{
+					await PopupNavigation.Instance.PopAsync();
+				}
+				else
+				{
+					await DisplayAlert("FAILED", "Area not Saved", "OK");
+				}
+			}
+			else
+			{
+				await DisplayAlert("Warning", "Data can't be saved, pick your area !", "OK");
+			}
+		}
+
+		void Picker_PropertyChanged(System.Object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
 		}
 	}
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Xamarin.Forms;
 
 namespace Area.Models
 {
@@ -18,12 +17,14 @@ namespace Area.Models
 				action = null;
 				reaction = null;
 				serviceReaction = null;
+				reactionAccessToken = null;
 			}
 
 			public string accessToken { get; set; }
 			public string action { get; set; }
 			public string reaction { get; set;}
 			public string serviceReaction { get; set; }
+			public string reactionAccessToken { get; set; }
 
 			public bool IsThereAnAccessToken()
 			{
