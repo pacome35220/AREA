@@ -100,9 +100,9 @@ export class HomeComponent implements OnInit {
             authenticateAction: getAccessTokenFromFacebook,
 
             authorizeUrl: 'https://m.facebook.com/dialog/oauth/',
-            redirectUrl: 'https://www.facebook.com/connect/login_success.html',
+            redirectUrl: environment.redirectUrl,
             accessUrl: '',
-            clientId: '189477332115486',
+            clientId: '179479413282728',
             clientSecret: '',
             scope: '',
             responseType: 'token'
@@ -200,6 +200,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {

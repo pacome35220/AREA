@@ -12,13 +12,12 @@ export const getAccessTokenFromFacebook = async (
         qs.stringify({
             client_id: service.clientId,
             response_type: service.responseType,
-            redirect_uri: service.redirectUrl,
-            state: 'abcd'
+            redirect_uri: service.redirectUrl
         });
 
     const OAuth2_Response = await getRegexFromOAuthWindowPopup(
         authorizeUrl,
-        /access_token=((.+)&.+)&/
+        /access_token=([^&]*)/
     );
-    return OAuth2_Response[2];
+    return OAuth2_Response[1];
 };
