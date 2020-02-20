@@ -10,13 +10,12 @@ using Xamarin.Forms;
 
 namespace Area.Views
 {
-	//todo Create a properties (object) that will store all Useraccountds with (service name + access token + actions + reactions)
 	public partial class Home : ContentPage
 	{
 		Account account;
 		AccountStore store;
 		UserAccounts _user;
-		private string currentServiceName;
+		string currentServiceName;
 
 		public Home()
 		{
@@ -26,28 +25,34 @@ namespace Area.Views
 
 		}
 
-		private void ShowPopup(object sender, EventArgs e)
+		void ShowPopup(object sender, EventArgs e)
 		{
 			Button btn = (Button)sender;
 			Service service = (Service)btn.BindingContext;
 
-			if (_user.IsAuthenticated(service.name))
-				PopupNavigation.Instance.PushAsync(new PopupView(service));
+			if (Application.Current.Properties.ContainsKey("UserAccounts"))
+			{
+				var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
+
+				//check key exist If yes, store the element inside the properties
+				if (userAccountsProperty.IsAuthenticated(service.name))
+					PopupNavigation.Instance.PushAsync(new PopupView(service));
+				else
+					DisplayAlert("ALERT", "You need to authenticate before using this service !", "OK");
+			}
 			else
 				DisplayAlert("ALERT", "You need to authenticate before using this service !", "OK");
 		}
 
 		public void LoginClicked(object sender, EventArgs e)
 		{
-			OAuth2Authenticator authenticator;
 			account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
-
-
-
+			OAuth2Authenticator authenticator;
 			Button btncontrol = (Button)sender;
 			string providername = btncontrol.ClassId;
 
-			if (providername == "Facebook") {
+			if (providername == "Facebook")
+			{
 				authenticator = new OAuth2Authenticator(
 					clientId:	Constants.FacebookClientId,
 					scope:		Constants.FacebookScope,
@@ -149,6 +154,7 @@ namespace Area.Views
 
 				//save access token of a service
 				_user.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
+
 				//save service in property
 				Application.Current.Properties["UserAccounts"] = _user;
 			}
