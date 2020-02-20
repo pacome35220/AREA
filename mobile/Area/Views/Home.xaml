@@ -47,35 +47,3 @@
 	</ContentPage.Content>
 
 </ContentPage>
-
-
-
-<!--<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="Area.Views.Home">
-
-	<ContentPage.Padding>
-		<OnPlatform x:TypeArguments="Thickness">
-			<OnPlatform.Platforms>
-			    <On Platform="iOS" Value="0, 20, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
-			</OnPlatform.Platforms>
-		</OnPlatform>
-	</ContentPage.Padding>
-
-    <ContentPage.Content>
-			<StackLayout>  
-				<Button Text="Login" HeightRequest="50" />  
-				<Button Text="Facebook" Clicked="LoginClicked" Image="FACEBOOK.png" HeightRequest="50" />  
-				<Button Text="Github" Clicked="LoginClicked" Image="GITHUB.png" HeightRequest="50" />  
-				<Button Text="LinkedIn" Clicked="LoginClicked" Image="LINKEDIN.png" HeightRequest="50" />
-				<Button Text="Discord" Clicked="LoginClicked" Image="DISCORD.png" HeightRequest="50" />  
-				<Button Text="Trello" Clicked="LoginClicked" Image="TRELLO.png" HeightRequest="50" />
-				<Button Text="Office365" Clicked="LoginClicked" Image="MICROSOFT.png" HeightRequest="40" />
-			</StackLayout>
-		</ContentPage.Content>
-</ContentPage>-->
-

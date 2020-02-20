@@ -77,17 +77,6 @@ namespace Area.Views
 					accessTokenUrl: new Uri(Constants.DiscordAccessUrl)
 				);
 			}
-			else if (providername == "Trello")
-			{
-				authenticator = new OAuth2Authenticator(
-					clientId: Constants.TrelloClientId,
-					clientSecret: Constants.TrelloClientSecret,
-					scope: Constants.TrelloScope,
-					authorizeUrl: new Uri(Constants.TrelloAuthorizeUrl),
-					redirectUrl: new Uri(Constants.TrelloRedirectUrl),
-					accessTokenUrl: new Uri(Constants.TrelloAccessUrl)
-				);
-			}
 			else if (providername == "Office365")
 			{
 				authenticator = new OAuth2Authenticator(
@@ -107,6 +96,17 @@ namespace Area.Views
 					authorizeUrl: new Uri(Constants.ImgurAuthorizeUrl),
 					redirectUrl: new Uri(Constants.ImgurRedirectUrl),
 					accessTokenUrl: new Uri(Constants.ImgurAccessUrl)
+				);
+			}
+			else if (providername == "LinkedIn")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.LinkedinClientId,
+					clientSecret: Constants.LinkedinClientSecret,
+					scope: Constants.LinkedinScope,
+					authorizeUrl: new Uri(Constants.LinkedinAuthorizeUrl),
+					redirectUrl: new Uri(Constants.LinkedinRedirectUrl),
+					accessTokenUrl: new Uri(Constants.LinkedinAccessUrl)
 				);
 			}
 			//TMP

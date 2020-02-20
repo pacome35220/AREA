@@ -55,20 +55,6 @@ namespace OAuthNativeFlow
 
 		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
 
-		/*Trello oauth*/
-		//todo Fix this account
-		public static string TrelloClientId = "d0c0296182b75b0b1c6db78ecb0b6f1d";
-
-		public static string TrelloClientSecret = "bc48bd11c118cf8c72f709d9cc6c276cfcfe2a1ec7e715f307058dc08b8a2305";
-
-		public static string TrelloScope = "";
-
-		public static string TrelloAuthorizeUrl = "https://trello.com/1/OAuthAuthorizeToken";
-
-		public static string TrelloRedirectUrl = "https://hadibereksi.fr";
-
-		public static string TrelloAccessUrl = "https://trello.com/1/OAuthGetAccessToken";
-
 		/*Office365*/
 		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
 
@@ -93,5 +79,19 @@ namespace OAuthNativeFlow
 
 
 		/* todo Youtube*/
+
+		/*LinkedIn*/
+		public static string LinkedinClientId = "86v21lx86n52vp";
+
+		public static string LinkedinClientSecret = "Sz6abc1pM5gq65x0";
+
+		public static string LinkedinScope = "r_emailaddress r_liteprofile w_member_social";
+
+		public static string LinkedinAuthorizeUrl = "https://www.linkedin.com/uas/oauth2/authorization";
+
+		public static string LinkedinRedirectUrl = "http://localhost:4200/home";
+
+		public static string LinkedinAccessUrl = "https://www.linkedin.com/uas/oauth2/accessToken";
+
 	}
 }
