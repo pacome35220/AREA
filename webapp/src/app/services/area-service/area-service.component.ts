@@ -147,7 +147,7 @@ export class AreaServiceComponent implements OnInit {
                     genericData,
                     config
                 )
-                .then(response => console.log(`C'est bon: , ${response}`))
+                .then(response => console.log("C'est bon: , ", response))
                 .catch(err => {
                     this.snackBar.open(`An error occured : ${err}`, 'Retry', {
                         duration: 2000
@@ -168,7 +168,7 @@ export class AreaServiceComponent implements OnInit {
                     specificData,
                     config
                 )
-                .then(response => console.log(`C'est bon: , ${response}`))
+                .then(response => console.log("C'est bon: , ", response))
                 .catch(err => {
                     this.snackBar.open(`An error occured : ${err}`, 'Retry', {
                         duration: 2000

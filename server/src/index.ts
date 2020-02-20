@@ -8,6 +8,7 @@ import logger from './logger';
 
 import about from './routes/about';
 import user from './routes/user';
+import registrerAREA from './routes/registrerAREA';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -25,6 +26,7 @@ app.use(logger);
 
 app.use('/', about);
 app.use('/', user);
+app.use('/', registrerAREA);
 
 app.get('/', (req, res) => {
     res.send(`Api is UP in ${Date.now() - res.locals.timestamp}`);
