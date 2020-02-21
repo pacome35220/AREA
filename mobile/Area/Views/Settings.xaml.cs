@@ -25,6 +25,8 @@ namespace Area.Views
 
 			if (response == System.Net.HttpStatusCode.OK)
 			{
+				if (Application.Current.Properties.ContainsKey("UserAccounts"))
+					Application.Current.Properties["UserAccounts"] = new UserAccounts();
 				await DisplayAlert("Account deleted", "Success", "OK");
 				await Navigation.PushAsync(new LoginPage());
 				Navigation.RemovePage(Navigation.NavigationStack[0]); // remove the root page
