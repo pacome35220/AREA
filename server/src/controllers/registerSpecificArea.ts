@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import auth from 'basic-auth';
 
 import User from '../models/User';
-import githubService from '../services/Github';
+import { registerSpecificAREA } from '../services/Service';
 
 export const registerSpecificArea = async (
     req: Request,
@@ -37,17 +37,15 @@ export const registerSpecificArea = async (
         }
 
         const { serviceName, areaId, actionAccessToken } = req.body;
-        // code here
+
         console.log(serviceName, areaId, actionAccessToken);
 
-        if (serviceName === 'Github') {
-            githubService.registerSpecificAREA(
-                user,
-                serviceName,
-                parseInt(areaId),
-                actionAccessToken
-            );
-        }
+        await registerSpecificAREA(
+            user,
+            serviceName,
+            parseInt(areaId),
+            actionAccessToken
+        );
 
         // send OK
         return res.status(200).send('OK');

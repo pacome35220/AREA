@@ -1,39 +1,56 @@
-import { Service, Area } from './Service';
+import Axios from 'axios';
+
+import { AreaService } from './Service';
 
 const ifYouPushNewBranch = async (
     reactionType: 'generic' | 'specific',
     actionAccessToken: string,
     registerTimestamp: number
 ) => {
-    if (Math.round(Math.random() * 5) === 5) {
-        if (reactionType === 'generic') {
-            return 'Branch develop was push at 3pm.';
+    const axios = Axios.create({
+        baseURL: 'https://api.github.com',
+        headers: {
+            Authorization: `token ${actionAccessToken}`
         }
-        if (reactionType === 'specific') {
-            return {
-                username: 'pacome35220',
-                repository: '42sh',
-                branch: 'develop'
-            };
+    });
+
+    const user = await axios.get('/user');
+    const events = await axios.get(`/users/${user.data.login}/events`);
+
+    for (const event of events.data) {
+        if (
+            event.type === 'CreateEvent' &&
+            event.payload.ref_type === 'branch' &&
+            Date.parse(event.created_at) > registerTimestamp
+        ) {
+            console.log('ifYouPushNewBranch', `${reactionType} response ok`);
+            if (reactionType === 'generic') {
+                return `${event.actor.login} create branch ${event.payload.ref} on ${event.repo.name} at ${event.created_at}`;
+            }
+            if (reactionType === 'specific') {
+                return event;
+            }
         }
-    } else {
-        return null;
     }
+    console.log('ifYouPushNewBranch', 'null');
+    return null;
 };
 
-const createPullRequestFromBranch = async (data: any) => {};
+const createPullRequestFromBranch = async (
+    actionAccessToken: string,
+    data: any
+) => {
+    console.log(actionAccessToken);
+    console.log(data);
+};
 
-class Github extends Service {
-    constructor() {
-        super([
-            {
-                areaId: 0,
-                action: ifYouPushNewBranch,
-                specificReaction: createPullRequestFromBranch
-            }
-        ]);
-    }
-
-    // async genericReaction(reactionAccessToken: string, data: any) {}
-}
-export default new Github();
+export const Github: AreaService = {
+    serviceName: 'Github',
+    areas: [
+        {
+            areaId: 0,
+            action: ifYouPushNewBranch,
+            specificReaction: createPullRequestFromBranch
+        }
+    ]
+};

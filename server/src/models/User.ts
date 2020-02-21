@@ -40,12 +40,10 @@ User.init(
         },
         firstName: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         lastName: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         email: {
@@ -55,7 +53,6 @@ User.init(
         },
         password: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         }
     },
@@ -75,9 +72,9 @@ User.hasMany(AreaSpecific, {
 // AreaSpecific.belongsTo(User);
 
 sequelize
-    .sync({
+    .sync(/* {
         force: true
-    })
+    } */)
     .then(value => console.log(value.models, ' are synchronized'));
 
 export default User;

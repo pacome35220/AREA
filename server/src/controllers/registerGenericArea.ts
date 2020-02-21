@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import auth from 'basic-auth';
 
 import User from '../models/User';
+import { registerGenericAREA } from '../services/Service';
 
 export const registerGenericArea = async (
     req: Request,
@@ -42,11 +43,19 @@ export const registerGenericArea = async (
             reactionServiceName,
             reactionAccessToken
         } = req.params;
-        // code here
 
         console.log(
             actionServiceName,
             actionId,
+            actionAccessToken,
+            reactionServiceName,
+            reactionAccessToken
+        );
+
+        await registerGenericAREA(
+            user,
+            actionServiceName,
+            parseInt(actionId),
             actionAccessToken,
             reactionServiceName,
             reactionAccessToken

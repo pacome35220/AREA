@@ -29,34 +29,27 @@ AreaGeneric.init(
         },
         actionServiceName: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         actionId: {
             type: DataTypes.INTEGER,
-            unique: true,
             allowNull: false
         },
         actionAccessToken: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         reactionServiceName: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         reactionAccessToken: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         intervalId: {
             type: DataTypes.STRING,
-            unique: true,
-            allowNull: false,
-            defaultValue: -1
+            allowNull: false
         }
     },
     { sequelize }
