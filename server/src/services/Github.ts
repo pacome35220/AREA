@@ -40,8 +40,18 @@ const createPullRequestFromBranch = async (
     actionAccessToken: string,
     data: any
 ) => {
-    console.log(actionAccessToken);
-    console.log(data);
+    const axios = Axios.create({
+        baseURL: 'https://api.github.com',
+        headers: {
+            Authorization: `token ${actionAccessToken}`
+        }
+    });
+    const response = await axios.post(`/repos/${data.repo.name}/pulls`, {
+        title: `PR name`,
+        head: data.payload.ref,
+        base: data.payload.master_branch
+    });
+    console.log(`trigger github specificReaction`, response.statusText);
 };
 
 export const Github: AreaService = {
