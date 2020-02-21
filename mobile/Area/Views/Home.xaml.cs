@@ -14,15 +14,12 @@ namespace Area.Views
 	{
 		Account account;
 		AccountStore store;
-		UserAccounts _user;
 		string currentServiceName;
 
 		public Home()
 		{
 			InitializeComponent();
 			store = AccountStore.Create();
-			_user = new UserAccounts();
-
 		}
 
 		void ShowPopup(object sender, EventArgs e)
@@ -44,18 +41,15 @@ namespace Area.Views
 				DisplayAlert("ALERT", "You need to authenticate before using this service !", "OK");
 		}
 
-		public void LoginClicked(object sender, EventArgs e)
+		private OAuth2Authenticator CreateOAuth2Authenticator(string providername)
 		{
-			account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
 			OAuth2Authenticator authenticator;
-			Button btncontrol = (Button)sender;
-			string providername = btncontrol.ClassId;
 
 			if (providername == "Facebook")
 			{
 				authenticator = new OAuth2Authenticator(
-					clientId:	Constants.FacebookClientId,
-					scope:		Constants.FacebookScope,
+					clientId: Constants.FacebookClientId,
+					scope: Constants.FacebookScope,
 					authorizeUrl: new Uri(Constants.FacebookAuthorizeUrl),
 					redirectUrl: new Uri(Constants.FacebookRedirectUrl)
 				);
@@ -89,7 +83,7 @@ namespace Area.Views
 					scope: Constants.Office365Scope,
 					authorizeUrl: new Uri(Constants.Office365AuthorizeUrl),
 					redirectUrl: new Uri(Constants.Office365RedirectUrl)
-					//accessTokenUrl: new Uri(Constants.Office365AccessUrl)
+				//accessTokenUrl: new Uri(Constants.Office365AccessUrl)
 				);
 			}
 			else if (providername == "Imgur")
@@ -124,14 +118,23 @@ namespace Area.Views
 					redirectUrl: new Uri(Constants.FacebookRedirectUrl)
 				);
 			}
+			return authenticator;
+
+		}
+
+		public void LoginClicked(object sender, EventArgs e)
+		{
+			account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
+			Button btncontrol = (Button)sender;
+			string providername = btncontrol.ClassId;
+			OAuth2Authenticator authenticator = CreateOAuth2Authenticator(providername);
 
 			currentServiceName = providername;
 			authenticator.Completed += OnAuthCompleted;
 			authenticator.Error += OnAuthError;
-
 			AuthenticationState.Authenticator = authenticator;
-
 			var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+
 			presenter.Login(authenticator);
 		}
 
@@ -147,16 +150,21 @@ namespace Area.Views
 			//if i authenticate successfuly I store the access token and i save it in properties
 			if (e.IsAuthenticated)
 			{
+				//todo is a note : Android delete all class attribute ! this is way i am doing that
+				if (!Application.Current.Properties.ContainsKey("UserAccounts"))
+					Application.Current.Properties["UserAccounts"] = new UserAccounts();
+
+				var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
 				//check if the service does not exist in the 'UserAccount' property
 				//we create a new one
-				if (!_user.UserServices.ContainsKey(currentServiceName))
-					_user.UserServices[currentServiceName] = new UserAccounts.Data();
+				if (!userAccountsProperty.UserServices.ContainsKey(currentServiceName))
+					userAccountsProperty.UserServices[currentServiceName] = new UserAccounts.Data();
 
 				//save access token of a service
-				_user.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
+				userAccountsProperty.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
 
 				//save service in property
-				Application.Current.Properties["UserAccounts"] = _user;
+				Application.Current.Properties["UserAccounts"] = userAccountsProperty;
 			}
 		}
 

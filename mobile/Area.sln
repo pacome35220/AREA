@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Area", "Area\Area.shproj", "{8E856692-A6D3-4498-B801-46C33D502AD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Area.Android", "Area.Android\Area.Android.csproj", "{F5CC7BCB-4A1A-4C49-9A9F-0C3DAE4E2807}"
@@ -82,5 +83,11 @@ Global
 		{B0815065-D16D-4820-946C-FE366B1C64BE}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{B0815065-D16D-4820-946C-FE366B1C64BE}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{B0815065-D16D-4820-946C-FE366B1C64BE}.Release|iPhoneSimulator.Deploy.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.VersionControlPolicy = $2
 	EndGlobalSection
 EndGlobal

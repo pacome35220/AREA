@@ -1,3 +1,5 @@
+using Xamarin.Forms;
+
 namespace OAuthNativeFlow
 {
 	public static class Constants
@@ -51,7 +53,7 @@ namespace OAuthNativeFlow
 
 		public static string DiscordAuthorizeUrl = "https://discordapp.com/api/oauth2/authorize";
 
-		public static string DiscordRedirectUrl = "http://localhost:8080/api/discord/callback";
+		public static string DiscordRedirectUrl = Device.RuntimePlatform == Device.iOS ? "http://localhost:8080/api/discord/callback" : "http://10.0.2.2:8080/api/discord/callback"; //ios/android
 
 		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
 
