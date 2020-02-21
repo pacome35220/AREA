@@ -40,7 +40,7 @@ export const registerSpecificArea = async (
 
         console.log(serviceName, areaId, actionAccessToken);
 
-        await registerSpecificAREA(
+        const data = await registerSpecificAREA(
             user,
             serviceName,
             parseInt(areaId),
@@ -48,7 +48,7 @@ export const registerSpecificArea = async (
         );
 
         // send OK
-        return res.status(200).send('OK');
+        return res.status(200).json(data);
     } catch (err) {
         return next(err);
     }

@@ -52,7 +52,7 @@ export const registerGenericArea = async (
             reactionAccessToken
         );
 
-        await registerGenericAREA(
+        const data = await registerGenericAREA(
             user,
             actionServiceName,
             parseInt(actionId),
@@ -62,7 +62,7 @@ export const registerGenericArea = async (
         );
 
         // send OK
-        return res.status(200).send('OK');
+        return res.status(200).json(data);
     } catch (err) {
         return next(err);
     }

@@ -78,7 +78,7 @@ export const registerSpecificAREA = async (
     );
 
     // store area in database
-    await user.createSpecificArea({
+    return await user.createSpecificArea({
         serviceName,
         areaId,
         actionAccessToken,
@@ -158,7 +158,7 @@ export const registerGenericAREA = async (
     );
 
     // store area in database
-    await user.createGenericArea({
+    return await user.createGenericArea({
         actionServiceName,
         actionId,
         actionAccessToken,
