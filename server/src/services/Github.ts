@@ -2,6 +2,8 @@ import Axios from 'axios';
 
 import { AreaService } from './Service';
 
+var alreadyHandleEvent: any[] = [];
+
 const ifYouPushNewBranch = async (
     reactionType: 'generic' | 'specific',
     actionAccessToken: string,
@@ -23,6 +25,10 @@ const ifYouPushNewBranch = async (
             event.payload.ref_type === 'branch' &&
             Date.parse(event.created_at) > registerTimestamp
         ) {
+            if (alreadyHandleEvent.includes(event)) {
+                continue;
+            }
+            alreadyHandleEvent.push(event);
             console.log('ifYouPushNewBranch', `${reactionType} response ok`);
             if (reactionType === 'generic') {
                 return `${event.actor.login} create branch ${event.payload.ref} on ${event.repo.name} at ${event.created_at}`;
