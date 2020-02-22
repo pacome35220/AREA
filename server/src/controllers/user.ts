@@ -1,27 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
-import auth from 'basic-auth';
+import { Request, NextFunction } from 'express';
 import validator from 'validator';
+
+import { ExtendedResponse } from '../types/Response';
 
 import User from '../models/User';
 
 export const signup = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
-
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
-
         // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
+        const { name, pass } = res.locals.credentials; // name is an email
 
         if (!validator.isEmail(name)) {
             return res.status(400).send('Email is invalid.');
@@ -68,35 +59,11 @@ export const signup = async (
 
 export const getProfile = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
-
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
-
-        // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
-
-        // Get user profile from database.
-        const user = await User.findOne({
-            where: { email: name }
-        });
-
-        if (!user || user.password !== pass) {
-            return res
-                .status(403)
-                .send(
-                    'Email or password does not match, or the account with this email does not exist'
-                );
-        }
+        const { user } = res.locals;
 
         // keep password safe
         user.password = '';
@@ -110,35 +77,11 @@ export const getProfile = async (
 
 export const deleteProfile = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
-
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
-
-        // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
-
-        // Get user profile from database.
-        const user = await User.findOne({
-            where: { email: name }
-        });
-
-        if (!user || user.password !== pass) {
-            return res
-                .status(403)
-                .send(
-                    'Email or password does not match, or the account with this email does not exist'
-                );
-        }
+        const { user } = res.locals;
 
         // delete user from database
         await user.destroy();
