@@ -4,6 +4,7 @@ import User from '../models/User';
 
 import { Discord } from './Discord';
 import { Github } from './Github';
+import { Imgur } from './Imgur';
 
 export interface Area {
     areaId: number;
@@ -23,7 +24,7 @@ export interface AreaService {
     genericReaction?: (accessToken: string, message: string) => Promise<void>;
 }
 
-const areasServices: AreaService[] = [Github, Discord];
+const areasServices: AreaService[] = [Github, Discord, Imgur];
 
 export const registerSpecificAREA = async (
     user: User,
