@@ -1,5 +1,8 @@
 import Axios from 'axios';
+
 import { AreaService } from './Service';
+
+var previousCommentsNb: number = 0;
 
 const ifYouWroteTenComments = async (
     reactionType: 'generic' | 'specific',
@@ -9,57 +12,43 @@ const ifYouWroteTenComments = async (
     const axios = Axios.create({
         baseURL: 'https://api.imgur.com/3',
         headers: {
-            //check client id on header
             Authorization: `Bearer ${actionAccessToken}`
         }
     });
-    // const user = await axios.get('/account/me');
-    const nbcomments = await axios.get(`/account/me/comments/count`);
-    var nbcomment = await nbcomments['data'];
+    const { data } = await axios.get(`/account/me/comments/count`);
+    const nbcomments = parseInt(data);
 
-    if (nbcomment % 10 == 0) {
-        console.log('ifYouWroteTenComments', 'True');
-        return true;
+    if (nbcomments === previousCommentsNb) {
+        return;
     }
-    //delete comment
-    console.log('ifYouWroteTenComments', 'False');
-    return false;
+    previousCommentsNb = nbcomments;
+    if (nbcomments > 0 && nbcomments % 10 == 0) {
+        console.log(
+            `Imgur action ifYouWroteTenComments ${reactionType} response ok`
+        );
+        if (reactionType === 'specific') {
+            return nbcomments;
+        }
+        if (reactionType === 'generic') {
+            return `You wrote 10 more comments on Imgur, go to work !`;
+        }
+    }
+    console.log('Imgur action ifYouWroteTenComments no trigger');
+    return null;
 };
 
-//specific reaction
-const pushAnImage = async (actionAccessToken: string, imagePath: string) => {
+const pushAnImage = async (actionAccessToken: string, data: any) => {
     const axios = Axios.create({
         baseURL: 'https://api.imgur.com/3',
         headers: {
-            //check client id on header
             Authorization: `Bearer ${actionAccessToken}`
         }
     });
-    if (!imagePath) {
-        return null;
-    }
-    var Module = require('module');
-    var fs = require('fs');
-    Module._extensions['.jpg'] = function(module: any, fn: any) {
-        var base64 = fs.readFileSync(fn).toString('base64');
-        module._compile(
-            'module.exports="data:image/jpg;base64,' + base64 + '"',
-            fn
-        );
-    };
-    var image = require('./area.jpg'); //imagePath);
-    var title = 'I am a Boss';
-    var description =
-        "wouah... you have wrote 10 comments it's the time to stop !";
-    var privacy = 'picture has been pushed thanks to the area';
-    var response = await axios.post('/image', {
-        title: title,
-        description: description,
-        image: image,
-        privacy: privacy
+    const response = await axios.post('/image', {
+        title: 'You wrote 10 more comments on Imgur, go to work !',
+        image: 'https://i.imgur.com/KTUAUrc.jpg'
     });
-
-    return await JSON.parse(response.data);
+    console.log(`Imgur trigger specificReaction ${response.statusText}`);
 };
 
 export const Imgur: AreaService = {
