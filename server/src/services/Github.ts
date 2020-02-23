@@ -29,7 +29,10 @@ const ifYouPushNewBranch = async (
                 continue;
             }
             alreadyHandleEvent.push(event);
-            console.log('ifYouPushNewBranch', `${reactionType} response ok`);
+            console.log(
+                'Github action ifYouPushNewBranch',
+                `${reactionType} response ok`
+            );
             if (reactionType === 'generic') {
                 return `${event.actor.login} create branch ${event.payload.ref} on ${event.repo.name} at ${event.created_at}`;
             }
@@ -38,7 +41,7 @@ const ifYouPushNewBranch = async (
             }
         }
     }
-    console.log('ifYouPushNewBranch', 'null');
+    console.log('Github action ifYouPushNewBranch no trigger');
     return null;
 };
 
@@ -57,7 +60,7 @@ const createPullRequestFromBranch = async (
         head: data.payload.ref,
         base: data.payload.master_branch
     });
-    console.log(`trigger github specificReaction`, response.statusText);
+    console.log(`Github trigger specificReaction ${response.statusText}`);
 };
 
 export const Github: AreaService = {
