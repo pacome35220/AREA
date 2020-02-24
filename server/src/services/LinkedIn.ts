@@ -1,23 +1,41 @@
-import axios from 'axios';
+import Axios from 'axios';
 
 import { AreaService } from './Service';
-import { Message } from 'discord.js';
 
-const ifASpecificMessageisSend = async (
+var previousConnexionNb: number = 0;
+
+const ifYouHaveTenMoreConnexions = async (
     reactionType: 'generic' | 'specific',
     actionAccessToken: string,
     registerTimestamp: number
 ) => {
-    if (reactionType == 'specific') {
+    const axios = Axios.create({
+        baseURL: 'https://api.linkedin.com/v2/',
+        headers: {
+            Authorization: `Bearer ${actionAccessToken}`
+        }
+    });
+    const { data } = await axios.get(
+        `connections?q=viewer&projection=(paging)`
+    );
+    const nbConnexion = data.total;
+
+    if (nbConnexion === previousConnexionNb) {
+        return;
+    }
+    previousConnexionNb = nbConnexion;
+    if (nbConnexion > 0 && nbConnexion % 10 == 0) {
         console.log(
-            `Discord action ifASpecificMessageIsSend ${reactionType} response ok`
+            `LinkedIn action ifYouHaveTenMoreConnexions ${reactionType} response ok`
         );
-        return "L'Area te ping";
+        if (reactionType === 'specific') {
+            return nbConnexion;
+        }
+        if (reactionType === 'generic') {
+            return `You have 10 more connexions on LinkedIn, nice work !`;
+        }
     }
-    if (reactionType == 'generic') {
-        return "L'Area t'envoie son action générique";
-    }
-    console.log('LinkedIn action ifASpecificMessageIsSend not triggered');
+    console.log('LinkedIn action ifYouWroteTenComments not triggered');
     return null;
 };
 
@@ -27,18 +45,21 @@ const aRandomMessageIsSendInto = async (
 ) => {
     var date = new Date();
 
-    const req = await axios.get(`https://api.linkedin.com/v2/me`, {
+    const req = await Axios.get(`https://api.linkedin.com/v2/me`, {
         headers: {
             Authorization: `Bearer ${actionAccessToken}`
         }
     });
+    const axios = Axios.create({
+        baseURL: 'https://api.linkedin.com/v2/',
+        headers: {
+            Authorization: `token ${actionAccessToken}`
+        }
+    });
 
     const publication = await axios.post(
-        `https://api.linkedin.com/v2/people/id=${req.data.id}/publications`,
+        `people/id=${req.data.id}/publications`,
         {
-            headers: {
-                Authorization: `Bearer ${actionAccessToken}`
-            },
             date: {
                 month: date.getMonth(),
                 year: date.getFullYear(),
@@ -57,10 +78,10 @@ const aRandomMessageIsSendInto = async (
             description: {
                 localized: {
                     en_US: {
-                        rawText: data
+                        rawText: `I've ${data} more connexions !!!`
                     },
                     fr_FR: {
-                        rawText: data
+                        rawText: `J'ai ${data} connexions en plus !!!`
                     }
                 },
                 preferredLocale: {
@@ -97,31 +118,32 @@ export const Discord: AreaService = {
     areas: [
         {
             areaId: 0,
-            action: ifASpecificMessageisSend,
+            action: ifYouHaveTenMoreConnexions,
             specificReaction: aRandomMessageIsSendInto
         }
     ],
 
     genericReaction: async (accessToken: string, message: string) => {
-        const data = await axios.get(`https://api.linkedin.com/v2/me`, {
+        const data = await Axios.get(`https://api.linkedin.com/v2/me`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
         });
         var id = data.data.id;
 
-        const sendMessage = await axios.post(
-            'https://api.linkedin.com/v2/messages',
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                },
-                recipients: ['urn:li:person:E0IRilJEIc', 'urn:li:person:' + id],
-                subject: 'Area Generic Reaction',
-                body: message,
-                messageType: 'MEMBER_TO_MEMBER'
+        const axios = Axios.create({
+            baseURL: 'https://api.linkedin.com/v2/',
+            headers: {
+                Authorization: `token ${accessToken}`
             }
-        );
+        });
+
+        const sendMessage = await axios.post('messages', {
+            recipients: ['urn:li:person:' + id, 'urn:li:person:' + id],
+            subject: 'Area Generic Reaction',
+            body: message,
+            messageType: 'MEMBER_TO_MEMBER'
+        });
         console.log('LinkedIn genericeReaction status: ', sendMessage.status);
     }
 };
