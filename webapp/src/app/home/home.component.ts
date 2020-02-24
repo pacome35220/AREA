@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import axios from 'axios';
+import axios, { AxiosBasicCredentials, AxiosRequestConfig } from 'axios';
 
 import { environment } from 'src/environments/environment';
 
@@ -194,6 +194,8 @@ export class HomeComponent implements OnInit {
     firstName: string;
     lastName: string;
 
+    axiosRequestConfig: AxiosRequestConfig;
+
     constructor(
         private snackBar: MatSnackBar,
         private appAuthService: AppAuthService,
@@ -206,7 +208,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
@@ -216,7 +217,7 @@ export class HomeComponent implements OnInit {
             this.router.navigateByUrl('signin');
             return;
         }
-        const config = {
+        this.axiosRequestConfig = {
             auth: {
                 username: credentials.username,
                 password: credentials.password
@@ -224,7 +225,7 @@ export class HomeComponent implements OnInit {
         };
 
         axios
-            .get(`${environment.serverUrl}/user/me`, config)
+            .get(`${environment.serverUrl}/user/me`, this.axiosRequestConfig)
             .then(res => {
                 this.firstName = res.data.firstName;
                 this.lastName = res.data.lastName;
