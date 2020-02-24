@@ -21,8 +21,6 @@ export const getAccessTokenFromLinkedIn = async (
         /code=([^&]*)/
     );
     const code = OAuth2_Response[1];
-    console.log(code);
-    console.log(autorizeUrl);
 
     const { data } = await axios.post(
         'https://cors-anywhere.herokuapp.com/' +
