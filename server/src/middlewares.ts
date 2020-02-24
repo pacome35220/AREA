@@ -50,6 +50,10 @@ export const saveUserFromDatabase = async (
 
     // Get user profile from database.
     const user = await User.findOne({
+        include: [
+            User.associations.genericAreas,
+            User.associations.specificAreas
+        ],
         where: { email: name }
     });
 
