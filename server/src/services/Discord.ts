@@ -40,7 +40,7 @@ const aRandomMessageIsSendInto = async (
             );
         }
     });
-    client.login('NjY2OTQxNDg4NTYyODMxMzgw.Xk1C6A.PphpBN20sCAn-LuX_8UqP2AdCeo');
+    client.login('NjY2OTQxNDg4NTYyODMxMzgw.XlPf0Q.pwI22yqD6ZRcVAN6iNWFQCbA4bk');
 };
 
 export const Discord: AreaService = {
