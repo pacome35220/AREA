@@ -1,14 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { environment } from 'src/environments/environment';
-import { AppAuthService } from '../app-auth.service';
 import { Service } from 'src/app/home/home.component';
 
 @Component({
@@ -28,8 +25,6 @@ export class AreaServiceComponent implements OnInit {
 
     @Input() areas: [string, string][];
 
-    @Input() genericReactionDescription: string;
-
     reactionType: 'generic' | 'specific' = 'specific';
 
     areaId: number = -1;
@@ -37,11 +32,9 @@ export class AreaServiceComponent implements OnInit {
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
-    constructor(
-        private snackBar: MatSnackBar,
-        private appAuthService: AppAuthService,
-        private router: Router
-    ) {}
+    @Input() axiosRequestConfig: AxiosRequestConfig;
+
+    constructor(private snackBar: MatSnackBar) {}
 
     onChangeAREA(event: MatRadioChange) {
         const value: [string, string] = event.value;
@@ -116,22 +109,6 @@ export class AreaServiceComponent implements OnInit {
     }
 
     async registerAREA() {
-        const credentials = this.appAuthService.getCredentials();
-
-        if (!credentials) {
-            this.snackBar.open(`Please signin to use AREA`, 'Signin', {
-                duration: 2000
-            });
-            this.router.navigateByUrl('signin');
-            return;
-        }
-        const config = {
-            auth: {
-                username: credentials.username,
-                password: credentials.password
-            }
-        };
-
         if (this.reactionType === 'generic') {
             const genericData = {
                 actionServiceName: this.name,
@@ -145,7 +122,7 @@ export class AreaServiceComponent implements OnInit {
                 .post(
                     `${environment.serverUrl}/register-generic-area`,
                     genericData,
-                    config
+                    this.axiosRequestConfig
                 )
                 .then(response => console.log("C'est bon: , ", response))
                 .catch(err => {
@@ -166,7 +143,7 @@ export class AreaServiceComponent implements OnInit {
                 .post(
                     `${environment.serverUrl}/register-specific-area`,
                     specificData,
-                    config
+                    this.axiosRequestConfig
                 )
                 .then(response => console.log("C'est bon: , ", response))
                 .catch(err => {

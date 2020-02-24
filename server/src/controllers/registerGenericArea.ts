@@ -16,7 +16,7 @@ export const registerGenericArea = async (
             actionAccessToken,
             reactionServiceName,
             reactionAccessToken
-        } = req.params;
+        } = req.body;
 
         console.log(
             actionServiceName,

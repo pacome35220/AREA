@@ -143,7 +143,6 @@ export const registerGenericAREA = async (
                 actionAccessToken,
                 registerTimestamp
             );
-
             if (data && selectedReactionService.genericReaction) {
                 await selectedReactionService
                     .genericReaction(reactionAccessToken, data)

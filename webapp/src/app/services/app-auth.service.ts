@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { AxiosBasicCredentials } from 'axios';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -14,7 +16,7 @@ export class AppAuthService {
         localStorage.removeItem('userBasicAuth');
     }
 
-    getCredentials() {
+    getCredentials(): AxiosBasicCredentials {
         const userBasicAuth = localStorage.getItem('userBasicAuth');
 
         if (!userBasicAuth) {
