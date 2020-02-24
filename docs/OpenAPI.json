@@ -192,7 +192,7 @@
                     },
                     "areaId": {
                         "type": "number",
-                        "description": "`serviceName` == `\"Github\"` :\n * `0` - If you push a new branch, a pull request from this branch to master is create.\n\n`serviceName` == `\"Discord\"` :\n * `0` - If you are add to a channel, a message to this channel is send.\n\n`serviceName` == `\"Facebook\"` :\n * `0` - If TODO, then TODO\n\n`serviceName` == `\"Imgur\"` :\n * `0` - If TODO, then TODO\n\n`serviceName` == `\"Office365\"` :\n * `0` - If TODO, then TODO\n",
+                        "description": "`serviceName` == `\"Github\"` :\n * `0` - If you push a new branch, a pull request from this branch to master is create.\n\n`serviceName` == `\"Discord\"` :\n * `0` - If you are add to a channel, a message to this channel is send.\n\n`serviceName` == `\"Facebook\"` :\n * `0` - If TODO, then TODO\n\n`serviceName` == `\"Imgur\"` :\n * `0` - If you write 10 more comments, a picture is upload as a reward.\n\n`serviceName` == `\"Office365\"` :\n * `0` - If TODO, then TODO\n",
                         "example": 0
                     },
                     "actionAccessToken": {
@@ -212,7 +212,7 @@
                     },
                     "actionId": {
                         "type": "number",
-                        "description": "`actionServiceName` == `\"Github\"` :\n * `0` - If you push a new branch\n\n`actionServiceName` == `\"Discord\"` :\n * `0` - If you are add to a channel\n\n`actionServiceName` == `\"Facebook\"` :\n * `0` - If TODO\n\n`actionServiceName` == `\"Imgur\"` :\n * `0` - If TODO\n\n`actionServiceName` == `\"Office365\"` :\n * `0` - If TODO\n",
+                        "description": "`actionServiceName` == `\"Github\"` :\n * `0` - If you push a new branch\n\n`actionServiceName` == `\"Discord\"` :\n * `0` - If you are add to a channel\n\n`actionServiceName` == `\"Facebook\"` :\n * `0` - If TODO\n\n`actionServiceName` == `\"Imgur\"` :\n * `0` - If you write 10 more comments\n\n`actionServiceName` == `\"Office365\"` :\n * `0` - If TODO\n",
                         "example": 0
                     },
                     "actionAccessToken": {

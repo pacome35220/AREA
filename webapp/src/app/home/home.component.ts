@@ -113,7 +113,12 @@ export class HomeComponent implements OnInit {
             image: '../../assets/imgur.svg',
             isGenericReaction: false,
 
-            areas: [['TODO', 'TODO']],
+            areas: [
+                [
+                    'If you write 10 more comments',
+                    'a picture is upload as a reward.'
+                ]
+            ],
 
             authenticateAction: getAccessTokenFromImgur,
 
