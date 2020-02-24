@@ -178,9 +178,10 @@ export class HomeComponent implements OnInit {
             authorizeUrl: 'https://www.linkedin.com/oauth/v2/authorization',
             redirectUrl: environment.redirectUrl,
             accessUrl: 'https://www.linkedin.com/oauth/v2/accessToken',
-            clientId: '86v21lx86n52vp',
-            clientSecret: 'Sz6abc1pM5gq65x0',
-            scope: 'r_emailaddress r_liteprofile w_member_social',
+            clientId: '8687v52127edmb',
+            clientSecret: '04PXmwXWbF9goe9v',
+            scope:
+                'r_emailaddress r_liteprofile r_basicprofile w_member_social',
             responseType: 'code'
         }
     ];
@@ -229,5 +230,12 @@ export class HomeComponent implements OnInit {
                 });
                 this.router.navigateByUrl('signin');
             });
+    }
+    webhook(req, res) {
+        if (req.query['hub.verify_token'] === 'my_verified_token') {
+            res.send(req.query['hub.challenge']);
+        } else {
+            res.send('Error, wrong validation token');
+        }
     }
 }
