@@ -18,7 +18,7 @@ const ifYouHaveTenMoreConnexions = async (
     const { data } = await axios.get(
         `connections?q=viewer&projection=(paging)`
     );
-    const nbConnexion = data.total;
+    const nbConnexion = data.paging.total;
 
     if (nbConnexion === previousConnexionNb) {
         return;
