@@ -28,8 +28,6 @@ export class AreaServiceComponent implements OnInit {
 
     @Input() areas: [string, string][];
 
-    @Input() genericReactionDescription: string;
-
     reactionType: 'generic' | 'specific' = 'specific';
 
     areaId: number = -1;
