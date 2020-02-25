@@ -108,6 +108,17 @@ namespace Area.Views
 					accessTokenUrl: new Uri(Constants.LinkedinAccessUrl)
 				);
 			}
+			else if (providername == "Reddit")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.RedditClientId,
+					//clientSecret: Constants.RedditClientSecret,
+					scope: Constants.RedditScope,
+					authorizeUrl: new Uri(Constants.RedditAuthorizeUrl),
+					redirectUrl: new Uri(Constants.RedditRedirectUrl)
+					//accessTokenUrl: new Uri(Constants.RedditAccessUrl)
+				);
+			}
 			//TMP
 			else
 			{
@@ -162,7 +173,7 @@ namespace Area.Views
 
 				//save access token of a service
 				userAccountsProperty.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
-
+				System.Diagnostics.Debug.WriteLine(e.Account.Properties["access_token"]);
 				//save service in property
 				Application.Current.Properties["UserAccounts"] = userAccountsProperty;
 			}

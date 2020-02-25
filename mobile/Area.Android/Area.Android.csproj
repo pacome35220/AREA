@@ -161,6 +161,10 @@
           <SubType></SubType>
           <Generator></Generator>
         </AndroidResource>
+        <AndroidResource Include="Resources\Drawable\Reddit.png">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Resources\Drawable\" />

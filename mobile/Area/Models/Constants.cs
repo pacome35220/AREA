@@ -60,7 +60,7 @@ namespace OAuthNativeFlow
 		/*Office365*/
 		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
 
-		public static string Office365Scope = "User.Read profile openid email";
+		public static string Office365Scope = "User.Read profile openid email mail.read";
 
 		public static string Office365AuthorizeUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";
 
@@ -94,6 +94,20 @@ namespace OAuthNativeFlow
 		public static string LinkedinRedirectUrl = "http://localhost:4200/home";
 
 		public static string LinkedinAccessUrl = "https://www.linkedin.com/uas/oauth2/accessToken";
+
+		/*Reddit*/
+		public static string RedditClientId = "DXTM2r0EHO3Wig";
+
+		public static string RedditClientSecret = "";
+
+		public static string RedditScope = "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread";
+
+		public static string RedditAuthorizeUrl = "https://www.reddit.com/api/v1/authorize.compact";
+
+		public static string RedditRedirectUrl = "http://localhost:8080/oauth2/callback";
+
+		public static string RedditAccessUrl = "https://www.reddit.com/api/v1/access_token";
+
 
 	}
 }

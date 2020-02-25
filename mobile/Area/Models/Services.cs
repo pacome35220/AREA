@@ -84,6 +84,13 @@ namespace Area.Models
 					new Service.Area ("If you push a new branch ...", "Create a pull request", false),
 					new Service.Area ("general request", "LOL mdr", true)
 				}
+			},
+			new Service {
+				name = "Reddit",
+				area = new List<Service.Area> {
+					new Service.Area ("If you push a new branch ...", "Create a pull request", false),
+					new Service.Area ("general request", "LOL mdr", true)
+				}
 			}
 		};
         public async Task<List<Service>> GetItemsAsync(int pageIndex, int pageSize)
