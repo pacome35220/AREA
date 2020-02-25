@@ -257,11 +257,4 @@ export class HomeComponent implements OnInit {
                 this.router.navigateByUrl('signin');
             });
     }
-    webhook(req, res) {
-        if (req.query['hub.verify_token'] === 'my_verified_token') {
-            res.send(req.query['hub.challenge']);
-        } else {
-            res.send('Error, wrong validation token');
-        }
-    }
 }
