@@ -109,49 +109,35 @@ export class AreaServiceComponent implements OnInit {
     }
 
     async registerAREA() {
+        let data = {};
+
         if (this.reactionType === 'generic') {
-            const genericData = {
+            data = {
                 actionServiceName: this.name,
                 actionId: this.areaId,
                 actionAccessToken: this.actionAccessToken,
                 reactionServiceName: this.reactionServiceName,
                 reactionAccessToken: this.reactionAccessToken
             };
-            console.log(genericData);
-            axios
-                .post(
-                    `${environment.serverUrl}/register-generic-area`,
-                    genericData,
-                    this.axiosRequestConfig
-                )
-                .then(response => console.log("C'est bon: , ", response))
-                .catch(err => {
-                    this.snackBar.open(`An error occured : ${err}`, 'Retry', {
-                        duration: 2000
-                    });
-                });
-        }
-
-        if (this.reactionType === 'specific') {
-            const specificData = {
+        } else {
+            data = {
                 serviceName: this.name,
                 areaId: this.areaId,
                 actionAccessToken: this.actionAccessToken
             };
-            console.log(specificData);
-            axios
-                .post(
-                    `${environment.serverUrl}/register-specific-area`,
-                    specificData,
-                    this.axiosRequestConfig
-                )
-                .then(response => console.log("C'est bon: , ", response))
-                .catch(err => {
-                    this.snackBar.open(`An error occured : ${err}`, 'Retry', {
-                        duration: 2000
-                    });
-                });
         }
+        axios
+            .post(
+                `${environment.serverUrl}/${this.reactionType}-area`,
+                data,
+                this.axiosRequestConfig
+            )
+            .then(response => console.log("C'est bon: , ", response))
+            .catch(err => {
+                this.snackBar.open(`An error occured : ${err}`, 'Retry', {
+                    duration: 2000
+                });
+            });
     }
 
     ngOnInit() {
