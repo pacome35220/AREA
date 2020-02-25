@@ -1,9 +1,8 @@
 import Axios from 'axios';
 
 import { AreaService } from './Service';
-import { any } from 'bluebird';
 
-var previousCommentsNb: number = 0;
+var previousMailNb: number = 0;
 
 const ifIHaveTooManyMails = async (
     reactionType: 'generic' | 'specific',
@@ -17,18 +16,18 @@ const ifIHaveTooManyMails = async (
         }
     });
     const { data } = await axios.get('/me/mailfolders/inbox/messages?$top=20'); //todo change top
-    const nbcomments = Object.keys(data).length;
+    const nbMail = Object.keys(data).length;
 
-    if (nbcomments === previousCommentsNb) {
+    if (nbMail === previousMailNb) {
         return;
     }
-    previousCommentsNb = nbcomments;
-    if (nbcomments > 0 && nbcomments % 10 == 0) {
+    previousMailNb = nbMail;
+    if (nbMail > 0 && nbMail % 10 == 0) {
         console.log(
             `Imgur action ifYouWroteTenComments ${reactionType} response ok`
         );
         if (reactionType === 'specific') {
-            return nbcomments;
+            return nbMail;
         }
         if (reactionType === 'generic') {
             return `You wrote 10 more comments on Office, go to work !`;
