@@ -24,13 +24,13 @@ const ifIHaveTooManyMails = async (
     previousMailNb = nbMail;
     if (nbMail > 0 && nbMail % 10 == 0) {
         console.log(
-            `Imgur action ifYouWroteTenComments ${reactionType} response ok`
+            `Office action ifIHaveTooManyMails ${reactionType} response ok`
         );
         if (reactionType === 'specific') {
             return nbMail;
         }
         if (reactionType === 'generic') {
-            return `You wrote 10 more comments on Office, go to work !`;
+            return `You got more than 10 mails on Office !`;
         }
     }
     console.log('Office action ifIHaveTooManyMails not triggered');
@@ -51,7 +51,10 @@ const sendAMail = async (actionAccessToken: string, data: any) => {
             Body: {
                 ContentType: 'Text',
                 Content:
-                    "We're here to warn you that your inbox is starting to be a real TRASH !!!"
+                    "We're here to warn you that your inbox is starting to be a real TRASH !!!\n" +
+                    'Indeed you got more than ' +
+                    data +
+                    ' unread mails'
             },
             ToRecipients: [
                 {
