@@ -119,6 +119,19 @@ namespace Area.Views
 					//accessTokenUrl: new Uri(Constants.RedditAccessUrl)
 				);
 			}
+			else if (providername == "Youtube")
+			{
+				authenticator = new OAuth2Authenticator(
+					clientId: Constants.YoutubeClientId,
+					null,//Constants.RedditClientSecret,
+					scope: Constants.YoutubeScope,
+					authorizeUrl: new Uri(Constants.YoutubeAuthorizeUrl),
+					redirectUrl: new Uri(Constants.YoutubeRedirectUrl),
+					accessTokenUrl: new Uri(Constants.YoutubeAccessUrl),
+					null,
+					true
+				);
+			}
 			//TMP
 			else
 			{

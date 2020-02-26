@@ -53,7 +53,7 @@ namespace OAuthNativeFlow
 
 		public static string DiscordAuthorizeUrl = "https://discordapp.com/api/oauth2/authorize";
 
-		public static string DiscordRedirectUrl = Device.RuntimePlatform == Device.iOS ? "http://localhost:8080/api/discord/callback" : "http://10.0.2.2:8080/api/discord/callback"; //ios/android
+		public static string DiscordRedirectUrl = Device.RuntimePlatform == Device.iOS ? "http://localhost:8080/api/discord/callback" : "http://10.0.2.2:8080/oauth2redirect/example-provider";//"http://10.0.2.2:8080/api/discord/callback"; //ios/android
 
 		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
 
@@ -81,6 +81,12 @@ namespace OAuthNativeFlow
 
 
 		/* todo Youtube*/
+		public static string YoutubeClientId = "829850811692-gn1r71thf98b3maid37lafu24f3ji1ro.apps.googleusercontent.com";//"<insert IOS client ID here>";
+		public static string YoutubeScope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+		public static string YoutubeAuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
+		public static string YoutubeAccessUrl = "https://accounts.google.com/o/oauth2/token";
+		public static string YoutubeRedirectUrl = "com.googleusercontent.apps.829850811692-gn1r71thf98b3maid37lafu24f3ji1ro:/oauth2redirect";
+
 
 		/*LinkedIn*/
 		public static string LinkedinClientId = "86v21lx86n52vp";
