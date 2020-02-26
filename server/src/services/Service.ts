@@ -6,6 +6,7 @@ import { Discord } from './Discord';
 import { Github } from './Github';
 import { Imgur } from './Imgur';
 import { Office365 } from './Office365';
+import { Reddit } from './Reddit';
 
 export interface Area {
     areaId: number;
@@ -25,7 +26,13 @@ export interface AreaService {
     genericReaction?: (accessToken: string, message: string) => Promise<void>;
 }
 
-const areasServices: AreaService[] = [Github, Discord, Imgur, Office365];
+const areasServices: AreaService[] = [
+    Github,
+    Discord,
+    Imgur,
+    Office365,
+    Reddit
+];
 
 export const registerSpecificAREA = async (
     user: User,
