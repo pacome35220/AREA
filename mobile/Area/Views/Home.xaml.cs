@@ -74,6 +74,8 @@ namespace Area.Views
 					authorizeUrl: new Uri(Constants.DiscordAuthorizeUrl),
 					redirectUrl: new Uri(Constants.DiscordRedirectUrl),
 					accessTokenUrl: new Uri(Constants.DiscordAccessUrl)
+					//null,
+					//true
 				);
 			}
 			else if (providername == "Office365")
