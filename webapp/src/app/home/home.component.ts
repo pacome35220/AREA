@@ -16,7 +16,7 @@ import { getAccessTokenFromImgur } from '../services/imgur/imgur';
 import { getAccessTokenFromOffice365 } from '../services/office365/office365';
 import { getAccessTokenFromYoutube } from '../services/youtube/youtube';
 import { getAccessTokenFromLinkedIn } from '../services/linkedin/linkedin';
-
+import { getAccessTokenFromReddit } from '../services/reddit/reddit';
 export interface Service {
     name: string;
     description: string;
@@ -188,6 +188,26 @@ export class HomeComponent implements OnInit {
             scope:
                 'r_emailaddress r_liteprofile r_basicprofile w_member_social',
             responseType: 'code'
+        },
+        {
+            name: 'Reddit',
+            description:
+                "Reddit is a network of communities based on people's interests.Find communities you're interested in, and become part of an online community!",
+            image: '../../assets/reddit.svg',
+            isGenericReaction: true,
+
+            areas: [['TODO', 'TODO']],
+
+            authenticateAction: getAccessTokenFromReddit,
+
+            authorizeUrl: 'https://www.reddit.com/api/v1/authorize',
+            redirectUrl: environment.redirectUrl,
+            accessUrl: 'https://www.reddit.com/api/v1/access_token',
+            clientId: 'twn44bqFjavRBg',
+            clientSecret: 'BwqGCEPgzGTmNSyatQb1FfH8ruQ',
+            scope:
+                'identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread',
+            responseType: 'code'
         }
     ];
 
@@ -208,6 +228,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        return;
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
