@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import axios, { AxiosBasicCredentials, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { environment } from 'src/environments/environment';
 
@@ -17,6 +17,23 @@ import { getAccessTokenFromOffice365 } from '../services/office365/office365';
 import { getAccessTokenFromYoutube } from '../services/youtube/youtube';
 import { getAccessTokenFromLinkedIn } from '../services/linkedin/linkedin';
 import { getAccessTokenFromReddit } from '../services/reddit/reddit';
+
+class AreaGeneric {
+    public actionServiceName!: string;
+    public actionId!: number;
+    public actionAccessToken!: string;
+    public reactionServiceName!: string;
+    public reactionAccessToken!: string;
+    public intervalId!: string;
+}
+
+class AreaSpecific {
+    public serviceName!: string;
+    public areaId!: number;
+    public actionAccessToken!: string;
+    public intervalId!: string;
+}
+
 export interface Service {
     name: string;
     description: string;
@@ -34,6 +51,9 @@ export interface Service {
     clientSecret: string;
     scope?: string;
     responseType?: string;
+
+    registeredSpecificArea?: AreaSpecific;
+    registeredGenericArea?: AreaGeneric;
 }
 
 @Component({
@@ -227,7 +247,7 @@ export class HomeComponent implements OnInit {
         this.router.navigateByUrl('/signin');
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         const credentials = this.appAuthService.getCredentials();
 
         if (!credentials) {
@@ -244,17 +264,43 @@ export class HomeComponent implements OnInit {
             }
         };
 
-        axios
+        const response = await axios
             .get(`${environment.serverUrl}/user/me`, this.axiosRequestConfig)
-            .then(res => {
-                this.firstName = res.data.firstName;
-                this.lastName = res.data.lastName;
-            })
-            .catch(() => {
+            .catch(err => {
+                console.error(err);
                 this.snackBar.open(`Please signin to use AREA`, 'Signup', {
                     duration: 2000
                 });
                 this.router.navigateByUrl('signin');
             });
+
+        if (response) {
+            const { data } = response;
+
+            this.firstName = data.firstName;
+            this.lastName = data.lastName;
+
+            if (data.specificAreas) {
+                data.specificAreas.forEach(specificArea => {
+                    this.services.forEach(service => {
+                        if (specificArea.serviceName === service.name) {
+                            console.log(specificArea.serviceName, service.name);
+                            service.registeredSpecificArea = specificArea;
+                        }
+                    });
+                });
+            }
+
+            if (data.genericAreas) {
+                data.genericAreas.forEach(genericArea => {
+                    this.services.forEach(service => {
+                        if (genericArea.serviceName === service.name) {
+                            service.registeredGenericArea = genericArea;
+                        }
+                    });
+                });
+            }
+            console.log(data);
+        }
     }
 }

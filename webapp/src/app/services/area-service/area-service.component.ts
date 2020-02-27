@@ -32,6 +32,8 @@ export class AreaServiceComponent implements OnInit {
     actionAccessToken: string;
     reactionAccessToken: string | undefined;
 
+    intervalId: string;
+
     @Input() axiosRequestConfig: AxiosRequestConfig;
 
     constructor(private snackBar: MatSnackBar) {}
@@ -67,6 +69,10 @@ export class AreaServiceComponent implements OnInit {
         } else {
             return false;
         }
+    }
+
+    isRegister() {
+        return this.intervalId;
     }
 
     @Input('authenticateAction') getAccessTokenFromCustomService: (
@@ -108,6 +114,25 @@ export class AreaServiceComponent implements OnInit {
             });
     }
 
+    async unregisterAREA() {
+        axios
+            .delete(
+                `${environment.serverUrl}/${this.reactionType}-area/${this.intervalId}`,
+                this.axiosRequestConfig
+            )
+            .then(response =>
+                console.log(
+                    `Remove ${this.name} ${this.reactionType} intervalId ${this.intervalId}, status: `,
+                    response
+                )
+            )
+            .catch(err => {
+                this.snackBar.open(`An error occured : ${err}`, 'Retry', {
+                    duration: 2000
+                });
+            });
+    }
+
     async registerAREA() {
         let data = {};
 
@@ -132,7 +157,10 @@ export class AreaServiceComponent implements OnInit {
                 data,
                 this.axiosRequestConfig
             )
-            .then(response => console.log("C'est bon: , ", response))
+            .then(response => {
+                console.log("C'est bon: , ", response);
+                this.intervalId = response.data.intervalId;
+            })
             .catch(err => {
                 this.snackBar.open(`An error occured : ${err}`, 'Retry', {
                     duration: 2000
@@ -141,11 +169,22 @@ export class AreaServiceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.actionService = this.reactionServices.find(
-            service => service.name === this.name
-        );
-        this.reactionServices = this.reactionServices.filter(
-            service => service.isGenericReaction
-        );
+        setTimeout(() => {
+            this.actionService = this.reactionServices.find(
+                service => service.name === this.name
+            );
+            this.reactionServices = this.reactionServices.filter(
+                service => service.isGenericReaction
+            );
+
+            if (this.actionService.registeredGenericArea) {
+                this.areaId = this.actionService.registeredGenericArea.actionId;
+                this.intervalId = this.actionService.registeredGenericArea.intervalId;
+            }
+            if (this.actionService.registeredSpecificArea) {
+                this.areaId = this.actionService.registeredSpecificArea.areaId;
+                this.intervalId = this.actionService.registeredSpecificArea.intervalId;
+            }
+        }, 2000);
     }
 }

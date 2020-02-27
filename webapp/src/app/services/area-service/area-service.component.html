@@ -16,7 +16,11 @@
         <span></span>
         <h3>AREA:</h3>
         <mat-radio-group color="primary" (change)="onChangeAREA($event)">
-            <mat-radio-button [value]="area" *ngFor="let area of areas">
+            <mat-radio-button
+                [value]="area"
+                [checked]="this.areaId === i"
+                *ngFor="let area of areas; let i = index"
+            >
                 {{ area[0] }}
                 <ng-container
                     *ngIf="!reactionType || reactionType === 'specific'"
@@ -55,12 +59,21 @@
     </mat-card-content>
     <mat-card-actions>
         <button
+            *ngIf="!isRegister()"
             mat-flat-button
             color="primary"
             [disabled]="!isAuthenticate()"
             (click)="registerAREA()"
         >
             Register AREA
+        </button>
+        <button
+            *ngIf="isRegister()"
+            mat-flat-button
+            color="primary"
+            (click)="unregisterAREA()"
+        >
+            Remove AREA
         </button>
     </mat-card-actions>
 </mat-card>
