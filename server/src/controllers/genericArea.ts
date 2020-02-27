@@ -41,3 +41,37 @@ export const registerGenericArea = async (
         return next(err);
     }
 };
+
+export const removeGenericArea = async (
+    req: Request,
+    res: ExtendedResponse,
+    next: NextFunction
+) => {
+    try {
+        const { user } = res.locals;
+        const { intervalId } = req.params;
+
+        if (!intervalId) {
+            return res.status(400).send('intervalId is missing.');
+        }
+        if (user.genericAreas) {
+            const toRemove = user.genericAreas.find(
+                genericArea => genericArea.intervalId === intervalId
+            );
+            if (toRemove) {
+                await user.removeGenericArea(toRemove);
+            } else {
+                return res
+                    .status(400)
+                    .send(
+                        "intervalId refers to a genericArea that doesn't exist."
+                    );
+            }
+        }
+
+        // send OK
+        return res.sendStatus(200);
+    } catch (err) {
+        return next(err);
+    }
+};

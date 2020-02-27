@@ -2,7 +2,9 @@ import {
     DataTypes,
     Model,
     HasManyCreateAssociationMixin,
-    Association
+    HasManyRemoveAssociationMixin,
+    Association,
+    HasManyRemoveAssociationsMixin
 } from 'sequelize';
 
 import sequelize from '../database';
@@ -25,6 +27,20 @@ class User extends Model {
     public createGenericArea!: HasManyCreateAssociationMixin<AreaGeneric>;
     public createSpecificArea!: HasManyCreateAssociationMixin<AreaSpecific>;
 
+    public removeGenericArea!: HasManyRemoveAssociationMixin<User, AreaGeneric>;
+    public removeSpecificArea!: HasManyRemoveAssociationMixin<
+        User,
+        AreaSpecific
+    >;
+
+    public removeGenericAreas!: HasManyRemoveAssociationsMixin<
+        User,
+        AreaGeneric
+    >;
+    public removeSpecificAreas!: HasManyRemoveAssociationsMixin<
+        User,
+        AreaSpecific
+    >;
     public static associations: {
         genericAreas: Association<User, AreaGeneric>;
         specificAreas: Association<User, AreaSpecific>;

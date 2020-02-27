@@ -12,7 +12,8 @@ import {
 
 import about from './routes/about';
 import user from './routes/user';
-import registrerAREA from './routes/registrerAREA';
+import genericArea from './routes/genericArea';
+import specificArea from './routes/genericArea';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -27,7 +28,8 @@ app.use(logger);
 
 app.use('/', about);
 app.use('/', user);
-app.use('/', registrerAREA);
+app.use('/', genericArea);
+app.use('/', specificArea);
 
 app.get('/', (req, res) => {
     res.send(`Api is UP in ${Date.now() - res.locals.timestamp}`);

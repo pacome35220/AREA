@@ -83,10 +83,16 @@ export const deleteProfile = async (
     try {
         const { user } = res.locals;
 
+        // unhook each genericArea
+        await user.removeGenericAreas();
+
+        // unhook each specificArea
+        await user.removeSpecificAreas();
+
         // delete user from database
         await user.destroy();
 
-        return res.status(200).end();
+        return res.sendStatus(200);
     } catch (err) {
         return next(err);
     }

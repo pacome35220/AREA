@@ -76,5 +76,5 @@ export const handleServerErrorResponse = (
     next: NextFunction
 ) => {
     console.error(err);
-    res.status(500).end();
+    res.sendStatus(500);
 };

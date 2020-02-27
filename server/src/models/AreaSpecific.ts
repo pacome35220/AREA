@@ -22,8 +22,7 @@ AreaSpecific.init(
             primaryKey: true
         },
         userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.INTEGER
         },
         serviceName: {
             type: DataTypes.STRING,

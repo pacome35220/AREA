@@ -24,8 +24,7 @@ AreaGeneric.init(
             primaryKey: true
         },
         userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.INTEGER
         },
         actionServiceName: {
             type: DataTypes.STRING,
