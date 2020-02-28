@@ -15,14 +15,15 @@ const ifIHaveTooManyMails = async (
             Authorization: `Bearer ${actionAccessToken}`
         }
     });
-    const { data } = await axios.get('/me/mailfolders/inbox/messages?$top=20'); //todo change top
-    const nbMail = Object.keys(data).length;
+    const response = await axios.get('/me/mailfolders/inbox/');
+    const nbMail = response.data.unreadItemCount; //nb unread mails inside your inbox
 
     if (nbMail === previousMailNb) {
         return;
     }
     previousMailNb = nbMail;
     if (nbMail > 0 && nbMail % 10 == 0) {
+        //each 10 unread mails trigger a reaction
         console.log(
             `Office action ifIHaveTooManyMails ${reactionType} response ok`
         );
@@ -30,7 +31,7 @@ const ifIHaveTooManyMails = async (
             return nbMail;
         }
         if (reactionType === 'generic') {
-            return `You got more than 10 mails on Office !`;
+            return `10 mails on Office (GENERIC REACTION)!`;
         }
     }
     console.log('Office action ifIHaveTooManyMails not triggered');
@@ -44,7 +45,10 @@ const sendAMail = async (actionAccessToken: string, data: any) => {
             Authorization: `Bearer ${actionAccessToken}`
         }
     });
-    // const { mail }  = await axios.get('/me/'); todo maybe i have to get my mail addr
+    //get my profile
+    const myProfile = await axios.get('/me/');
+
+    //create the mail in json format
     var obj = {
         Message: {
             Subject: 'Clean your inbox !',
@@ -59,13 +63,14 @@ const sendAMail = async (actionAccessToken: string, data: any) => {
             ToRecipients: [
                 {
                     EmailAddress: {
-                        Address: 'me' //don't know if this sh#$ works
+                        Address: myProfile.data.mail //insert my email as the receiver addr
                     }
                 }
             ]
         }
     };
-    var response = axios.post('/me/sendmail', obj);
+    //send email throught a post request
+    const response = await axios.post('/me/sendmail', obj);
     console.log('Email response = ', response);
 };
 
