@@ -7,6 +7,8 @@ import { Github } from './Github';
 import { Imgur } from './Imgur';
 import { Office365 } from './Office365';
 import { Reddit } from './Reddit';
+import { YouTube } from './Youtube';
+import { LinkedIn } from './LinkedIn';
 
 export interface Area {
     areaId: number;
@@ -31,7 +33,9 @@ const areasServices: AreaService[] = [
     Discord,
     Imgur,
     Office365,
-    Reddit
+    Reddit,
+    YouTube,
+    LinkedIn
 ];
 
 export const registerSpecificAREA = async (

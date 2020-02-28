@@ -113,7 +113,7 @@ const aRandomMessageIsSendInto = async (
     console.log('LinkedIn genericeReaction status: ', publication.status);
 };
 
-export const Discord: AreaService = {
+export const LinkedIn: AreaService = {
     serviceName: 'LinkedIn',
     areas: [
         {
