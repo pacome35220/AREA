@@ -111,7 +111,7 @@
                 }
             }
         },
-        "/register-specific-area": {
+        "/specific-area": {
             "post": {
                 "tags": ["AREA"],
                 "summary": "Registrer specific AREA",
@@ -135,7 +135,28 @@
                 }
             }
         },
-        "/register-generic-area": {
+        "/specific-area/{intervalId}": {
+            "delete": {
+                "tags": ["AREA"],
+                "summary": "Remove specific AREA",
+                "description": "Remove specific AREA by intervalId provided as register response.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "intervalId refers to a specificArea that doesn't exist"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
+        },
+        "/generic-area": {
             "post": {
                 "tags": ["AREA"],
                 "summary": "Registrer generic AREA",
@@ -149,6 +170,27 @@
                     },
                     "400": {
                         "description": "Invalid form : email formating or password length less than 6"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
+        },
+        "/generic-area/{intervalId}": {
+            "delete": {
+                "tags": ["AREA"],
+                "summary": "Remove generic AREA",
+                "description": "Remove generic AREA by intervalId provided as register response.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "intervalId refers to a genericArea that doesn't exist"
                     },
                     "401": {
                         "$ref": "#/components/responses/UnauthorizedError"
@@ -187,12 +229,12 @@
                 "properties": {
                     "serviceName": {
                         "type": "string",
-                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Facebook`\n* `Imgur`\n* `Office365`\n",
+                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Imgur`\n* `Office365`\n* `LinkedIn`\n* `Youtube`\n* `Reddit`\n",
                         "example": "Github"
                     },
                     "areaId": {
                         "type": "number",
-                        "description": "`serviceName` == `\"Github\"` :\n * `0` - If you push a new branch, a pull request from this branch to master is create.\n\n`serviceName` == `\"Discord\"` :\n * `0` - If you are add to a channel, a message to this channel is send.\n\n`serviceName` == `\"Facebook\"` :\n * `0` - If TODO, then TODO\n\n`serviceName` == `\"Imgur\"` :\n * `0` - If you write 10 more comments, a picture is upload as a reward.\n\n`serviceName` == `\"Office365\"` :\n * `0` - If TODO, then TODO\n",
+                        "description": "`serviceName` == `\"Github\"` :\n * `0` - If you push a new branch, a pull request from this branch to master is create.\n\n`serviceName` == `\"Discord\"` :\n * `0` - If you receive a message 'ping', a bot send you 'pong'\n\n`serviceName` == `\"Imgur\"` :\n * `0` - If you wrote 10 more comments, a special picture is post on your account\n\n`serviceName` == `\"Office365\"` :\n * `0` - If you have 10 more mails, you get an email that says your inbox looks like a trash\n\n`serviceName` == `\"LinkedIn\"` :\n * `0` - If you have 10 more connections, a post is posted on your account\n\n`serviceName` == `\"Youtube\"` :\n * `0` - If any of your videos have more than 1,000 likes, a comment is post on this video\n\n`serviceName` == `\"Reddit\"` :\n * `0` - If you have more than 10 unread messages, you create a live.\n",
                         "example": 0
                     },
                     "actionAccessToken": {
@@ -207,12 +249,12 @@
                 "properties": {
                     "actionServiceName": {
                         "type": "string",
-                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Facebook`\n* `Imgur`\n* `Office365`\n",
+                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Imgur`\n* `Office365`\n* `LinkedIn`\n* `Youtube`\n* `Reddit`\n",
                         "example": "Github"
                     },
                     "actionId": {
                         "type": "number",
-                        "description": "`actionServiceName` == `\"Github\"` :\n * `0` - If you push a new branch\n\n`actionServiceName` == `\"Discord\"` :\n * `0` - If you are add to a channel\n\n`actionServiceName` == `\"Facebook\"` :\n * `0` - If TODO\n\n`actionServiceName` == `\"Imgur\"` :\n * `0` - If you write 10 more comments\n\n`actionServiceName` == `\"Office365\"` :\n * `0` - If TODO\n",
+                        "description": "`actionServiceName` == `\"Github\"` :\n * `0` - If you push a new branch\n\n`actionServiceName` == `\"Discord\"` :\n * `0` - If you receive a message 'ping'\n\n`actionServiceName` == `\"Imgur\"` :\n * `0` - If you wrote 10 more comments\n\n`actionServiceName` == `\"Office365\"` :\n * `0` - If you have 10 more mails\n\n`actionServiceName` == `\"LinkedIn\"` :\n * `0` - If you have 10 more connections\n\n`actionServiceName` == `\"Youtube\"` :\n * `0` - If any of your videos have more than 1,000 likes\n\n`actionServiceName` == `\"Reddit\"` :\n * `0` - If you have more than 10 unread messages\n",
                         "example": 0
                     },
                     "actionAccessToken": {
@@ -222,7 +264,7 @@
                     },
                     "reactionServiceName": {
                         "type": "string",
-                        "description": "Reaction service name on which a text representing the action is sent\n\n* `Discord`\n* `Facebook`\n* `Office365`\n",
+                        "description": "Reaction service name on which a text representing the action is sent\n\n* `Discord`\n* `Office365`\n",
                         "example": "Discord"
                     },
                     "reactionAccessToken": {
