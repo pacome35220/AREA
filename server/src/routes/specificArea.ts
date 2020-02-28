@@ -17,7 +17,7 @@ router.post(
 );
 
 router.delete(
-    '/specific-area/:timestampId',
+    '/specific-area/:intervalId',
     saveUserBasicAuthHeader,
     saveUserFromDatabase,
     removeSpecificArea

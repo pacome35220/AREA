@@ -17,7 +17,7 @@ router.post(
 );
 
 router.delete(
-    '/generic-area',
+    '/generic-area/:intervalId',
     saveUserBasicAuthHeader,
     saveUserFromDatabase,
     removeGenericArea
