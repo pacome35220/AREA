@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
             areas: [
                 [
                     'If you push a new branch',
-                    'a PR to master is create with this branch.'
+                    'a pull request from this branch to master is create.'
                 ]
             ],
 
@@ -92,10 +92,7 @@ export class HomeComponent implements OnInit {
             isGenericReaction: true,
 
             areas: [
-                [
-                    'If you are add to a channel',
-                    'a random message is send into it.'
-                ]
+                ["If you receive a message 'ping'", "a bot send you 'pong'"]
             ],
 
             authenticateAction: getAccessTokenFromDiscord,
@@ -135,8 +132,8 @@ export class HomeComponent implements OnInit {
 
             areas: [
                 [
-                    'If you write 10 more comments',
-                    'a picture is upload as a reward.'
+                    'If you wrote 10 more comments',
+                    'a special picture is post on your account.'
                 ]
             ],
 
@@ -157,7 +154,12 @@ export class HomeComponent implements OnInit {
             image: '../../assets/microsoft.svg',
             isGenericReaction: true,
 
-            areas: [['TODO', 'TODO']],
+            areas: [
+                [
+                    'If you have 10 more mails',
+                    'you get an email that says your inbox looks like a trash'
+                ]
+            ],
 
             authenticateAction: getAccessTokenFromOffice365,
 
@@ -172,31 +174,17 @@ export class HomeComponent implements OnInit {
             responseType: 'token'
         },
         {
-            name: 'Youtube',
-            description: 'Broadcast Yourself',
-            image: '../../assets/youtube.svg',
-            isGenericReaction: false,
-
-            areas: [['TODO', 'TODO']],
-
-            authenticateAction: getAccessTokenFromYoutube,
-
-            authorizeUrl: 'https://accounts.google.com/o/oauth2/auth',
-            redirectUrl: environment.redirectUrl,
-            accessUrl: 'https://accounts.google.com/o/oauth2/auth/token',
-            clientId:
-                '613211284635-db38gk0du0cllj0gfpqonm008fe2t29p.apps.googleusercontent.com',
-            clientSecret: '',
-            scope: 'email profile openid',
-            responseType: 'token'
-        },
-        {
             name: 'LinkedIn',
             description: 'Le réseau social de Curtis',
             image: '../../assets/linkedin.svg',
             isGenericReaction: true,
 
-            areas: [['TODO', 'TODO']],
+            areas: [
+                [
+                    'If you have 10 more connections',
+                    'a post is posted on your account'
+                ]
+            ],
 
             authenticateAction: getAccessTokenFromLinkedIn,
 
@@ -210,13 +198,43 @@ export class HomeComponent implements OnInit {
             responseType: 'code'
         },
         {
+            name: 'Youtube',
+            description: 'Broadcast Yourself',
+            image: '../../assets/youtube.svg',
+            isGenericReaction: false,
+
+            areas: [
+                [
+                    'If any of your videos have more than 1,000 likes',
+                    'a comment is post on this video'
+                ]
+            ],
+
+            authenticateAction: getAccessTokenFromYoutube,
+
+            authorizeUrl: 'https://accounts.google.com/o/oauth2/auth',
+            redirectUrl: environment.redirectUrl,
+            accessUrl: 'https://accounts.google.com/o/oauth2/auth/token',
+            clientId:
+                '613211284635-db38gk0du0cllj0gfpqonm008fe2t29p.apps.googleusercontent.com',
+            clientSecret: '',
+            scope: 'email profile openid',
+            responseType: 'token'
+        },
+
+        {
             name: 'Reddit',
             description:
-                "Reddit is a network of communities based on people's interests.Find communities you're interested in, and become part of an online community!",
+                "Reddit is a network of communities based on people's interests. Find communities you're interested in, and become part of an online community!",
             image: '../../assets/reddit.svg',
             isGenericReaction: true,
 
-            areas: [['TODO', 'TODO']],
+            areas: [
+                [
+                    'If you have more than 10 unread messages',
+                    'you create a live'
+                ]
+            ],
 
             authenticateAction: getAccessTokenFromReddit,
 
