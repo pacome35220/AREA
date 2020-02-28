@@ -13,7 +13,7 @@ import {
 import about from './routes/about';
 import user from './routes/user';
 import genericArea from './routes/genericArea';
-import specificArea from './routes/genericArea';
+import specificArea from './routes/specificArea';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
