@@ -35,7 +35,7 @@ AreaGeneric.init(
             allowNull: false
         },
         actionAccessToken: {
-            type: DataTypes.STRING(500),
+            type: DataTypes.STRING(5000),
             allowNull: false
         },
         reactionServiceName: {
@@ -43,7 +43,7 @@ AreaGeneric.init(
             allowNull: false
         },
         reactionAccessToken: {
-            type: DataTypes.STRING(500),
+            type: DataTypes.STRING(5000),
             allowNull: false
         },
         intervalId: {
