@@ -9,6 +9,7 @@ import { Office365 } from './Office365';
 import { Reddit } from './Reddit';
 import { YouTube } from './Youtube';
 import { LinkedIn } from './LinkedIn';
+import { FakeService } from './FakeService';
 
 export interface Area {
     areaId: number;
@@ -35,7 +36,9 @@ const areasServices: AreaService[] = [
     Office365,
     Reddit,
     YouTube,
-    LinkedIn
+    LinkedIn,
+
+    FakeService
 ];
 
 export const registerSpecificAREA = async (

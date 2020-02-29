@@ -246,6 +246,23 @@ export class HomeComponent implements OnInit {
             scope:
                 'identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread',
             responseType: 'code'
+        },
+        {
+            name: 'FakeService',
+            description:
+                'FakeService used to demonstrate the operation of our AREA and for easy testing',
+            image: '../../assets/logo.png',
+            isGenericReaction: true,
+
+            areas: [['Fake action', 'Fake reaction']],
+
+            authenticateAction: async () => 'fake_access_token',
+
+            authorizeUrl: '',
+            redirectUrl: '',
+            accessUrl: '',
+            clientId: '',
+            clientSecret: ''
         }
     ];
 
