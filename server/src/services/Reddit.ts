@@ -30,7 +30,7 @@ const ifIHaveTooManyUnreadMessages = async (
             return nbUnreadMessages;
         }
         if (reactionType === 'generic') {
-            return `You wrote 10 more comments on Imgur, go to work !`;
+            return `You wrote 10 more comments on Reddit, go to work !`;
         }
     }
     console.log('Reddit action ifIHaveTooManyUnreadMessages no trigger');
