@@ -60,7 +60,7 @@ namespace OAuthNativeFlow
 		/*Office365*/
 		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
 
-		public static string Office365Scope = "User.Read profile openid email mail.read";
+		public static string Office365Scope = "User.Read profile openid email mail.read Mail.Send";
 
 		public static string Office365AuthorizeUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";
 
@@ -106,7 +106,7 @@ namespace OAuthNativeFlow
 
 		public static string RedditClientSecret = "";
 
-		public static string RedditScope = "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread";
+		public static string RedditScope = "identity modmail edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread";
 
 		public static string RedditAuthorizeUrl = "https://www.reddit.com/api/v1/authorize.compact";
 
