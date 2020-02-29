@@ -18,20 +18,20 @@ const ifIHaveTooManyMails = async (
     const response = await axios.get('/me/mailfolders/inbox/');
     const nbMail = response.data.unreadItemCount; //nb unread mails inside your inbox
 
-    if (nbMail === previousMailNb) {
-        return;
-    }
-    previousMailNb = nbMail;
-    if (nbMail > 0 && nbMail % 10 == 0) {
-        //each 10 unread mails trigger a reaction
-        console.log(
-            `Office action ifIHaveTooManyMails ${reactionType} response ok`
-        );
-        if (reactionType === 'specific') {
-            return nbMail;
-        }
-        if (reactionType === 'generic') {
-            return `10 mails on Office (GENERIC REACTION)!`;
+    console.log('office365 number of unreaded mail', nbMail);
+    if (nbMail !== previousMailNb) {
+        previousMailNb = nbMail;
+        if (nbMail > 0 && nbMail % 10 == 0) {
+            //each 10 unread mails trigger a reaction
+            console.log(
+                `Office action ifIHaveTooManyMails ${reactionType} response ok`
+            );
+            if (reactionType === 'specific') {
+                return nbMail;
+            }
+            if (reactionType === 'generic') {
+                return `10 mails on Office (GENERIC REACTION)!`;
+            }
         }
     }
     console.log('Office action ifIHaveTooManyMails not triggered');
@@ -71,7 +71,7 @@ const sendAMail = async (actionAccessToken: string, data: any) => {
     };
     //send email throught a post request
     const response = await axios.post('/me/sendmail', obj);
-    console.log('Email response = ', response);
+    console.log('Email response = ', response.data);
 };
 
 export const Office365: AreaService = {

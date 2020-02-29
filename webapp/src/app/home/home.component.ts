@@ -170,7 +170,7 @@ export class HomeComponent implements OnInit {
                 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token',
             clientId: '16d5ca0a-267b-43c2-ab71-fe0418a8ad2f',
             clientSecret: '',
-            scope: 'User.Read profile openid email',
+            scope: 'User.Read profile openid email Mail.Read Mail.Send',
             responseType: 'token'
         },
         {
