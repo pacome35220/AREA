@@ -3,25 +3,6 @@ import auth from 'basic-auth';
 import User from './models/User';
 import { ExtendedResponse } from './types/Response';
 
-export const logger = (req: Request, res: Response, next: NextFunction) => {
-    const date = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
-    const method = req.method.toUpperCase();
-    const url = req.originalUrl;
-    const ip = req.ip;
-
-    console.log(`${date} - ${ip} - ${method} ${url}`);
-    next();
-};
-
-export const saveRequestTimestamp = (
-    req: Request,
-    res: ExtendedResponse,
-    next: NextFunction
-) => {
-    res.locals.timestamp = Date.now();
-    next();
-};
-
 export const saveUserBasicAuthHeader = (
     req: Request,
     res: ExtendedResponse,
