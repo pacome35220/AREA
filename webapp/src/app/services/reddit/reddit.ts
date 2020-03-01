@@ -23,7 +23,6 @@ export const getAccessTokenFromReddit = async (
         /code=([^&]*)/
     );
     const code = OAuth2_Response[1];
-    console.log('Code => ', code);
 
     const bodyData = {
         grant_type: 'authorization_code',
@@ -36,15 +35,17 @@ export const getAccessTokenFromReddit = async (
             password: service.clientSecret
         },
         headers: {
-            'Content-type': 'application/x-www-form-urlencoded'
+            'Content-type': 'application/x-www-form-urlencoded',
+            Authorization: 'code'
         }
     };
     const { data } = await axios.post(
-        'https://cors-anywhere.herokuapp.com/' + service.accessUrl,
+        'https://cors-anywhere.herokuapp.com/' +
+            service.accessUrl +
+            '?' +
+            `grant_type=authorization_code&code=${code}&redirect_uri=${service.redirectUrl}`,
         bodyData,
         config
     );
-
-    console.log('Data => ', data);
     return qs.parse(data).access_token;
 };
