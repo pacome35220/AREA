@@ -35,12 +35,12 @@ const ifYourPhotoHas10MoreLikes = async (
             if (reactionType === 'generic') {
                 return (
                     `You have 10 more likes on (id = ${photo.id})` +
-                    ", you're popular!"
+                    ', thank you everyone for this !'
                 );
             }
         }
     }
-    console.log('YouTube action ifYourPhotoHas10MoreLikes not triggered');
+    console.log('Facebook action ifYourPhotoHas10MoreLikes not triggered');
     return null;
 };
 
@@ -84,6 +84,6 @@ export const Facebook: AreaService = {
         const sendComment = await axios.post(
             regex.exec(message) + `message=${message}`
         );
-        console.log('YouTube genericeReaction status: ', sendComment.status);
+        console.log('Facebook genericeReaction status: ', sendComment.status);
     }
 };

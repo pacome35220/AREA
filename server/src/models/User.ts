@@ -88,9 +88,7 @@ User.hasMany(AreaSpecific, {
 // AreaSpecific.belongsTo(User);
 
 sequelize
-    .sync(/* {
-        force: true
-    } */)
+    .sync({ force: true })
     .then(value => console.log(value.models, ' are synchronized'));
 
 export default User;
