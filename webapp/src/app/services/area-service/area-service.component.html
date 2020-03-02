@@ -1,0 +1,79 @@
+<mat-card>
+    <mat-card-header>
+        <img mat-card-avatar src="{{ image }}" />
+        <mat-card-title>{{ name }}</mat-card-title>
+        <mat-card-subtitle>{{ description }}</mat-card-subtitle>
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="authenticateAction()"
+        >
+            Authenticate
+        </button>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <span></span>
+        <h3>AREA:</h3>
+        <mat-radio-group color="primary" (change)="onChangeAREA($event)">
+            <mat-radio-button
+                [value]="area"
+                [checked]="this.areaId === i"
+                *ngFor="let area of areas; let i = index"
+            >
+                {{ area[0] }}
+                <ng-container
+                    *ngIf="!reactionType || reactionType === 'specific'"
+                    >, {{ area[1] }}</ng-container
+                >
+            </mat-radio-button>
+        </mat-radio-group>
+
+        <h3>You want generic reaction ?</h3>
+        <mat-checkbox (change)="onChangeReactionType($event)">
+            A text representing the action is send to
+        </mat-checkbox>
+
+        <ng-container *ngIf="reactionType == 'generic'">
+            <mat-form-field>
+                <mat-label>Services availables</mat-label>
+                <mat-select [(value)]="reactionServiceName">
+                    <mat-option
+                        *ngFor="let service of reactionServices"
+                        [value]="service.name"
+                    >
+                        {{ service.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="reactionServiceName != undefined">
+                <button
+                    mat-stroked-button
+                    color="primary"
+                    (click)="authenticateReaction()"
+                >
+                    Authenticate
+                </button>
+            </div>
+        </ng-container>
+    </mat-card-content>
+    <mat-card-actions>
+        <button
+            *ngIf="!isRegister()"
+            mat-flat-button
+            color="primary"
+            [disabled]="!isAuthenticate()"
+            (click)="registerAREA()"
+        >
+            Register AREA
+        </button>
+        <button
+            *ngIf="isRegister()"
+            mat-flat-button
+            color="primary"
+            (click)="unregisterAREA()"
+        >
+            Remove AREA
+        </button>
+    </mat-card-actions>
+</mat-card>

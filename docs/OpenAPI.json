@@ -2,7 +2,7 @@
     "openapi": "3.0.2",
     "info": {
         "title": "Area API",
-        "description": "A simple API to allow users to trigger reactions from actions.\n\n# Introduction\nThis API is documented in **OpenAPI format** and is based on\n[Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.\nIt was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)\ntool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard\nOpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).\n\n# Authentication\n\nAREA offers one form of authentication:\n  - [Basic access authentication](https://tools.ietf.org/html/rfc7617)\n is a method for an HTTP user agent (e.g. a web browser) to provide a user name and password when making a request. In basic HTTP authentication, a request contains a header field in the form of Authorization: Basic <credentials>, where credentials is the base64 encoding of id and password joined by a single colon :.\n<SecurityDefinitions />\n",
+        "description": "### AREA provide action/reaction pairs on a web service, or a text representing an action of a web service, sent on another web service as a reaction.\n\n# Introduction\nThis API is documented in **OpenAPI format** and is based on\n[Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.\nIt was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)\ntool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard\nOpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).\n\n# Authentication\n\nAREA offers one form of authentication:\n  - [Basic access authentication](https://tools.ietf.org/html/rfc7617)\n is a method for an HTTP user agent (e.g. a web browser) to provide a user name and password when making a request. In basic HTTP authentication, a request contains a header field in the form of Authorization: Basic <credentials>, where credentials is the base64 encoding of id and password joined by a single colon :.\n<SecurityDefinitions />\n",
         "version": "0.0.0"
     },
     "servers": [
@@ -14,6 +14,16 @@
     "security": [
         {
             "BasicAuth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "User management",
+            "description": "API to manage user account on AREA server."
+        },
+        {
+            "name": "AREA",
+            "description": "API to register actions and reactions (AREA) on AREA server."
         }
     ],
     "paths": {
@@ -100,6 +110,96 @@
                     }
                 }
             }
+        },
+        "/specific-area": {
+            "post": {
+                "tags": ["AREA"],
+                "summary": "Registrer specific AREA",
+                "description": "For each action, you can choose a specific reaction. Specific means that the reaction takes place on the same service as the action. For example, for the Youtube service, for the action \"If your favorite youtuber releases a video\", the specific reaction for this action can be \"This video is added to the queue\".",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/SpecificAREA"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Invalid form : email formating or password length less than 6"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
+        },
+        "/specific-area/{intervalId}": {
+            "delete": {
+                "tags": ["AREA"],
+                "summary": "Remove specific AREA",
+                "description": "Remove specific AREA by intervalId provided as register response.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "intervalId refers to a specificArea that doesn't exist"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
+        },
+        "/generic-area": {
+            "post": {
+                "tags": ["AREA"],
+                "summary": "Registrer generic AREA",
+                "description": "For each action, you can choose a generic reaction. Generic means that a text representing the action is sent on the service chosen as a reaction. For example, for the Youtube service, for the action \"If your favorite youtubeur releases a video\", the generic reaction to this action will be the sending of the text \"Squeezie released a video today at 3 pm\" on the service reaction you have chosen (an email on Office365 for example)",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/GenericAREA"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Invalid form : email formating or password length less than 6"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
+        },
+        "/generic-area/{intervalId}": {
+            "delete": {
+                "tags": ["AREA"],
+                "summary": "Remove generic AREA",
+                "description": "Remove generic AREA by intervalId provided as register response.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "intervalId refers to a genericArea that doesn't exist"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "403": {
+                        "description": "Email or password does not match, or the account with this email does not exist"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -123,6 +223,56 @@
                         "example": "vincent.moscato@rmc.fr"
                     }
                 }
+            },
+            "SpecificAREA": {
+                "type": "object",
+                "properties": {
+                    "serviceName": {
+                        "type": "string",
+                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Imgur`\n* `Office365`\n* `LinkedIn`\n* `Youtube`\n* `Reddit`\n",
+                        "example": "Github"
+                    },
+                    "areaId": {
+                        "type": "number",
+                        "description": "`serviceName` == `\"Github\"` :\n * `0` - If you push a new branch, a pull request from this branch to master is create.\n\n`serviceName` == `\"Discord\"` :\n * `0` - If you receive a message 'ping', a bot send you 'pong'\n\n`serviceName` == `\"Imgur\"` :\n * `0` - If you wrote 10 more comments, a special picture is post on your account\n\n`serviceName` == `\"Office365\"` :\n * `0` - If you have 10 more mails, you get an email that says your inbox looks like a trash\n\n`serviceName` == `\"LinkedIn\"` :\n * `0` - If you have 10 more connections, a post is posted on your account\n\n`serviceName` == `\"Youtube\"` :\n * `0` - If any of your videos have more than 1,000 likes, a comment is post on this video\n\n`serviceName` == `\"Reddit\"` :\n * `0` - If you have more than 10 unread messages, you create a live.\n",
+                        "example": 0
+                    },
+                    "actionAccessToken": {
+                        "type": "string",
+                        "description": "access_token used to check action and send reaction",
+                        "example": "b844e95eee6b54dd32de894eee6b54dd32de894"
+                    }
+                }
+            },
+            "GenericAREA": {
+                "type": "object",
+                "properties": {
+                    "actionServiceName": {
+                        "type": "string",
+                        "description": "Action service name\n\n* `Github`\n* `Discord`\n* `Imgur`\n* `Office365`\n* `LinkedIn`\n* `Youtube`\n* `Reddit`\n",
+                        "example": "Github"
+                    },
+                    "actionId": {
+                        "type": "number",
+                        "description": "`actionServiceName` == `\"Github\"` :\n * `0` - If you push a new branch\n\n`actionServiceName` == `\"Discord\"` :\n * `0` - If you receive a message 'ping'\n\n`actionServiceName` == `\"Imgur\"` :\n * `0` - If you wrote 10 more comments\n\n`actionServiceName` == `\"Office365\"` :\n * `0` - If you have 10 more mails\n\n`actionServiceName` == `\"LinkedIn\"` :\n * `0` - If you have 10 more connections\n\n`actionServiceName` == `\"Youtube\"` :\n * `0` - If any of your videos have more than 1,000 likes\n\n`actionServiceName` == `\"Reddit\"` :\n * `0` - If you have more than 10 unread messages\n",
+                        "example": 0
+                    },
+                    "actionAccessToken": {
+                        "type": "string",
+                        "description": "access_token used to check action",
+                        "example": "b844e95eee6b54dd32de894eee6b54dd32de894"
+                    },
+                    "reactionServiceName": {
+                        "type": "string",
+                        "description": "Reaction service name on which a text representing the action is sent\n\n* `Discord`\n* `Office365`\n",
+                        "example": "Discord"
+                    },
+                    "reactionAccessToken": {
+                        "type": "string",
+                        "description": "access_token used to send reaction",
+                        "example": "dd32de894b844e95eee6b54dd32db844e956b54"
+                    }
+                }
             }
         },
         "requestBodies": {
@@ -133,6 +283,28 @@
                     "application/json": {
                         "schema": {
                             "$ref": "#/components/schemas/User"
+                        }
+                    }
+                }
+            },
+            "SpecificAREA": {
+                "description": "SpecificAREA model",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/SpecificAREA"
+                        }
+                    }
+                }
+            },
+            "GenericAREA": {
+                "description": "GenericAREA model",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericAREA"
                         }
                     }
                 }

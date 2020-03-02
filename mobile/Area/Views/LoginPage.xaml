@@ -38,6 +38,7 @@
 					<RowDefinition Height="auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
+				<!--<Label Text="Welcome to the AREA" FontSize="25" HeightRequest="90" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>-->
 				<Entry x:Name="Entry_Mail" Grid.Row="1" Placeholder="Email..." PlaceholderColor="#bababa" FontSize="16"/>
 				<Entry x:Name="Entry_Password" Grid.Row="2" Placeholder="Password..." PlaceholderColor="#bababa" FontSize="16" IsPassword="True"/>
 				<Button Text="Log in" BackgroundColor="#3897F0" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="3" Clicked="OnLoginClicked"/>
@@ -52,9 +53,9 @@
 					<Label Text="OR" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
 					<Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
 				</Grid>
-				<StackLayout Orientation="Horizontal" Grid.Row="6" HorizontalOptions="Center">
-					<Image Source="google.png"/>
-					<Button BackgroundColor="White" Text="Log in with Google" TextColor="#485992" Clicked="GoogleAuth"/>
+				<StackLayout Orientation="Horizontal"  Grid.Row="6" HorizontalOptions="Center">
+					<!--<Image x:Name="images" Source="googleSignIn.png" WidthRequest="180" />-->
+					<Button BackgroundColor="White" VerticalOptions="Center" ImageSource="googleSignIn" TextColor="#485992" Clicked="GoogleAuth"/>
 				</StackLayout>
 			</Grid>
 			<StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="#FFFFFF">

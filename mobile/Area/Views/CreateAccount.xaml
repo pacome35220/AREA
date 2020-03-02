@@ -15,6 +15,7 @@
 	</ContentPage.Padding>
 
     <ContentPage.Content>
+
 		<Grid Grid.Row="1" Margin="20,0,20,0">
 			<StackLayout VerticalOptions="Center">
 				<Label x:Name="Label_FirstName" Text="FirstName:" />

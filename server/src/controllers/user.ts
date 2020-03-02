@@ -1,27 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
-import auth from 'basic-auth';
+import { Request, NextFunction } from 'express';
 import validator from 'validator';
+
+import { ExtendedResponse } from '../types/Response';
 
 import User from '../models/User';
 
 export const signup = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
-
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
-
         // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
+        const { name, pass } = res.locals.credentials; // name is an email
 
         if (!validator.isEmail(name)) {
             return res.status(400).send('Email is invalid.');
@@ -56,6 +47,10 @@ export const signup = async (
             email: name,
             password: pass
         });
+
+        // keep password safe
+        newUser.password = '';
+
         return res.status(200).json(newUser);
     } catch (err) {
         return next(err);
@@ -64,38 +59,14 @@ export const signup = async (
 
 export const getProfile = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
-
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
-
-        // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
-
-        // Get user profile from database.
-        const user = await User.findOne({
-            where: { email: name }
-        });
-
-        if (!user || user.password !== pass) {
-            return res
-                .status(403)
-                .send(
-                    'Email or password does not match, or the account with this email does not exist'
-                );
-        }
+        const { user } = res.locals;
 
         // keep password safe
-        delete user.password;
+        user.password = '';
 
         // Send his JSON profile to user
         return res.status(200).json(user);
@@ -106,42 +77,22 @@ export const getProfile = async (
 
 export const deleteProfile = async (
     req: Request,
-    res: Response,
+    res: ExtendedResponse,
     next: NextFunction
 ) => {
     try {
-        // Check if Authorization header is present.
-        const credentials = auth(req);
+        const { user } = res.locals;
 
-        if (!credentials) {
-            res.setHeader('WWW-Authenticate', 'Basic realm="AREA-server"');
-            return res
-                .status(401)
-                .send('Missing Authorization header with Basic');
-        }
+        // unhook each genericArea
+        await user.removeGenericAreas();
 
-        console.log('credentials are here !');
-        // Check if Authorization header (email:password) is valid.
-        const { name, pass } = credentials; // name is an email
-
-        // Get user profile from database.
-        const user = await User.findOne({
-            where: { email: name }
-        });
-        console.log('User = ', user);
-        if (!user || user.password !== pass) {
-            return res
-                .status(403)
-                .send(
-                    'Email or password does not match, or the account with this email does not exist'
-                );
-        }
-        console.log('credentials are valid');
+        // unhook each specificArea
+        await user.removeSpecificAreas();
 
         // delete user from database
         await user.destroy();
 
-        return res.status(200).end();
+        return res.sendStatus(200);
     } catch (err) {
         return next(err);
     }

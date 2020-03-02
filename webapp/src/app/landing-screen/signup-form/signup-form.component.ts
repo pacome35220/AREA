@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,16 +13,6 @@ interface UserProfile {
     email: string;
     password: string;
 }
-
-@Component({
-    selector: 'snack-bar-user-already-exists',
-    template: `
-        <span style="color: red">
-            This user already exists : email address conflict
-        </span>
-    `
-})
-export class SnackBarUserAlreadyExistsComponent {}
 
 @Component({
     selector: 'app-signup-form',
@@ -41,7 +31,11 @@ export class SignupFormComponent {
         ])
     });
 
-    constructor(private _snackBar: MatSnackBar, private _router: Router) {}
+    constructor(
+        private snackBar: MatSnackBar,
+        private _router: Router,
+        private ngZone: NgZone
+    ) {}
 
     getMailErrorMessage() {
         if (this.signUpForm.controls.email.hasError('required')) {
@@ -65,11 +59,9 @@ export class SignupFormComponent {
     }
 
     async onSubmit(googleProfile?: UserProfile) {
-        const form: UserProfile = googleProfile
-            ? googleProfile
-            : this.signUpForm.value;
+        const form: UserProfile = googleProfile || this.signUpForm.value;
 
-        // TODO: Use EventEmitter with form value
+        form.password = form.password.slice(0, 42);
         console.log(form);
 
         const data = {
@@ -86,14 +78,14 @@ export class SignupFormComponent {
             .post(`${environment.serverUrl}/user/signup`, data, config)
             .then(res => {
                 console.log('res', res);
-                if (res.status === 201) {
+                if (res.status === 200) {
                     this._router.navigateByUrl('/signin');
                 }
             })
             .catch(err => {
-                console.log('err', err);
-                this._snackBar.openFromComponent(
-                    SnackBarUserAlreadyExistsComponent,
+                this.snackBar.open(
+                    `An error occured : ${err || 'email address conflict'}`,
+                    'Retry',
                     {
                         duration: 2000
                     }
@@ -103,7 +95,7 @@ export class SignupFormComponent {
 
     ngAfterViewInit() {
         const gapi = window['gapi'];
-        const client_id = environment.web.client_id;
+        const { client_id } = environment.googleSignIn;
 
         gapi.load('auth2', () => {
             const auth2 = gapi.auth2.init({ client_id });
@@ -114,14 +106,20 @@ export class SignupFormComponent {
                 googleUser => {
                     const profile = googleUser.getBasicProfile();
 
-                    this.onSubmit({
-                        firstName: profile.getGivenName(),
-                        lastName: profile.getlastName(),
-                        email: profile.getEmail(),
-                        password: googleUser.getAuthResponse().id_token
+                    this.ngZone.run(() => {
+                        this.onSubmit({
+                            firstName: profile.getGivenName(),
+                            lastName: profile.getFamilyName(),
+                            email: profile.getEmail(),
+                            password: googleUser.getAuthResponse().id_token
+                        });
                     });
                 },
-                error => console.error(JSON.stringify(error))
+                ({ error }) => {
+                    this.snackBar.open(`Access denied: ${error}`, 'Retry', {
+                        duration: 2000
+                    });
+                }
             );
         });
     }

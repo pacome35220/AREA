@@ -1,6 +1,7 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [opened]="true">
         <ul>
+            <h1>{{ firstName }} {{ lastName }}</h1>
             <h2>Parameters</h2>
             <li>
                 <button mat-button (click)="logOut()">Logout</button>
@@ -9,7 +10,16 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <div fxLayout="row wrap">
-            <app-github [reactionServices]="services"></app-github>
+            <app-area-service
+                *ngFor="let service of services"
+                [reactionServices]="services"
+                [name]="service.name"
+                [description]="service.description"
+                [image]="service.image"
+                [areas]="service.areas"
+                [authenticateAction]="service.authenticateAction"
+                [axiosRequestConfig]="axiosRequestConfig"
+            ></app-area-service>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

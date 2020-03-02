@@ -1,31 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Area.Models"
+	xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
 	x:Class="Area.Views.Home">
 
-	<ContentPage.Padding>
-		<OnPlatform x:TypeArguments="Thickness">
-			<OnPlatform.Platforms>
-			    <On Platform="iOS" Value="0, 20, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
-			</OnPlatform.Platforms>
-		</OnPlatform>
-	</ContentPage.Padding>
+    <ContentPage.BindingContext>
+        <local:DashboardViewModel />
+    </ContentPage.BindingContext>
+	<ContentPage.Content>
+		<StackLayout>
+			<ListView ItemsSource="{Binding Items}" CachingStrategy="RecycleElement" HasUnevenRows="True">
 
-    <ContentPage.Content>
-			<StackLayout>  
-				<Entry Placeholder="Username" />  
-				<Entry IsPassword="true" Placeholder="Password" />  
-				<Button Text="Login" HeightRequest="50" />  
-				<Button Text="Facebook" Clicked="LoginClicked" Image="FACEBOOK.png" HeightRequest="50" />  
-				<Button Text="Github" Clicked="LoginClicked" Image="GITHUB.png" HeightRequest="50" />  
-				<Button Text="LinkedIn" Clicked="LoginClicked" Image="LINKEDIN.png" HeightRequest="50" />
-				<Button Text="Discord" Clicked="LoginClicked" Image="DISCORD.png" HeightRequest="50" />  
-				<Button Text="Trello" Clicked="LoginClicked" Image="TRELLO.png" HeightRequest="50" />
-				<Button Text="Office365" Clicked="LoginClicked" Image="MICROSOFT.png" HeightRequest="40" />
-			</StackLayout>
-		</ContentPage.Content>
+				<ListView.Behaviors>
+					<extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+				</ListView.Behaviors>
+
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid Padding="12">
+								<Button Text="{Binding name}" BackgroundColor="White" ImageSource="{Binding name}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start" Clicked="ShowPopup"/>
+								<Button BindingContext="{Binding .}" ClassId="{Binding name}" Text="Auth" BackgroundColor="#ebebeb" TextColor="Black" VerticalOptions="Start" HorizontalOptions="End" WidthRequest="100" Clicked="LoginClicked"/>
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+
+				<ListView.Footer>
+					<Grid Padding="6" IsVisible="{Binding IsBusy}">
+						 <!--set the footer to have a zero height when invisible--> 
+						<Grid.Triggers>
+							<Trigger TargetType="Grid" Property="IsVisible" Value="False">
+								<Setter Property="HeightRequest" Value="0" />
+							</Trigger>
+						</Grid.Triggers>
+						 <!--the loading content--> 
+						<Label Text="Loading..." TextColor="#9ed0ff" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+					</Grid>
+				</ListView.Footer>
+
+			</ListView>
+
+		</StackLayout>
+	</ContentPage.Content>
+
 </ContentPage>
-

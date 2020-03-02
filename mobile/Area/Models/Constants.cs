@@ -1,3 +1,5 @@
+using Xamarin.Forms;
+
 namespace OAuthNativeFlow
 {
 	public static class Constants
@@ -10,7 +12,7 @@ namespace OAuthNativeFlow
 		public static string AndroidClientId = "829850811692-gn1r71thf98b3maid37lafu24f3ji1ro.apps.googleusercontent.com";
 
 		// These values do not need changing
-		public static string Scope = "https://www.googleapis.com/auth/userinfo.email";
+		public static string Scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
 		public static string AuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
 		public static string AccessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
 		public static string UserInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
@@ -51,30 +53,67 @@ namespace OAuthNativeFlow
 
 		public static string DiscordAuthorizeUrl = "https://discordapp.com/api/oauth2/authorize";
 
-		public static string DiscordRedirectUrl = "http://localhost:8080/api/discord/callback";
+		public static string DiscordRedirectUrl = Device.RuntimePlatform == Device.iOS ? "http://localhost:8080/api/discord/callback" : "https://hadibereksi.fr/";////ios/android
 
 		public static string DiscordAccessUrl = "https://discordapp.com/api/oauth2/token";
 
-		/*Trello oauth*/
-		//todo Fix this account
-		public static string TrelloClientId = "d0c0296182b75b0b1c6db78ecb0b6f1d";
-
-		public static string TrelloClientSecret = "bc48bd11c118cf8c72f709d9cc6c276cfcfe2a1ec7e715f307058dc08b8a2305";
-
-		public static string TrelloScope = "";
-
-		public static string TrelloAuthorizeUrl = "https://trello.com/1/OAuthAuthorizeToken";
-
-		public static string TrelloRedirectUrl = "https://hadibereksi.fr";
-
-		public static string TrelloAccessUrl = "https://trello.com/1/OAuthGetAccessToken";
-
 		/*Office365*/
 		public static string Office365ClientId = "48f27166-a396-4d27-b416-d101d844d5f2";
-		//public static string Office365ClientSecret = "";
-		public static string Office365Scope = "User.Read profile openid email";
+
+		public static string Office365Scope = "User.Read profile openid email mail.read Mail.Send";
+
 		public static string Office365AuthorizeUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/authorize";
+
 		public static string Office365RedirectUrl = "msauth.com.companyname.Area://auth";//"http://localhost:8080/";////"https://hadibereksi.fr/";//"https://login.microsoftonline.com/common/oauth2/nativeclient";
+
 		public static string Office365AccessUrl = "https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";//"https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86/oauth2/v2.0/token";
+
+		/*Imgur*/
+		public static string ImgurClientId = "6b5472c176e8f40";
+
+		public static string ImgurScope = "";
+
+		public static string ImgurAuthorizeUrl = "https://api.imgur.com/oauth2/authorize";
+
+		public static string ImgurRedirectUrl = "http://localhost:4200/home";//"http://localhost:8080/";
+
+		public static string ImgurAccessUrl = "https://api.imgur.com/oauth2/token";
+
+
+		/* todo Youtube*/
+		public static string YoutubeClientId = "829850811692-gn1r71thf98b3maid37lafu24f3ji1ro.apps.googleusercontent.com";//"<insert IOS client ID here>";
+		public static string YoutubeScope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+		public static string YoutubeAuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
+		public static string YoutubeAccessUrl = "https://accounts.google.com/o/oauth2/token";
+		public static string YoutubeRedirectUrl = "com.googleusercontent.apps.829850811692-gn1r71thf98b3maid37lafu24f3ji1ro:/oauth2redirect";
+
+
+		/*LinkedIn*/
+		public static string LinkedinClientId = "86v21lx86n52vp";
+
+		public static string LinkedinClientSecret = "Sz6abc1pM5gq65x0";
+
+		public static string LinkedinScope = "r_emailaddress r_liteprofile w_member_social";
+
+		public static string LinkedinAuthorizeUrl = "https://www.linkedin.com/uas/oauth2/authorization";
+
+		public static string LinkedinRedirectUrl = "http://localhost:4200/home";
+
+		public static string LinkedinAccessUrl = "https://www.linkedin.com/uas/oauth2/accessToken";
+
+		/*Reddit*/
+		public static string RedditClientId = "DXTM2r0EHO3Wig";
+
+		public static string RedditClientSecret = "";
+
+		public static string RedditScope = "identity modmail edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread";
+
+		public static string RedditAuthorizeUrl = "https://www.reddit.com/api/v1/authorize.compact";
+
+		public static string RedditRedirectUrl = "http://localhost:8080/oauth2/callback";
+
+		public static string RedditAccessUrl = "https://www.reddit.com/api/v1/access_token";
+
+
 	}
 }

@@ -1,7 +1,4 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using Area.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,7 +14,6 @@ namespace Area.Views
 	{
 		Account account;
 		AccountStore store;
-		HttpClient _client;
 
 		public LoginPage()
 		{
@@ -33,48 +29,38 @@ namespace Area.Views
 
 		private void SaveUserInfo(string email, string password, bool isLogged)
 		{
-			Application.Current.Properties["IsLogged"] = isLogged ? "true" : "false"; // save state of the app to "I am logged"
 			Application.Current.Properties["Email"] = email;
 			Application.Current.Properties["Password"] = password;
+			Application.Current.Properties["IsLogged"] = isLogged ? "true" : "false"; // save state of the app to "I am logged"
 			Application.Current.SavePropertiesAsync(); //force save tmp
 		}
 
-		async void OnLoginClicked(object sender, EventArgs e)
+		async private void Login(HttpClientRequests requests)
 		{
-			string email = Entry_Mail.Text;
-			string password = Entry_Password.Text;
+			var response = await requests.SignIn();
 
-			/*Http Auth*/
-			var authData = string.Format("{0}:{1}", email, password);
-			var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
-
-			_client = new HttpClient(); //NSUrlSessionHandler() by default for ios
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
-
-			/*connect to api here !*/
-			if (Device.RuntimePlatform == Device.iOS)
-				_client.BaseAddress = new Uri("http://localhost:8080"); //set base url. ios's localhost: 127.0.0.1
-			else if (Device.RuntimePlatform == Device.Android)
-				_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //set base url. android's localhost: 10.0.2.2
-			else
-				_client.BaseAddress = new Uri("http://107.0.0.1:8080"); //set base url windows
-
-			var response = await _client.GetAsync("/user/me"); // send get Request and take endpoint in param
-			string content = await response.Content.ReadAsStringAsync();
-			if (response.StatusCode == System.Net.HttpStatusCode.OK)
+			//check if account already created
+			if (response == System.Net.HttpStatusCode.OK)
 			{
-				SaveUserInfo(email, password, true);
+				SaveUserInfo(requests._email, requests._password, true);
 				await DisplayAlert("Login", "Success", "OK");
-				//await Navigation.PopAsync(); //remove the current screen
-				//await Navigation.PopToRootAsync();remove all page but root page
 				await Navigation.PushAsync(new DashBoard());
 				Navigation.RemovePage(Navigation.NavigationStack[0]); // remove the root page
 			}
 			else
 			{
 				await DisplayAlert("Login", "Failed", "Ko");
-				SaveUserInfo(null, null, false);
+				//SaveUserInfo(null, null, false);
 			}
+		}
+
+		async void OnLoginClicked(object sender, EventArgs e)
+		{
+			string email = Entry_Mail.Text;
+			string password = Entry_Password.Text;
+			HttpClientRequests requests = new HttpClientRequests(email, password);
+
+			Login(requests);
 		}
 
 		void GoogleAuth(object sender, EventArgs e)
@@ -114,10 +100,41 @@ namespace Area.Views
 			presenter.Login(authenticator);
 		}
 
+		private class GoogleUserInfo {
+			public string email { get; set; }
+			public string verified_email { get; set; }
+			public string name { get; set; }
+			public string given_name { get; set; }
+			public string family_name { get; set; }
+			public string picture { get; set; }
+		}
+
+		async void CreateAccountGoogleAuth(GoogleUserInfo googleUser)
+		{
+			User user = new User(googleUser.given_name, googleUser.family_name, googleUser.email);
+			HttpClientRequests requests = new HttpClientRequests(googleUser.email, "LOLILOL12"); //todo check how to deal with password
+
+			//I try to login to check if the account is already sign up
+			Login(requests);
+
+			//if I'm not signed up I sign up
+			var response = await requests.SignUp(user);
+
+			if (response == System.Net.HttpStatusCode.OK)
+			{
+				// I login as soon as i have created the account on the server
+				Login(requests);
+			}
+			else
+			{
+				await DisplayAlert("Sign up failed", response.ToString(), "KO");
+			}
+		}
+
 		async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
 		{
 			var authenticator = sender as OAuth2Authenticator;
-			User user = null;
+			GoogleUserInfo user = null;
 
 			if (authenticator != null)
 			{
@@ -127,7 +144,6 @@ namespace Area.Views
 			if (e.IsAuthenticated)
 			{
 				// If the user is authenticated, request their basic user data from Google
-				// UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
 				var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
 				var response = await request.GetResponseAsync();
 				if (response != null)
@@ -135,7 +151,8 @@ namespace Area.Views
 					// Deserialize the data and store it in the account store
 					// The users email address will be used to identify data in SimpleDB
 					string userJson = await response.GetResponseTextAsync();
-					user = JsonConvert.DeserializeObject<User>(userJson);
+					await DisplayAlert("JSON", userJson, "OK");
+					user = JsonConvert.DeserializeObject<GoogleUserInfo>(userJson);
 				}
 
 				if (account != null)
@@ -144,13 +161,14 @@ namespace Area.Views
 				}
 
 				//await store.SaveAsync(account = e.Account, Constants.AppName);
-				await DisplayAlert("Email address", user.email, "OK");
-				await DisplayAlert("Family name address", user.lastName, "OK");
-				await DisplayAlert("Name address", user.firstName, "OK");
-				await DisplayAlert("Picture address", user.picture, "OK");
-				await DisplayAlert("Link address", user.link, "OK");
-				await DisplayAlert("Id address", user.id, "OK");
-				//todo signup/signin
+				//await DisplayAlert("Email address", user.email, "OK");
+				//await DisplayAlert("Family name address", user.verified_email, "OK");
+				//await DisplayAlert("Name address", user.name, "OK");
+				//await DisplayAlert("Picture address", user.given_name, "OK");
+				//await DisplayAlert("Link address", user.family_name, "OK");
+				//await DisplayAlert("Id address", user.picture, "OK");
+				//signup/signin with google
+				CreateAccountGoogleAuth(user);
 
 			}
 		}

@@ -6,29 +6,9 @@
 	xmlns:local="clr-namespace:Area.Views"
     x:Class="Area.Views.DashBoard">
 
-    <!--<ContentPage Title="Favorites" Icon="ic_favorites.png" />
+	<local:Home Title="Dashboard" Icon="dashboard_icon.png"/>
 
-    <ContentPage Title="Friends"
-                       Icon="ic_friends.png"
-                       xf1:BottomBarPageExtensions.TabColor="#5D4037" />
-
-    <ContentPage Title="Nearby"
-                 Icon="ic_nearby.png"
-                 xf1:BottomBarPageExtensions.TabColor="#7B1FA2" />
-
-    <ContentPage Title="Recents"
-                 Icon="ic_recents.png"
-                 xf1:BottomBarPageExtensions.TabColor="#FF5252"/>
-
-    <ContentPage Title="Settings"
-                 Icon="ic_restaurants.png"
-                 xf1:BottomBarPageExtensions.TabColor="#FF9800" />-->
-
-	<local:Home Title="DashBoard" Icon="ic_favorites.png"/>
-
-    <ContentPage Title="Recents" Icon="ic_recents.png"/>
-
-    <local:Settings Title="Settings" Icon="ic_restaurants.png"/>
+    <local:Settings Title="Settings" Icon="settings_icon.png"/>
 	<!--todo add logout button-->
 
 </xf1:BottomBarPage>

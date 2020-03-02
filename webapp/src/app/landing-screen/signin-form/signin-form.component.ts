@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { environment } from '../../../environments/environment';
 import { AppAuthService } from 'src/app/services/app-auth.service';
-import { Router } from '@angular/router';
 
 interface UserProfile {
     email: string;
@@ -26,7 +28,9 @@ export class SigninFormComponent {
 
     constructor(
         private appAuthService: AppAuthService,
-        private router: Router
+        private router: Router,
+        private snackBar: MatSnackBar,
+        private ngZone: NgZone
     ) {}
 
     getMailErrorMessage() {
@@ -51,17 +55,17 @@ export class SigninFormComponent {
     }
 
     onSubmit(googleProfile?: UserProfile) {
-        const form: UserProfile = googleProfile
-            ? googleProfile
-            : this.signInForm.value;
+        const form: UserProfile = googleProfile || this.signInForm.value;
 
+        form.password = form.password.slice(0, 42);
+        console.log(form);
         this.appAuthService.saveCredentials(form.email, form.password);
         this.router.navigateByUrl('/');
     }
 
     ngAfterViewInit() {
         const gapi = window['gapi'];
-        const client_id = environment.web.client_id;
+        const { client_id } = environment.googleSignIn;
 
         gapi.load('auth2', () => {
             const auth2 = gapi.auth2.init({ client_id });
@@ -72,12 +76,18 @@ export class SigninFormComponent {
                 googleUser => {
                     const profile = googleUser.getBasicProfile();
 
-                    this.onSubmit({
-                        email: profile.getEmail(),
-                        password: googleUser.getAuthResponse().id_token
+                    this.ngZone.run(() => {
+                        this.onSubmit({
+                            email: profile.getEmail(),
+                            password: googleUser.getAuthResponse().id_token
+                        });
                     });
                 },
-                error => console.error(JSON.stringify(error))
+                ({ error }) => {
+                    this.snackBar.open(`Access denied: ${error}`, 'Retry', {
+                        duration: 2000
+                    });
+                }
             );
         });
     }
