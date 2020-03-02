@@ -9,6 +9,7 @@ import { Office365 } from './Office365';
 import { Reddit } from './Reddit';
 import { YouTube } from './Youtube';
 import { LinkedIn } from './LinkedIn';
+import { Facebook } from './Facebook';
 import { FakeService } from './FakeService';
 
 export interface Area {
@@ -37,7 +38,7 @@ const areasServices: AreaService[] = [
     Reddit,
     YouTube,
     LinkedIn,
-
+    Facebook,
     FakeService
 ];
 
