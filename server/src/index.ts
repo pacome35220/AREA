@@ -31,7 +31,7 @@ app.use('/', genericArea);
 app.use('/', specificArea);
 
 app.get('/', (req, res) => {
-    res.send(`Api is UP in ${Date.now() - res.locals.timestamp}`);
+    res.send('Api is UP');
 });
 
 app.use(handleServerErrorResponse);
