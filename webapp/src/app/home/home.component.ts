@@ -112,7 +112,12 @@ export class HomeComponent implements OnInit {
             image: '../../assets/facebook.svg',
             isGenericReaction: true,
 
-            areas: [['TODO', 'TODO']],
+            areas: [
+                [
+                    'If you have 10 more likes on a photo',
+                    'a comment is posted on your photo.'
+                ]
+            ],
 
             authenticateAction: getAccessTokenFromFacebook,
 
@@ -133,7 +138,7 @@ export class HomeComponent implements OnInit {
             areas: [
                 [
                     'If you wrote 10 more comments',
-                    'a special picture is post on your account.'
+                    'a special picture is posted on your account.'
                 ]
             ],
 
