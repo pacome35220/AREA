@@ -46,17 +46,32 @@ router.get('/about.json', (req: Request, res: Response) => {
                 },
                 {
                     name: 'Facebook',
-                    areas: [['TODO', 'TODO']],
+                    areas: [
+                        [
+                            'If you have 10 more likes on a photo ',
+                            ' a comment is posted on your photo.'
+                        ]
+                    ],
                     isGenericReaction: true
                 },
                 {
                     name: 'Imgur',
-                    areas: [['TODO', 'TODO']],
+                    areas: [
+                        [
+                            'If you wrote 10 more comments,',
+                            ' a special picture is post on your account.'
+                        ]
+                    ],
                     isGenericReaction: false
                 },
                 {
                     name: 'Office365',
-                    areas: [['TODO', 'TODO']],
+                    areas: [
+                        [
+                            'If you have 10 more mails, ',
+                            ' you get an email that says your inbox looks like a trash.'
+                        ]
+                    ],
                     isGenericReaction: true
                 }
             ]
