@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
 import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
 import { HomeComponent } from './home/home.component';
+import { DownloadApkComponent } from './download-apk/DownloadApkComponent';
+
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
@@ -15,6 +17,7 @@ const routes: Routes = [
     { path: 'signup', component: SignupFormComponent },
     { path: 'signin', component: SigninFormComponent },
     { path: 'home', component: HomeComponent },
+    { path: 'apk', component: DownloadApkComponent },
 
     { path: '**', redirectTo: '/' }
 ];

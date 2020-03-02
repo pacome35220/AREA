@@ -19,9 +19,11 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { SignupFormComponent } from './landing-screen/signup-form/signup-form.component';
 import { SigninFormComponent } from './landing-screen/signin-form/signin-form.component';
-import { AppRoutingModule } from './app-routing.module';
+import { DownloadApkComponent } from './download-apk/DownloadApkComponent';
 import { HomeComponent } from './home/home.component';
 
 import { AreaServiceComponent } from './services/area-service/area-service.component';
@@ -32,7 +34,8 @@ import { AreaServiceComponent } from './services/area-service/area-service.compo
         SignupFormComponent,
         SigninFormComponent,
         HomeComponent,
-        AreaServiceComponent
+        AreaServiceComponent,
+        DownloadApkComponent
     ],
     imports: [
         BrowserModule,
