@@ -35,8 +35,8 @@ namespace Area.Models
 			new Service () {
 				name = "Facebook",
 				area = new List<Service.Area> {
-					new Service.Area ("Inshallah", "specific reaction fb", false),
-					new Service.Area ("Inshallah ++", "generic reaction fb", true)
+					new Service.Area ("If your photo has 10 more likes", "A comment is posted on picture", false),
+					new Service.Area ("If your photo has 10 more likes generic", "a message is send", true)
 				}
 			},
 			new Service () {
