@@ -21,7 +21,7 @@ webapp/dist
 
 # NodeJS Typescript server output
 server/build
-
+server/coverage
 
 # Xamarin Mobile app output
 mobile/Area.Android/bin/*
