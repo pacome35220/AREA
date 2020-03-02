@@ -78,11 +78,11 @@ namespace Area.Views
 
 			//store displayed data
 			_displayedData.Services = userAccountsProperty.UserServices.Select(x => x.Key).ToList(); //get all services that the user get auth
-			_displayedData.Reactions = areasToReactionsList(service.area);
-			_displayedData.Actions = areasToActionsList(service.area);
+			_displayedData.Reactions = areasToReactionsList(service.area); // get reactions
+			_displayedData.Actions = areasToActionsList(service.area); //get actions
 			_displayedData.IsItGeneral = true;
 			//binding it to the xaml
-			this.BindingContext = _displayedData;
+			BindingContext = _displayedData;
 			InitializeComponent();
 		}
 
@@ -160,10 +160,7 @@ namespace Area.Views
 			{
 				//delete the current pop up
 				//go to the reactions pop up
-				//todo remove it, it was just for debugging
 				var userAccountsProperty = Application.Current.Properties["UserAccounts"] as UserAccounts;
-				//await DisplayAlert(userAccountsProperty.UserServices[_currentService.name].accessToken, userAccountsProperty.UserServices[_currentService.name].action, userAccountsProperty.UserServices[_currentService.name].reaction);
-				//await DisplayAlert(userAccountsProperty.UserServices[_currentService.name].reactionAccessToken, userAccountsProperty.UserServices[_currentService.name].serviceReaction, "OK");
 
 				//send data to API here
 				HttpClientRequests requests = new HttpClientRequests(Application.Current.Properties["Email"].ToString(), Application.Current.Properties["Password"].ToString());
@@ -185,18 +182,18 @@ namespace Area.Views
 					int areaId = 0;
 					string actionAccessToken = userAccountsProperty.UserServices[_currentService.name].reactionAccessToken;
 
-					await DisplayAlert(serviceName, actionAccessToken, "OK");
 					HttpClientRequests.SpecificArea packet = new HttpClientRequests.SpecificArea(serviceName, areaId, actionAccessToken);
 
 					response = await requests.RegisterSpecificArea(packet);
 				}
-				await DisplayAlert("CODE", response.ToString(), "LOL");
 				if (response == System.Net.HttpStatusCode.OK)
 				{
+					await DisplayAlert("AREA", "Saved", "OK");
 					await PopupNavigation.Instance.PopAsync();
 				}
 				else
 				{
+					await DisplayAlert("CODE", response.ToString(), "OK");
 					await DisplayAlert("FAILED", "Area not Saved", "OK");
 				}
 			}

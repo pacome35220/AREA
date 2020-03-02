@@ -50,7 +50,6 @@ namespace Area.Views
 			else
 			{
 				await DisplayAlert("Login", "Failed", "Ko");
-				//SaveUserInfo(null, null, false);
 			}
 		}
 
@@ -151,7 +150,7 @@ namespace Area.Views
 					// Deserialize the data and store it in the account store
 					// The users email address will be used to identify data in SimpleDB
 					string userJson = await response.GetResponseTextAsync();
-					await DisplayAlert("JSON", userJson, "OK");
+					//await DisplayAlert("JSON", userJson, "OK"); debug
 					user = JsonConvert.DeserializeObject<GoogleUserInfo>(userJson);
 				}
 
@@ -160,14 +159,6 @@ namespace Area.Views
 					store.Delete(account, Constants.AppName);
 				}
 
-				//await store.SaveAsync(account = e.Account, Constants.AppName);
-				//await DisplayAlert("Email address", user.email, "OK");
-				//await DisplayAlert("Family name address", user.verified_email, "OK");
-				//await DisplayAlert("Name address", user.name, "OK");
-				//await DisplayAlert("Picture address", user.given_name, "OK");
-				//await DisplayAlert("Link address", user.family_name, "OK");
-				//await DisplayAlert("Id address", user.picture, "OK");
-				//signup/signin with google
 				CreateAccountGoogleAuth(user);
 
 			}
