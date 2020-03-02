@@ -57,11 +57,12 @@ namespace Area.Models
 			_client = new HttpClient(); //NSUrlSessionHandler() by default for ios
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
 
+			System.Diagnostics.Debug.WriteLine(authHeaderValue);
 			/*connect to api here !*/
 			if (Device.RuntimePlatform == Device.iOS)
-				_client.BaseAddress = new Uri("http://localhost:8080"); //set base url. ios's localhost: 127.0.0.1
+				_client.BaseAddress = new Uri("http://localhost:8080"); //set base url. ios's localhost: http://localhost:8080
 			else if (Device.RuntimePlatform == Device.Android)
-				_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //PROD: http://area.marc0.fr/api //set base url. android's localhost: 10.0.2.2
+				_client.BaseAddress = new Uri("http://10.0.2.2:8080"); //PROD: https://area.marc0.fr/api //set base url. android's localhost: http://10.0.2.2:8080
 			else
 				_client.BaseAddress = new Uri("http://107.0.0.1:8080"); //set base url windows
 		}
@@ -70,6 +71,7 @@ namespace Area.Models
 		{
 			var response = await _client.GetAsync("/user/me"); // send get Request and take endpoint in param
 
+			System.Diagnostics.Debug.WriteLine(response);
 			return response.StatusCode;
 		}
 
@@ -86,6 +88,7 @@ namespace Area.Models
 		{
 			var response = await _client.DeleteAsync("/user/me"); // send get Request and take endpoint in param
 
+			System.Diagnostics.Debug.WriteLine(response);
 			return response.StatusCode;
 		}
 
@@ -94,22 +97,25 @@ namespace Area.Models
 			var stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 			var response = await _client.PutAsync("/user/signup", stringContent);
 
+			System.Diagnostics.Debug.WriteLine(response);
 			return response.StatusCode;
 		}
 
 		async public Task<System.Net.HttpStatusCode> RegisterSpecificArea(SpecificArea packet)
 		{
 			var stringContent = new StringContent(JsonConvert.SerializeObject(packet), Encoding.UTF8, "application/json");
-			var response = await _client.PostAsync("/register-specific-area", stringContent);
+			var response = await _client.PostAsync("/specific-area", stringContent);
 
+			System.Diagnostics.Debug.WriteLine(response); // this line write on console
 			return response.StatusCode;
 		}
 
 		async public Task<System.Net.HttpStatusCode> RegisterGenericArea(GenericArea packet)
 		{
 			var stringContent = new StringContent(JsonConvert.SerializeObject(packet), Encoding.UTF8, "application/json");
-			var response = await _client.PostAsync("/register-generic-area", stringContent);
+			var response = await _client.PostAsync("/generic-area", stringContent);
 
+			System.Diagnostics.Debug.WriteLine(response);
 			return response.StatusCode;
 		}
 

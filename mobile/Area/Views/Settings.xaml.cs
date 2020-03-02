@@ -14,11 +14,12 @@ namespace Area.Views
 		{
 			DisplayAlert("Logout", "Success", "OK");
 			Navigation.PushAsync(new LoginPage());
-			Navigation.RemovePage(Navigation.NavigationStack[0]); // remove the root page
+			//remove the root page
+			Navigation.RemovePage(Navigation.NavigationStack[0]);
 		}
 		async public void DeleteAccount(object sender, EventArgs e)
 		{
-			string email = Application.Current.Properties["Email"].ToString(); //todo check if diff null
+			string email = Application.Current.Properties["Email"].ToString();
 			string password = Application.Current.Properties["Password"].ToString();
 			HttpClientRequests requests = new HttpClientRequests(email, password);
 			var response = await requests.DeleteUser();

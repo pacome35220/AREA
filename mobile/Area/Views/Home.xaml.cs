@@ -114,11 +114,9 @@ namespace Area.Views
 			{
 				authenticator = new OAuth2Authenticator(
 					clientId: Constants.RedditClientId,
-					//clientSecret: Constants.RedditClientSecret,
 					scope: Constants.RedditScope,
 					authorizeUrl: new Uri(Constants.RedditAuthorizeUrl),
 					redirectUrl: new Uri(Constants.RedditRedirectUrl)
-					//accessTokenUrl: new Uri(Constants.RedditAccessUrl)
 				);
 			}
 			else if (providername == "Youtube")
@@ -176,7 +174,7 @@ namespace Area.Views
 			//if i authenticate successfuly I store the access token and i save it in properties
 			if (e.IsAuthenticated)
 			{
-				//todo is a note : Android delete all class attribute ! this is way i am doing that
+				//a note : Android delete all class attribute ! this is way i am doing that
 				if (!Application.Current.Properties.ContainsKey("UserAccounts"))
 					Application.Current.Properties["UserAccounts"] = new UserAccounts();
 
@@ -188,7 +186,7 @@ namespace Area.Views
 
 				//save access token of a service
 				userAccountsProperty.UserServices[currentServiceName].accessToken = e.Account.Properties["access_token"];
-				System.Diagnostics.Debug.WriteLine(e.Account.Properties["access_token"]);
+				//System.Diagnostics.Debug.WriteLine(e.Account.Properties["access_token"]);
 				//save service in property
 				Application.Current.Properties["UserAccounts"] = userAccountsProperty;
 			}
