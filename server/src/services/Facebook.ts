@@ -35,7 +35,7 @@ const ifYourPhotoHas10MoreLikes = async (
             if (reactionType === 'generic') {
                 return (
                     `You have 10 more likes on (id = ${photo.id})` +
-                    ", you're popular!"
+                    ', thank you everyone for this !'
                 );
             }
         }
