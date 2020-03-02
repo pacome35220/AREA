@@ -40,7 +40,7 @@ const ifYourPhotoHas10MoreLikes = async (
             }
         }
     }
-    console.log('YouTube action ifYourPhotoHas10MoreLikes not triggered');
+    console.log('Facebook action ifYourPhotoHas10MoreLikes not triggered');
     return null;
 };
 
@@ -84,6 +84,6 @@ export const Facebook: AreaService = {
         const sendComment = await axios.post(
             regex.exec(message) + `message=${message}`
         );
-        console.log('YouTube genericeReaction status: ', sendComment.status);
+        console.log('Facebook genericeReaction status: ', sendComment.status);
     }
 };
