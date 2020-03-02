@@ -1,5 +1,7 @@
 # AREA
 
+[![Build Status](https://travis-ci.com/pacome35220/AREA.svg?branch=master)](https://travis-ci.com/pacome35220/AREA)
+
 Automation platform of his digital life
 
 ### 🏠 [Homepage](https://github.com/pacome35220/AREA)
@@ -39,7 +41,7 @@ For PostgreSQL, the default port is 5432.
 
 ```yml
 ports:
-    - "8081:5432"
+    - '8081:5432'
 ```
 
 ### 4. Load environment variables
@@ -87,15 +89,15 @@ $ npm start
 
 ### [Commitizen](github.com/commitizen/cz-cli)
 
-* `npm run commit`, prompt you to fill out any required commit fields at commit time, to format your commits messages. With [husky](github.com/typicode/husky) and [lint-staged](github.com/okonet/lint-staged), it also run linters on git staged files.
+-   `npm run commit`, prompt you to fill out any required commit fields at commit time, to format your commits messages. With [husky](github.com/typicode/husky) and [lint-staged](github.com/okonet/lint-staged), it also run linters on git staged files.
 
 ### [Prettier](github.com/prettier/prettier)
 
-* `npm run prettify`, lint all files following rules wrote in [.prettierrc](./.prettierrc).
+-   `npm run prettify`, lint all files following rules wrote in [.prettierrc](./.prettierrc).
 
 ### [Conventional-changelog / standard-version](https://github.com/conventional-changelog/standard-version)
 
-* `npm run release`, automate versioning and [CHANGELOG](./CHANGELOG.md) generation, with semver.org and conventionalcommits.org.
+-   `npm run release`, automate versioning and [CHANGELOG](./CHANGELOG.md) generation, with semver.org and conventionalcommits.org.
 
 ## Schema of AREA
 
