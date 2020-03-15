@@ -1,0 +1,61 @@
+<div class="container">
+    <h1>Log in to AREA</h1>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Enter your email"
+                formControlName="email"
+                required
+            />
+            <mat-error *ngIf="signInForm.controls.email.invalid">{{
+                getMailErrorMessage()
+            }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Enter your password"
+                formControlName="password"
+                required
+                minlength="6"
+                [type]="!hide ? 'password' : 'text'"
+            />
+            <button
+                mat-icon-button
+                matSuffix
+                placeholder="Enter your password"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+                type="button"
+            >
+                <mat-icon>{{
+                    hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+            </button>
+            <mat-error *ngIf="signInForm.controls.password.invalid">{{
+                getPasswordErrorMessage()
+            }}</mat-error>
+        </mat-form-field>
+
+        <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!signInForm.valid"
+            color="primary"
+        >
+            Sign-In
+        </button>
+    </form>
+    <span class="login-method-separator">OR</span>
+
+    <button mat-raised-button id="googleBtn" color="primary">
+        Sign-In with Google
+    </button>
+
+    <hr />
+
+    <a routerLink="/signup" class="bottom-form-link">Sign up for an account</a>
+</div>

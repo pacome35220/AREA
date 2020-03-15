@@ -1,0 +1,32 @@
+mat-card {
+    margin: 20px;
+    padding: 20px;
+
+    mat-card-header {
+        button {
+            align-self: baseline;
+        }
+    }
+
+    mat-card-content {
+        mat-checkbox {
+            margin-right: 10px;
+        }
+    }
+
+    mat-card-actions {
+        button {
+            width: 100%;
+        }
+    }
+}
+
+mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+mat-radio-button {
+    margin: 5px;
+}

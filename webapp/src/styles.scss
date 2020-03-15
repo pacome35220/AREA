@@ -1,0 +1,90 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import './theme.scss';
+@import './variables.scss';
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+    width: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+}
+
+::-webkit-scrollbar-button {
+    background-color: #eeeeee;
+    max-height: 5px;
+}
+
+.title {
+    text-align: center;
+    font-size: 32px;
+    margin-top: 1rem;
+}
+
+.title i {
+    font-size: 0.5em;
+}
+
+.title img {
+    width: 60px !important;
+}
+
+mat-accordion {
+    padding: 0;
+}
+
+mat-expansion-panel {
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    margin-bottom: 20px !important;
+}
+
+mat-panel-title * {
+    align-self: center;
+}
+
+mat-expansion-panel-header {
+    height: auto !important;
+}
+
+.mute_button {
+    text-align: center;
+}
+
+.mat-badge-content {
+    animation: blink 1s infinite ease-in-out;
+    background: $warn !important;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}

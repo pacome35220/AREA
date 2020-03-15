@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xf1:BottomBarPage
+	xmlns:xf1="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Area.Views"
+    x:Class="Area.Views.DashBoard">
+
+	<local:Home Title="Dashboard" Icon="dashboard_icon.png"/>
+
+    <local:Settings Title="Settings" Icon="settings_icon.png"/>
+	<!--todo add logout button-->
+
+</xf1:BottomBarPage>
